@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { User, UserRound } from 'lucide-react';
+import { ManSuit, WomanDress } from '@/components/ui/DressCodeIcons';
 
 interface DressCodeProps {
   vestimentaHombres: string;
@@ -38,7 +38,7 @@ export function DressCode({
           className="bg-white rounded-2xl p-6 text-center border border-cream-dark"
         >
           <div className="flex justify-center mb-4">
-            <User className="w-12 h-12 text-principal" />
+            <ManSuit className="w-12 h-12 text-principal" />
           </div>
           <h3 className="font-playfair text-xl font-semibold text-text-primary mb-2">
             Hombres
@@ -56,7 +56,7 @@ export function DressCode({
           className="bg-white rounded-2xl p-6 text-center border border-cream-dark"
         >
           <div className="flex justify-center mb-4">
-            <UserRound className="w-12 h-12 text-principal" />
+            <WomanDress className="w-12 h-12 text-principal" />
           </div>
           <h3 className="font-playfair text-xl font-semibold text-text-primary mb-2">
             Mujeres

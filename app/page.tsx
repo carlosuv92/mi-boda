@@ -14,6 +14,8 @@ import { Gallery } from '@/components/sections/Gallery';
 import { SongRequest } from '@/components/sections/SongRequest';
 import { RSVP } from '@/components/sections/RSVP';
 import { AdultsOnly } from '@/components/sections/AdultsOnly';
+import { MusicPlayer } from '@/components/ui/MusicPlayer';
+import { Music, Heart } from 'lucide-react';
 
 export default function WeddingPage() {
   const [config, setConfig] = useState<Record<string, string>>({});
@@ -57,6 +59,7 @@ export default function WeddingPage() {
   const novia = config.novia || 'Lilian';
 
   return (
+    <>
     <main className="min-h-screen bg-cream">
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
@@ -247,30 +250,44 @@ export default function WeddingPage() {
         <Gallery images={gallery} />
       </Section>
 
-      {/* Song Request */}
+      {/* Song Request - Invitation only */}
       <Section id="canciones" className="bg-white-off">
-        <div className="text-center mb-8">
-          <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-primary mb-2">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-charcoal rounded-full mb-6">
+            <Music className="w-8 h-8 text-detalle" />
+          </div>
+          <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-4">
             Playlist
           </h2>
-          <p className="text-text-secondary font-cormorant text-lg">
-            Ayúdanos con la música, sugiere esa canción que no puede faltar
+          <p className="text-text-secondary font-cormorant text-lg max-w-md mx-auto">
+            Desde tu invitación personal podrás sugerir esa canción que no puede faltar
           </p>
+          <div className="flex items-center justify-center gap-2 mt-4 text-text-light text-sm font-cormorant italic">
+            <span>✦</span>
+            <span>Requiere enlace de invitación</span>
+            <span>✦</span>
+          </div>
         </div>
-        <SongRequest />
       </Section>
 
-      {/* RSVP */}
+      {/* RSVP - Invitation only */}
       <Section id="confirmar">
-        <div className="text-center mb-8">
-          <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-primary mb-2">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-charcoal rounded-full mb-6">
+            <Heart className="w-8 h-8 text-detalle" />
+          </div>
+          <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-4">
             Confirmar Asistencia
           </h2>
-          <p className="text-text-secondary font-cormorant text-lg">
-            Por favor confirma tu asistencia antes del {config.fechaLimiteRSVP || '10 de mayo'}
+          <p className="text-text-secondary font-cormorant text-lg max-w-md mx-auto">
+            Desde tu invitación personal podrás confirmar tu asistencia
           </p>
+          <div className="flex items-center justify-center gap-2 mt-4 text-text-light text-sm font-cormorant italic">
+            <span>✦</span>
+            <span>Requiere enlace de invitación</span>
+            <span>✦</span>
+          </div>
         </div>
-        <RSVP />
       </Section>
 
       {/* Adults Only */}
@@ -296,5 +313,7 @@ export default function WeddingPage() {
         </div>
       </footer>
     </main>
+    <MusicPlayer src="/music/risk-bruno-mars.mp3" title="Risk - Bruno Mars" />
+    </>
   );
 }

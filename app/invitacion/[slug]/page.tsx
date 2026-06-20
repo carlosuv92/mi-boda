@@ -15,6 +15,7 @@ import { Gallery } from '@/components/sections/Gallery';
 import { SongRequest } from '@/components/sections/SongRequest';
 import { RSVP } from '@/components/sections/RSVP';
 import { AdultsOnly } from '@/components/sections/AdultsOnly';
+import { MusicPlayer } from '@/components/ui/MusicPlayer';
 
 export default function InvitationPage() {
   const params = useParams();
@@ -75,6 +76,7 @@ export default function InvitationPage() {
   const novia = config.novia || 'Lilian';
 
   return (
+    <>
     <main className="min-h-screen bg-cream">
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
@@ -331,5 +333,7 @@ export default function InvitationPage() {
         </div>
       </footer>
     </main>
+    <MusicPlayer src="/music/risk-bruno-mars.mp3" title="Risk - Bruno Mars" />
+    </>
   );
 }
