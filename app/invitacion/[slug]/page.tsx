@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useParams } from 'next/navigation';
 import { getConfig, getTimeline, getGallery, getGuestBySlug } from '@/lib/sheet-api';
 import { Countdown } from '@/components/ui/Countdown';
 import { Section } from '@/components/ui/Section';
@@ -15,22 +16,32 @@ import { SongRequest } from '@/components/sections/SongRequest';
 import { RSVP } from '@/components/sections/RSVP';
 import { AdultsOnly } from '@/components/sections/AdultsOnly';
 
-export default function WeddingPage() {
+export default function InvitationPage() {
+  const params = useParams();
+  const slug = params.slug as string;
+
   const [config, setConfig] = useState<Record<string, string>>({});
   const [timeline, setTimeline] = useState([]);
   const [gallery, setGallery] = useState([]);
+  const [guest, setGuest] = useState<{ nombre: string; apellidos: string } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([getConfig(), getTimeline(), getGallery()])
-      .then(([configData, timelineData, galleryData]) => {
+    Promise.all([getConfig(), getTimeline(), getGallery(), getGuestBySlug(slug)])
+      .then(([configData, timelineData, galleryData, guestData]) => {
         setConfig(configData);
         setTimeline(timelineData);
         setGallery(galleryData);
+        if (guestData) {
+          setGuest({
+            nombre: guestData.nombre,
+            apellidos: guestData.apellidos,
+          });
+        }
       })
       .catch(console.error)
       .finally(() => setLoading(false));
-  }, []);
+  }, [slug]);
 
   const fotoPrincipal = config.fotoPrincipal || '/images/principal.webp';
 
@@ -77,6 +88,18 @@ export default function WeddingPage() {
           transition={{ duration: 1.2, ease: 'easeOut' }}
           className="relative z-10 px-6 flex flex-col items-center"
         >
+          {/* Personalized welcome */}
+          {guest && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-white/60 text-sm md:text-base mb-4 font-cormorant tracking-wide"
+            >
+              Bienvenido/a <span className="text-white font-medium">{guest.nombre} {guest.apellidos}</span> y familia
+            </motion.p>
+          )}
+
           {/* Initials L & F at top */}
           <div className="flex items-center justify-center gap-4 mb-3">
             <div className="h-px w-10 bg-detalle/50" />
@@ -96,7 +119,7 @@ export default function WeddingPage() {
           </p>
 
           {/* Bible verse */}
-          <p className="text-white/90 text-xs md:text-sm mb-8 uppercase tracking-[0.2em] font-cormorant">
+          <p className="text-white/90 text-xs md:text-sm mb-8 uppercase tracking-[0.2em] font-cormorant font-bold">
             {config.biblia || '"Y sobre todo vístanse de amor" — Colosenses 3:14'}
           </p>
 
@@ -250,7 +273,7 @@ export default function WeddingPage() {
       {/* Song Request */}
       <Section id="canciones" className="bg-white-off">
         <div className="text-center mb-8">
-          <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-primary mb-2">
+          <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
             Playlist
           </h2>
           <p className="text-text-secondary font-cormorant text-lg">
@@ -263,7 +286,7 @@ export default function WeddingPage() {
       {/* RSVP */}
       <Section id="confirmar">
         <div className="text-center mb-8">
-          <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-primary mb-2">
+          <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
             Confirmar Asistencia
           </h2>
           <p className="text-text-secondary font-cormorant text-lg">
@@ -280,15 +303,15 @@ export default function WeddingPage() {
       <footer className="py-16 text-center bg-gradient-to-t from-charcoal to-charcoal-light text-white">
         <div className="max-w-2xl mx-auto px-6">
           <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">
-            {novio} <span className="text-detalle">&</span> {novia}
+            {novio} & {novia}
           </h3>
           <p className="text-white/60 mb-8 font-cormorant text-lg">
             Esperamos contar con su presencia
           </p>
           <div className="flex items-center justify-center gap-3">
-            <div className="h-px w-12 bg-detalle/40" />
-            <div className="w-2 h-2 bg-detalle/60 rounded-full" />
-            <div className="h-px w-12 bg-detalle/40" />
+            <div className="h-px w-12 bg-principal/40" />
+            <div className="w-2 h-2 bg-principal/60 rounded-full" />
+            <div className="h-px w-12 bg-principal/40" />
           </div>
           <p className="text-white/40 text-sm mt-8 font-cormorant">
             Muchas gracias

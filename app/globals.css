@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafaf8;
+  --foreground: #1a1a1a;
+  --cream: #fafaf8;
+  --cream-dark: #f0ede8;
+  --white-off: #f7f5f2;
+  --charcoal: #2d2d2d;
+  --charcoal-light: #4a4a4a;
+  --warm-gray: #8a8580;
+  --warm-gray-light: #b5b0aa;
+  --principal: #ACBBD8;
+  --principal-light: #c0cbe5;
+  --principal-soft: #dfe5f0;
+  --detalle: #FFEDA2;
+  --detalle-light: #fff3c2;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b6560;
+  --text-light: #9a9590;
+  --text-detalle: #c9b37e;
+  --overlay: rgba(26, 26, 26, 0.55);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-cream: var(--cream);
+  --color-cream-dark: var(--cream-dark);
+  --color-white-off: var(--white-off);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-light: var(--charcoal-light);
+  --color-warm-gray: var(--warm-gray);
+  --color-warm-gray-light: var(--warm-gray-light);
+  --color-principal: var(--principal);
+  --color-principal-light: var(--principal-light);
+  --color-principal-soft: var(--principal-soft);
+  --color-detalle: var(--detalle);
+  --color-detalle-light: var(--detalle-light);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-light: var(--text-light);
+  --color-overlay: var(--overlay);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-cormorant), Georgia, serif;
 }
