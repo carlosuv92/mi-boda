@@ -63,6 +63,12 @@ function doPost(e) {
       case 'submitRSVP':
         result = submitRSVP(data.rsvp);
         break;
+      case 'getRSVPByGuestId':
+        result = getRSVPByGuestId(data.guest_id);
+        break;
+      case 'updateRSVP':
+        result = updateRSVP(data.guest_id, data.rsvp);
+        break;
       case 'getRSVPs':
         result = getRSVPs();
         break;
@@ -199,6 +205,37 @@ function deleteGuest(id) {
   for (let i = 1; i < data.length; i++) {
     if (data[i][0] === id) {
       sheet.deleteRow(i + 1);
+      
+      // Delete related RSVPs
+      const rsvpSheet = ss.getSheetByName('RSVP');
+      if (rsvpSheet) {
+        const rsvpData = rsvpSheet.getDataRange().getValues();
+        const rowsToDelete = [];
+        for (let j = 1; j < rsvpData.length; j++) {
+          if (rsvpData[j][0] === id) {
+            rowsToDelete.push(j + 1);
+          }
+        }
+        for (let k = rowsToDelete.length - 1; k >= 0; k--) {
+          rsvpSheet.deleteRow(rowsToDelete[k]);
+        }
+      }
+      
+      // Delete related Songs
+      const songSheet = ss.getSheetByName('Canciones');
+      if (songSheet) {
+        const songData = songSheet.getDataRange().getValues();
+        const rowsToDelete = [];
+        for (let j = 1; j < songData.length; j++) {
+          if (songData[j][0] === id) {
+            rowsToDelete.push(j + 1);
+          }
+        }
+        for (let k = rowsToDelete.length - 1; k >= 0; k--) {
+          songSheet.deleteRow(rowsToDelete[k]);
+        }
+      }
+      
       clearCache();
       return { success: true };
     }
@@ -235,6 +272,58 @@ function submitRSVP(rsvp) {
   
   clearCache();
   return { data: { guest_id: rsvp.guest_id, total_confirmados, fecha } };
+}
+
+function getRSVPByGuestId(guest_id) {
+  const ss = getSpreadsheet();
+  const sheet = ss.getSheetByName('RSVP');
+  if (!sheet || sheet.getLastRow() <= 1) return { data: null };
+  
+  const data = sheet.getDataRange().getValues();
+  const headers = data[0];
+  for (let i = 1; i < data.length; i++) {
+    if (data[i][0] === guest_id) {
+      const rsvp = {};
+      headers.forEach((h, idx) => { rsvp[h] = data[i][idx]; });
+      rsvp.rowIndex = i + 1;
+      return { data: rsvp };
+    }
+  }
+  return { data: null };
+}
+
+function updateRSVP(guest_id, rsvp) {
+  const ss = getSpreadsheet();
+  const sheet = ss.getSheetByName('RSVP');
+  if (!sheet) return { error: 'Hoja RSVP no encontrada' };
+  
+  const data = sheet.getDataRange().getValues();
+  for (let i = 1; i < data.length; i++) {
+    if (data[i][0] === guest_id) {
+      sheet.getRange(i + 1, 2).setValue(rsvp.estado);
+      sheet.getRange(i + 1, 3).setValue(rsvp.acompanantes_confirmados || 0);
+      const total = 1 + (rsvp.acompanantes_confirmados || 0);
+      sheet.getRange(i + 1, 4).setValue(total);
+      if (rsvp.comentario !== undefined) {
+        sheet.getRange(i + 1, 6).setValue(rsvp.comentario || '');
+      }
+      
+      // Update guest status
+      const guestSheet = ss.getSheetByName('Invitados');
+      const guestData = guestSheet.getDataRange().getValues();
+      for (let j = 1; j < guestData.length; j++) {
+        if (guestData[j][0] === guest_id) {
+          const estado = rsvp.estado === 'ACEPTADO' ? 'confirmado' : 'rechazado';
+          guestSheet.getRange(j + 1, 8).setValue(estado);
+          break;
+        }
+      }
+      
+      clearCache();
+      return { data: { guest_id, updated: true } };
+    }
+  }
+  return { error: 'RSVP no encontrado' };
 }
 
 function getRSVPs() {

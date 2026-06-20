@@ -69,6 +69,20 @@ export async function submitRSVP(rsvp: {
   return result.data;
 }
 
+export async function getRSVPByGuestId(guest_id: string) {
+  const result = await fetchFromSheet('getRSVPByGuestId', { guest_id });
+  return result.data;
+}
+
+export async function updateRSVP(guest_id: string, rsvp: {
+  estado: string;
+  acompanantes_confirmados: number;
+  comentario: string;
+}) {
+  const result = await fetchFromSheet('updateRSVP', { guest_id, rsvp });
+  return result.data;
+}
+
 export async function getRSVPs() {
   const result = await fetchFromSheet('getRSVPs');
   return result.data || [];

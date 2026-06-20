@@ -23,7 +23,12 @@ export default function InvitationPage() {
   const [config, setConfig] = useState<Record<string, string>>({});
   const [timeline, setTimeline] = useState([]);
   const [gallery, setGallery] = useState([]);
-  const [guest, setGuest] = useState<{ nombre: string; apellidos: string } | null>(null);
+  const [guest, setGuest] = useState<{
+    id: string;
+    nombre: string;
+    apellidos: string;
+    acompanantes_autorizados: number;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,8 +39,10 @@ export default function InvitationPage() {
         setGallery(galleryData);
         if (guestData) {
           setGuest({
+            id: guestData.id,
             nombre: guestData.nombre,
             apellidos: guestData.apellidos,
+            acompanantes_autorizados: parseInt(guestData.acompanantes_autorizados) || 0,
           });
         }
       })
@@ -293,7 +300,12 @@ export default function InvitationPage() {
             Por favor confirma tu asistencia antes del {config.fechaLimiteRSVP || '10 de mayo'}
           </p>
         </div>
-        <RSVP />
+        <RSVP
+          guestId={guest?.id}
+          guestNombre={guest?.nombre}
+          guestApellidos={guest?.apellidos}
+          acompanantesAutorizados={guest?.acompanantes_autorizados}
+        />
       </Section>
 
       {/* Adults Only */}
