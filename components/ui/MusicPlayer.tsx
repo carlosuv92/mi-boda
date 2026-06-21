@@ -114,21 +114,21 @@ export function MusicPlayer({ src, title = 'Canción' }: MusicPlayerProps) {
           animate={
             !isPlaying
               ? {
-                  y: [0, -2, 0, -1, 0],
-                  rotate: [0, -3, 0, 2, 0],
+                  y: [0, -3, 0, -2, 0],
+                  rotate: [0, -5, 0, 3, 0],
                 }
               : {}
           }
           transition={
             !isPlaying
               ? {
-                  duration: 2.5,
+                  duration: 2,
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }
               : {}
           }
-          className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all ${
+          className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all cursor-pointer ${
             isPlaying
               ? 'bg-charcoal/90 backdrop-blur-sm'
               : 'bg-charcoal/90 backdrop-blur-sm'
