@@ -60,7 +60,7 @@ export default function InvitationPage() {
         <img src={fotoPrincipal} alt="Cargando" className="absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 text-center">
-          <div className="animate-pulse text-detalle font-playfair text-2xl md:text-3xl">Felipe & Lilian</div>
+            <div className="animate-pulse text-detalle font-playfair text-2xl md:text-3xl">Lilian & Felipe</div>
         </div>
       </div>
     );
@@ -75,7 +75,7 @@ export default function InvitationPage() {
       <main className="min-h-screen bg-cream">
         <section className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
           <div className="absolute inset-0">
-            <img src={fotoPrincipal} alt={`${novio} & ${novia}`} className="w-full h-full object-cover object-center" />
+            <img src={fotoPrincipal} alt={`${novia} & ${novio}`} className="w-full h-full object-cover object-center" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
           </div>
 
@@ -102,7 +102,7 @@ export default function InvitationPage() {
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5 }} className="mb-10">
               <h1 className="font-great-vibes text-4xl md:text-6xl lg:text-7xl text-white mb-3 drop-shadow-lg">
-                {novio} <span className="text-detalle-light">&</span> {novia}
+                {novia} <span className="text-detalle-light">&</span> {novio}
               </h1>
               <p className="text-white/70 text-base md:text-lg font-cormorant font-light tracking-wide">Tenemos el honor de invitarte a nuestra boda</p>
             </motion.div>
@@ -228,7 +228,7 @@ export default function InvitationPage() {
         {/* Footer */}
         <footer className="py-16 text-center bg-gradient-to-t from-charcoal to-charcoal-light text-white">
           <div className="max-w-2xl mx-auto px-6">
-            <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">{novio} & {novia}</h3>
+            <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">{novia} & {novio}</h3>
             <p className="text-white/60 mb-8 font-cormorant text-lg">Esperamos contar con su presencia</p>
             <div className="flex items-center justify-center gap-3">
               <div className="h-px w-12 bg-principal/40" />

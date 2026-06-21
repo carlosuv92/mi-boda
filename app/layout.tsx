@@ -21,10 +21,10 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Felipe & Lilian - Nuestra Boda",
+  title: "Lilian & Felipe - Nuestra Boda",
   description: "Estás invitado a nuestra boda. Celebramos nuestro amor el 15 de abril de 2027.",
   openGraph: {
-    title: "Felipe & Lilian - Nuestra Boda",
+  title: "Lilian & Felipe - Nuestra Boda",
     description: "Estás invitado a nuestra boda. Celebramos nuestro amor el 15 de abril de 2027.",
     type: "website",
   },

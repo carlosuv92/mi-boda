@@ -53,7 +53,7 @@ export default function WeddingPage() {
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 text-center">
           <div className="animate-pulse text-detalle font-playfair text-2xl md:text-3xl">
-            Felipe & Lilian
+            Lilian & Felipe
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@ export default function WeddingPage() {
           <div className="absolute inset-0">
             <img
               src={fotoPrincipal}
-              alt={`${novio} & ${novia}`}
+              alt={`${novia} & ${novio}`}
               className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
@@ -113,7 +113,7 @@ export default function WeddingPage() {
               className="mb-10"
             >
               <h1 className="font-great-vibes text-4xl md:text-6xl lg:text-7xl text-white mb-3 drop-shadow-lg">
-                {novio} <span className="text-detalle-light">&</span> {novia}
+                {novia} <span className="text-detalle-light">&</span> {novio}
               </h1>
             </motion.div>
 
@@ -268,7 +268,7 @@ export default function WeddingPage() {
         {/* Footer */}
         <footer className="py-16 text-center bg-gradient-to-t from-charcoal to-charcoal-light text-white">
           <div className="max-w-2xl mx-auto px-6">
-            <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">{novio} <span className="text-detalle">&</span> {novia}</h3>
+            <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">{novia} <span className="text-detalle">&</span> {novio}</h3>
             <p className="text-white/60 mb-8 font-cormorant text-lg">Esperamos contar con su presencia</p>
             <div className="flex items-center justify-center gap-3">
               <div className="h-px w-12 bg-detalle/40" />
