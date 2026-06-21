@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MapPin, Clock, Car, Church, Wine } from 'lucide-react';
+import { MapPin, Clock, Car } from 'lucide-react';
 
 interface LocationCardProps {
   type: 'ceremonia' | 'recepcion';
@@ -22,11 +22,8 @@ export function LocationCard({
   estacionamiento,
   mapsUrl,
 }: LocationCardProps) {
-  const icon = type === 'ceremonia' ? (
-    <Church className="w-10 h-10 text-principal" />
-  ) : (
-    <Wine className="w-10 h-10 text-principal" />
-  );
+  const defaultFoto = type === 'ceremonia' ? '/images/iglesia.webp' : '/images/nonita.webp';
+  const displayFoto = foto || defaultFoto;
 
   return (
     <motion.div
@@ -36,19 +33,15 @@ export function LocationCard({
       transition={{ duration: 0.6 }}
       className="bg-white rounded-2xl overflow-hidden shadow-sm border border-cream-dark"
     >
-      {foto && (
-        <div className="aspect-[16/9] overflow-hidden">
-          <img
-            src={foto}
-            alt={titulo}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      )}
-      
       <div className="p-6 md:p-8 text-center">
         <div className="flex justify-center mb-4">
-          {icon}
+          <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-cream-dark shadow-sm">
+            <img
+              src={displayFoto}
+              alt={titulo}
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
         
         <h3 className="font-playfair text-xl md:text-2xl font-semibold text-text-primary mb-4">
