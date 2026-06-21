@@ -46,7 +46,7 @@ const configSections = [
   },
   {
     id: 'vestimenta',
-    title: 'Código de Vestimenta',
+    title: 'Dress Code',
     icon: Shirt,
     fields: [
       { key: 'vestimentaHombres', label: 'Vestimenta Hombres', type: 'text', placeholder: 'Ej: Formal' },

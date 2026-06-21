@@ -56,9 +56,9 @@ export function GiftTable({
     <div className="max-w-xl mx-auto">
       <div className="text-center mb-10">
         <div className="flex items-center justify-center gap-3 mb-6">
-          <div className="h-px w-12 bg-detalle/50" />
-          <div className="w-2 h-2 bg-detalle rounded-full" />
-          <div className="h-px w-12 bg-detalle/50" />
+          <div className="h-px w-12 bg-principal/50" />
+          <div className="w-2 h-2 bg-principal rounded-full" />
+          <div className="h-px w-12 bg-principal/50" />
         </div>
         <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-4">
           Mesa de Regalos
@@ -67,9 +67,9 @@ export function GiftTable({
           {mensaje}
         </p>
         <div className="flex items-center justify-center gap-3 mt-6">
-          <div className="h-px w-12 bg-detalle/50" />
-          <div className="w-2 h-2 bg-detalle rounded-full" />
-          <div className="h-px w-12 bg-detalle/50" />
+          <div className="h-px w-12 bg-principal/50" />
+          <div className="w-2 h-2 bg-principal rounded-full" />
+          <div className="h-px w-12 bg-principal/50" />
         </div>
       </div>
 

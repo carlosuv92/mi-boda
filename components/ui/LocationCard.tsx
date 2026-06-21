@@ -33,7 +33,7 @@ export function LocationCard({
       transition={{ duration: 0.6 }}
       className="bg-white rounded-2xl overflow-hidden shadow-sm border border-cream-dark"
     >
-      <div className="p-6 md:p-8 text-center">
+      <div className="p-6 md:p-6 text-center">
         <div className="flex justify-center mb-4">
           <div className="w-48 h-32 rounded-xl overflow-hidden border border-cream-dark shadow-sm">
             <img

@@ -21,11 +21,12 @@ export function Section({ children, className = '', id, delay = 0 }: SectionProp
       transition={{ duration: 0.8, delay, ease: 'easeOut' }}
       className={`py-16 px-6 md:py-24 md:px-8 relative ${className}`}
     >
-      <PatternBackground>
-        <div className="max-w-2xl mx-auto">
-          {children}
-        </div>
-      </PatternBackground>
+      <div className="absolute inset-0 pointer-events-none">
+        <PatternBackground />
+      </div>
+      <div className="relative max-w-2xl mx-auto">
+        {children}
+      </div>
     </motion.section>
   );
 }

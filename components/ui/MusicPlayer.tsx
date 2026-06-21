@@ -18,7 +18,7 @@ interface Note {
   delay: number;
 }
 
-const musicSymbols = ['♪', '♫', '♬', '♩', '♭', '🎵', '🎶'];
+const musicSymbols = ['♪', '♫', '♬', '♩', '♭'];
 
 export function MusicPlayer({ src, title = 'Canción' }: MusicPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
