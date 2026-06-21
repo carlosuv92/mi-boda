@@ -87,13 +87,13 @@ export default function WeddingPage() {
             <div className="flex items-center justify-center gap-4 mb-3">
               <div className="h-px w-10 bg-detalle/50" />
               <span className="font-playfair text-4xl md:text-5xl font-semibold text-white">
-                {novio.charAt(0)}
+                {novia.charAt(0)}
               </span>
               <span className="text-detalle text-2xl md:text-3xl font-light">
                 &
               </span>
               <span className="font-playfair text-4xl md:text-5xl font-semibold text-white">
-                {novia.charAt(0)}
+                {novio.charAt(0)}
               </span>
               <div className="h-px w-10 bg-detalle/50" />
             </div>
@@ -102,7 +102,7 @@ export default function WeddingPage() {
               ¡Nos casamos!
             </p>
 
-            <p className="text-white/90 text-xs md:text-sm mb-8 uppercase tracking-[0.2em] font-cormorant">
+            <p className="text-white text-xs md:text-sm mb-8 uppercase tracking-[0.2em] font-cormorant">
               {config.biblia || '"Y sobre todo vístanse de amor" — Colosenses 3:14'}
             </p>
 
@@ -135,8 +135,8 @@ export default function WeddingPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8 }}
             >
-              <p className="text-white/90 text-xs uppercase tracking-[0.3em] mb-4 font-cormorant">
-                Faltan
+              <p className="text-white text-sm uppercase tracking-[0.3em] mb-8 font-cormorant font-extrabold">
+                Nos vemos en... PREPÁRATE
               </p>
               <Countdown targetDate={weddingDate} variant="dark" />
             </motion.div>
