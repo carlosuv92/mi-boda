@@ -14,7 +14,6 @@ import { SongRequest } from '@/components/sections/SongRequest';
 import { RSVP } from '@/components/sections/RSVP';
 import { AdultsOnly } from '@/components/sections/AdultsOnly';
 import { MusicPlayer } from '@/components/ui/MusicPlayer';
-import { PatternBackground } from '@/components/ui/PatternBackground';
 import { Music, Heart } from 'lucide-react';
 
 const galleryImages = [
@@ -67,8 +66,7 @@ export default function WeddingPage() {
 
   return (
     <>
-      <PatternBackground>
-        <main className="min-h-screen bg-cream">
+      <main className="min-h-screen bg-cream">
         {/* Hero Section */}
         <section className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
           <div className="absolute inset-0">
@@ -418,7 +416,6 @@ export default function WeddingPage() {
           </div>
         </footer>
       </main>
-      </PatternBackground>
       <MusicPlayer src="/music/risk-bruno-mars.mp3" title="Risk - Bruno Mars" />
     </>
   )

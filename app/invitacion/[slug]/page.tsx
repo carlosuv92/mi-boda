@@ -15,7 +15,6 @@ import { SongRequest } from '@/components/sections/SongRequest';
 import { RSVP } from '@/components/sections/RSVP';
 import { AdultsOnly } from '@/components/sections/AdultsOnly';
 import { MusicPlayer } from '@/components/ui/MusicPlayer';
-import { PatternBackground } from '@/components/ui/PatternBackground';
 
 const galleryImages = [
   { src: "/gallery/image-1.webp", offset: "center 80%" },
@@ -73,8 +72,7 @@ export default function InvitationPage() {
 
   return (
     <>
-      <PatternBackground>
-        <main className="min-h-screen bg-cream">
+      <main className="min-h-screen bg-cream">
         <section className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
           <div className="absolute inset-0">
             <img
@@ -429,7 +427,6 @@ export default function InvitationPage() {
           </div>
         </footer>
       </main>
-      </PatternBackground>
       <MusicPlayer src="/music/risk-bruno-mars.mp3" title="Risk - Bruno Mars" />
     </>
   )

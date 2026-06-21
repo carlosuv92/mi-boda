@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
+import { PatternBackground } from './PatternBackground';
 
 interface SectionProps {
   children: ReactNode;
@@ -18,11 +19,13 @@ export function Section({ children, className = '', id, delay = 0 }: SectionProp
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.8, delay, ease: 'easeOut' }}
-      className={`py-16 px-6 md:py-24 md:px-8 ${className}`}
+      className={`py-16 px-6 md:py-24 md:px-8 relative ${className}`}
     >
-      <div className="max-w-2xl mx-auto">
-        {children}
-      </div>
+      <PatternBackground>
+        <div className="max-w-2xl mx-auto">
+          {children}
+        </div>
+      </PatternBackground>
     </motion.section>
   );
 }
