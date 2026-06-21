@@ -73,7 +73,7 @@ export default function InvitationPage() {
   return (
     <>
       <main className="min-h-screen bg-cream">
-        <section className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
+        <section className="relative min-h-screen flex items-center overflow-hidden">
           <div className="absolute inset-0">
             <img
               src={fotoPrincipal}
@@ -83,64 +83,100 @@ export default function InvitationPage() {
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="relative z-10 px-6 flex flex-col items-center"
-          >
-            {guest && (
-              <motion.p
+          <div className="relative z-10 w-full flex flex-col items-center justify-between min-h-screen py-12">
+            {/* Texto arriba */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="px-6 text-center"
+            >
+              {guest && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-white/60 text-sm md:text-base mb-4 font-cormorant tracking-wide"
+                >
+                  Bienvenido/a{" "}
+                  <span className="text-white font-medium">
+                    {guest.nombre} {guest.apellidos}
+                  </span>{" "}
+                  y familia
+                </motion.p>
+              )}
+
+              <div className="flex items-center justify-center gap-4 mb-3">
+                <div className="h-px w-10 bg-detalle/50" />
+                <span className="font-playfair text-4xl md:text-5xl font-semibold text-white">
+                  {novia.charAt(0)}
+                </span>
+                <span className="text-detalle text-2xl md:text-3xl font-light">
+                  &
+                </span>
+                <span className="font-playfair text-4xl md:text-5xl font-semibold text-white">
+                  {novio.charAt(0)}
+                </span>
+                <div className="h-px w-10 bg-detalle/50" />
+              </div>
+
+              <p className="text-white/90 text-xs uppercase tracking-[0.3em] mb-10 font-cormorant">
+                ¡Nos casamos!
+              </p>
+
+              <p className="text-white/90 text-xs md:text-sm mb-8 uppercase tracking-[0.2em] font-cormorant">
+                {config.biblia ||
+                  '"Y sobre todo vístanse de amor" — Colosenses 3:14'}
+              </p>
+
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="text-white/60 text-sm md:text-base mb-4 font-cormorant tracking-wide"
+                transition={{ duration: 1, delay: 0.5 }}
+                className="mb-2"
               >
-                Bienvenido/a{" "}
-                <span className="text-white font-medium">
-                  {guest.nombre} {guest.apellidos}
-                </span>{" "}
-                y familia
-              </motion.p>
-            )}
+                <h1 className="font-great-vibes text-4xl md:text-6xl lg:text-7xl text-white mb-3 drop-shadow-lg">
+                  {novia} <span className="text-detalle-light">&</span> {novio}
+                </h1>
+              </motion.div>
+            </motion.div>
 
-            <div className="flex items-center justify-center gap-4 mb-3">
-              <div className="h-px w-10 bg-detalle/50" />
-              <span className="font-playfair text-4xl md:text-5xl font-semibold text-white">
-                {novia.charAt(0)}
-              </span>
-              <span className="text-detalle text-2xl md:text-3xl font-light">
-                &
-              </span>
-              <span className="font-playfair text-4xl md:text-5xl font-semibold text-white">
-                {novio.charAt(0)}
-              </span>
-              <div className="h-px w-10 bg-detalle/50" />
-            </div>
-
-            <p className="text-white/90 text-xs uppercase tracking-[0.3em] mb-10 font-cormorant">
-              ¡Nos casamos!
-            </p>
-
-            <p className="text-white/90 text-xs md:text-sm mb-8 uppercase tracking-[0.2em] font-cormorant">
-              {config.biblia ||
-                '"Y sobre todo vístanse de amor" — Colosenses 3:14'}
-            </p>
-
+            {/* Scroll indicator */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="mb-10"
+              transition={{ delay: 2 }}
+              className="flex flex-col items-center gap-2"
             >
-              <h1 className="font-great-vibes text-4xl md:text-6xl lg:text-7xl text-white mb-3 drop-shadow-lg">
-                {novia} <span className="text-detalle-light">&</span> {novio}
-              </h1>
+              <div className="hidden md:block w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+                <motion.div
+                  animate={{ y: [0, 12, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="w-1 h-3 bg-detalle rounded-full mt-2"
+                />
+              </div>
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 1.2, repeat: Infinity }}
+                className="md:hidden text-white/50"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="-mt-3 opacity-40">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </motion.div>
             </motion.div>
+          </div>
+        </section>
 
-            <div className="flex items-center justify-center gap-4 mb-10 mt-14">
-              <div className="h-px w-16 bg-white/30" />
-              <span className="font-playfair text-lg md:text-xl text-white tracking-wide">
+        {/* Countdown + Welcome Message */}
+        <Section className="bg-white-off">
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="h-px w-16 bg-detalle/40" />
+              <span className="font-playfair text-lg md:text-xl text-text-primary tracking-wide">
                 {new Date(weddingDate).toLocaleDateString("es-PE", {
                   weekday: "long",
                   day: "numeric",
@@ -148,42 +184,18 @@ export default function InvitationPage() {
                   year: "numeric",
                 })}
               </span>
-              <div className="h-px w-16 bg-white/30" />
+              <div className="h-px w-16 bg-detalle/40" />
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.8 }}
-            >
-              <p className="text-white text-sm uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
-                Nos vemos en..
-              </p>
-              <Countdown targetDate={weddingDate} variant="dark" />
-              <p className="text-white text-sm uppercase tracking-[0.3em] mt-4 font-cormorant font-extrabold">
-                PREPÁRATE!
-              </p>
-            </motion.div>
-          </motion.div>
+            <p className="text-text-primary text-sm uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
+              Nos vemos en..
+            </p>
+            <Countdown targetDate={weddingDate} />
+            <p className="text-text-primary text-sm uppercase tracking-[0.3em] mt-4 font-cormorant font-extrabold">
+              PREPÁRATE!
+            </p>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-          >
-            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-              <motion.div
-                animate={{ y: [0, 12, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="w-1 h-3 bg-detalle rounded-full mt-2"
-              />
-            </div>
-          </motion.div>
-        </section>
-
-        {/* Welcome Message */}
-        <Section className="bg-white-off">
           <FloralDivider className="mb-8" />
           <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
             {config.mensajeBienvenida ||

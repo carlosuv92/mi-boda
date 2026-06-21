@@ -153,16 +153,9 @@ export default function WeddingPage() {
           </div>
         </section>
 
-        {/* Welcome Message + Countdown */}
+        {/* Countdown + Welcome Message */}
         <Section className="bg-white-off">
-          <FloralDivider className="mb-8" />
-          <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
-            {config.mensajeBienvenida ||
-              "Con nuestro amor, la bendición de Dios y en compañía de nuestros padres, los invitamos a celebrar el día más especial de nuestras vidas."}
-          </p>
-          <FloralDivider className="mt-8 mb-10" />
-
-          <div className="text-center">
+          <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-4 mb-6">
               <div className="h-px w-16 bg-detalle/40" />
               <span className="font-playfair text-lg md:text-xl text-text-primary tracking-wide">
@@ -184,6 +177,13 @@ export default function WeddingPage() {
               PREPÁRATE!
             </p>
           </div>
+
+          <FloralDivider className="mb-8" />
+          <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
+            {config.mensajeBienvenida ||
+              "Con nuestro amor, la bendición de Dios y en compañía de nuestros padres, los invitamos a celebrar el día más especial de nuestras vidas."}
+          </p>
+          <FloralDivider className="mt-8" />
         </Section>
 
         {/* Imagen entre secciones */}
