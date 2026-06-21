@@ -117,7 +117,7 @@ export default function InvitationPage() {
                   <span className="text-white font-medium">
                     {guest.nombre} {guest.apellidos}
                   </span>{" "}
-                  y familia
+                  y acompañantes
                 </motion.p>
               )}
 
