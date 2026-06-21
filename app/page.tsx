@@ -66,7 +66,7 @@ export default function WeddingPage() {
 
   return (
     <>
-      <main className="min-h-screen bg-cream">
+      <main className="min-h-screen bg-cream bg-pattern">
         {/* Hero Section */}
         <section className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
           <div className="absolute inset-0">
@@ -103,7 +103,8 @@ export default function WeddingPage() {
             </p>
 
             <p className="text-white text-xs md:text-sm mb-8 uppercase tracking-[0.2em] font-cormorant">
-              {config.biblia || '"Y sobre todo vístanse de amor" — Colosenses 3:14'}
+              {config.biblia ||
+                '"Y sobre todo vístanse de amor" — Colosenses 3:14'}
             </p>
 
             <motion.div
@@ -135,10 +136,13 @@ export default function WeddingPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8 }}
             >
-              <p className="text-white text-sm uppercase tracking-[0.3em] mb-8 font-cormorant font-extrabold">
-                Nos vemos en... PREPÁRATE
+              <p className="text-white text-sm uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
+                Nos vemos en..
               </p>
               <Countdown targetDate={weddingDate} variant="dark" />
+              <p className="text-white text-sm uppercase tracking-[0.3em] mt-4 font-cormorant font-extrabold">
+                PREPÁRATE!
+              </p>
             </motion.div>
           </motion.div>
 
@@ -162,69 +166,171 @@ export default function WeddingPage() {
         <Section className="bg-white-off">
           <FloralDivider className="mb-8" />
           <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
-            {config.mensajeBienvenida || "Con nuestro amor, la bendición de Dios y en compañía de nuestros padres, los invitamos a celebrar el día más especial de nuestras vidas."}
+            {config.mensajeBienvenida ||
+              "Con nuestro amor, la bendición de Dios y en compañía de nuestros padres, los invitamos a celebrar el día más especial de nuestras vidas."}
           </p>
           <FloralDivider className="mt-8" />
         </Section>
 
         {/* Imagen entre secciones */}
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative overflow-hidden">
-          <img src={galleryImages[0].src} alt="Momento especial" className="w-full h-[45vh] md:h-[55vh] object-cover" style={{ objectPosition: galleryImages[0].offset }} loading="lazy" />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden"
+        >
+          <img
+            src={galleryImages[0].src}
+            alt="Momento especial"
+            className="w-full h-[45vh] md:h-[55vh] object-cover"
+            style={{ objectPosition: galleryImages[0].offset }}
+            loading="lazy"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
         {/* Ceremony & Reception */}
         <Section id="ubicacion">
           <div className="text-center mb-12">
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">Ubicación</h2>
-            <p className="text-text-secondary font-cormorant text-lg">Ceremonia y recepción</p>
+            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
+              Ubicación
+            </h2>
+            <p className="text-text-secondary font-cormorant text-lg">
+              Ceremonia y recepción
+            </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
-            <LocationCard type="ceremonia" foto={config.fotoIglesia} titulo={config.nombreIglesia || "Ceremonia Religiosa"} direccion={config.direccionIglesia || ""} hora={config.horaCeremonia || "11:00 AM"} estacionamiento={config.estacionamientoIglesia} mapsUrl={config.mapsIglesia || "#"} />
-            <LocationCard type="recepcion" foto={config.fotoRecepcion} titulo={config.nombreRecepcion || "Recepción"} direccion={config.direccionRecepcion || ""} hora={config.horaRecepcion || "1:00 PM"} estacionamiento={config.estacionamientoRecepcion} mapsUrl={config.mapsRecepcion || "#"} />
+            <LocationCard
+              type="ceremonia"
+              foto={config.fotoIglesia}
+              titulo={config.nombreIglesia || "Ceremonia Religiosa"}
+              direccion={config.direccionIglesia || ""}
+              hora={config.horaCeremonia || "11:00 AM"}
+              estacionamiento={config.estacionamientoIglesia}
+              mapsUrl={config.mapsIglesia || "#"}
+            />
+            <LocationCard
+              type="recepcion"
+              foto={config.fotoRecepcion}
+              titulo={config.nombreRecepcion || "Recepción"}
+              direccion={config.direccionRecepcion || ""}
+              hora={config.horaRecepcion || "1:00 PM"}
+              estacionamiento={config.estacionamientoRecepcion}
+              mapsUrl={config.mapsRecepcion || "#"}
+            />
           </div>
         </Section>
 
         {/* Imagen entre secciones */}
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative overflow-hidden">
-          <img src={galleryImages[1].src} alt="Momento especial" className="w-full h-[45vh] md:h-[55vh] object-cover" style={{ objectPosition: galleryImages[1].offset }} loading="lazy" />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden"
+        >
+          <img
+            src={galleryImages[1].src}
+            alt="Momento especial"
+            className="w-full h-[45vh] md:h-[55vh] object-cover"
+            style={{ objectPosition: galleryImages[1].offset }}
+            loading="lazy"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
         {/* Dress Code */}
         <Section id="dresscode" className="bg-white-off">
-          <DressCode vestimentaHombres={config.vestimentaHombres || "Formal"} vestimentaMujeres={config.vestimentaMujeres || "Formal"} coloresSugeridos={config.coloresSugeridos?.split(",")} coloresReservados={config.coloresReservados?.split(",") || ["Blanco", "Crema"]} restricciones={config.restriccionesColores} />
+          <DressCode
+            vestimentaHombres={config.vestimentaHombres || "Formal"}
+            vestimentaMujeres={config.vestimentaMujeres || "Formal"}
+            coloresSugeridos={config.coloresSugeridos?.split(",")}
+            coloresReservados={
+              config.coloresReservados?.split(",") || ["Blanco", "Crema"]
+            }
+            restricciones={config.restriccionesColores}
+          />
         </Section>
 
         {/* Imagen entre secciones */}
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative overflow-hidden">
-          <img src={galleryImages[2].src} alt="Momento especial" className="w-full h-[45vh] md:h-[55vh] object-cover" style={{ objectPosition: galleryImages[2].offset }} loading="lazy" />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden"
+        >
+          <img
+            src={galleryImages[2].src}
+            alt="Momento especial"
+            className="w-full h-[45vh] md:h-[55vh] object-cover"
+            style={{ objectPosition: galleryImages[2].offset }}
+            loading="lazy"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
         {/* Timeline */}
         <Section id="itinerario">
           <div className="text-center mb-12">
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">Itinerario</h2>
-            <p className="text-text-secondary font-cormorant text-lg">Cronograma de actividades</p>
+            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
+              Itinerario
+            </h2>
+            <p className="text-text-secondary font-cormorant text-lg">
+              Cronograma de actividades
+            </p>
           </div>
           <Timeline events={timeline} />
         </Section>
 
         {/* Imagen entre secciones */}
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative overflow-hidden">
-          <img src={galleryImages[3].src} alt="Momento especial" className="w-full h-[45vh] md:h-[55vh] object-cover" style={{ objectPosition: galleryImages[3].offset }} loading="lazy" />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden"
+        >
+          <img
+            src={galleryImages[3].src}
+            alt="Momento especial"
+            className="w-full h-[45vh] md:h-[55vh] object-cover"
+            style={{ objectPosition: galleryImages[3].offset }}
+            loading="lazy"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
         {/* Gift Table */}
         <Section id="regalos" className="bg-white-off">
-          <GiftTable mensaje={config.mensajeRegalos || "Nuestro mejor regalo será compartir este día contigo, pero si deseas tener un detalle con nosotros, aquí te dejamos nuestros datos."} cuentaBancaria={config.cuentaBancaria} yape={config.yape} plin={config.plin} qrUrl={config.qrRegalo} />
+          <GiftTable
+            mensaje={
+              config.mensajeRegalos ||
+              "Nuestro mejor regalo será compartir este día contigo, pero si deseas tener un detalle con nosotros, aquí te dejamos nuestros datos."
+            }
+            cuentaBancaria={config.cuentaBancaria}
+            yape={config.yape}
+            plin={config.plin}
+            qrUrl={config.qrRegalo}
+          />
         </Section>
 
         {/* Imagen entre secciones */}
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative overflow-hidden">
-          <img src={galleryImages[4].src} alt="Momento especial" className="w-full h-[45vh] md:h-[55vh] object-cover" style={{ objectPosition: galleryImages[4].offset }} loading="lazy" />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden"
+        >
+          <img
+            src={galleryImages[4].src}
+            alt="Momento especial"
+            className="w-full h-[45vh] md:h-[55vh] object-cover"
+            style={{ objectPosition: galleryImages[4].offset }}
+            loading="lazy"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
@@ -234,17 +340,36 @@ export default function WeddingPage() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-charcoal rounded-full mb-6">
               <Music className="w-8 h-8 text-detalle" />
             </div>
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-4">Playlist</h2>
-            <p className="text-text-secondary font-cormorant text-lg max-w-md mx-auto">Desde tu invitación personal podrás sugerir esa canción que no puede faltar</p>
+            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-4">
+              Playlist
+            </h2>
+            <p className="text-text-secondary font-cormorant text-lg max-w-md mx-auto">
+              Desde tu invitación personal podrás sugerir esa canción que no
+              puede faltar
+            </p>
             <div className="flex items-center justify-center gap-2 mt-4 text-text-light text-sm font-cormorant italic">
-              <span>✦</span><span>Requiere enlace de invitación</span><span>✦</span>
+              <span>✦</span>
+              <span>Requiere enlace de invitación</span>
+              <span>✦</span>
             </div>
           </div>
         </Section>
 
         {/* Imagen entre secciones */}
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative overflow-hidden">
-          <img src={galleryImages[5].src} alt="Momento especial" className="w-full h-[45vh] md:h-[55vh] object-cover" style={{ objectPosition: galleryImages[5].offset }} loading="lazy" />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden"
+        >
+          <img
+            src={galleryImages[5].src}
+            alt="Momento especial"
+            className="w-full h-[45vh] md:h-[55vh] object-cover"
+            style={{ objectPosition: galleryImages[5].offset }}
+            loading="lazy"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
@@ -254,10 +379,16 @@ export default function WeddingPage() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-charcoal rounded-full mb-6">
               <Heart className="w-8 h-8 text-detalle" />
             </div>
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-4">Confirmar Asistencia</h2>
-            <p className="text-text-secondary font-cormorant text-lg max-w-md mx-auto">Desde tu invitación personal podrás confirmar tu asistencia</p>
+            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-4">
+              Confirmar Asistencia
+            </h2>
+            <p className="text-text-secondary font-cormorant text-lg max-w-md mx-auto">
+              Desde tu invitación personal podrás confirmar tu asistencia
+            </p>
             <div className="flex items-center justify-center gap-2 mt-4 text-text-light text-sm font-cormorant italic">
-              <span>✦</span><span>Requiere enlace de invitación</span><span>✦</span>
+              <span>✦</span>
+              <span>Requiere enlace de invitación</span>
+              <span>✦</span>
             </div>
           </div>
         </Section>
@@ -268,14 +399,20 @@ export default function WeddingPage() {
         {/* Footer */}
         <footer className="py-16 text-center bg-gradient-to-t from-charcoal to-charcoal-light text-white">
           <div className="max-w-2xl mx-auto px-6">
-            <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">{novia} <span className="text-detalle">&</span> {novio}</h3>
-            <p className="text-white/60 mb-8 font-cormorant text-lg">Esperamos contar con su presencia</p>
+            <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">
+              {novia} <span className="text-detalle">&</span> {novio}
+            </h3>
+            <p className="text-white/60 mb-8 font-cormorant text-lg">
+              Esperamos contar con su presencia
+            </p>
             <div className="flex items-center justify-center gap-3">
               <div className="h-px w-12 bg-detalle/40" />
               <div className="w-2 h-2 bg-detalle/60 rounded-full" />
               <div className="h-px w-12 bg-detalle/40" />
             </div>
-            <p className="text-white/40 text-sm mt-8 font-cormorant">Muchas gracias</p>
+            <p className="text-white/40 text-sm mt-8 font-cormorant">
+              Muchas gracias
+            </p>
           </div>
         </footer>
       </main>

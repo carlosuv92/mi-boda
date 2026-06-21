@@ -50,3 +50,24 @@ body {
   color: var(--foreground);
   font-family: var(--font-cormorant), Georgia, serif;
 }
+
+.bg-pattern {
+  position: relative;
+}
+
+.bg-pattern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/svg/plantas.svg');
+  background-repeat: repeat;
+  background-size: 400px 400px;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-pattern > * {
+  position: relative;
+  z-index: 1;
+}

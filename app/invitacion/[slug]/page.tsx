@@ -72,7 +72,7 @@ export default function InvitationPage() {
 
   return (
     <>
-      <main className="min-h-screen bg-cream">
+      <main className="min-h-screen bg-cream bg-pattern">
         <section className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
           <div className="absolute inset-0">
             <img
@@ -156,10 +156,13 @@ export default function InvitationPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8 }}
             >
-              <p className="text-white text-sm uppercase tracking-[0.3em] mb-8 font-cormorant font-extrabold">
-                Nos vemos en... PREPÁRATE
+              <p className="text-white text-sm uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
+                Nos vemos en..
               </p>
               <Countdown targetDate={weddingDate} variant="dark" />
+              <p className="text-white text-sm uppercase tracking-[0.3em] mt-4 font-cormorant font-extrabold">
+                PREPÁRATE!
+              </p>
             </motion.div>
           </motion.div>
 
