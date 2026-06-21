@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface CountdownProps {
-  targetDate: string;
+  targetDate: Date | string;
   variant?: 'light' | 'dark';
 }
 
@@ -19,7 +19,8 @@ export function Countdown({ targetDate, variant = 'light' }: CountdownProps) {
   const isDark = variant === 'dark';
 
   const calculateTimeLeft = (): TimeLeft => {
-    const difference = new Date(targetDate).getTime() - new Date().getTime();
+    const target = targetDate instanceof Date ? targetDate.getTime() : new Date(targetDate).getTime();
+    const difference = target - new Date().getTime();
     
     if (difference <= 0) {
       return { days: 0, hours: 0, minutes: 0, seconds: 0 };

@@ -1,23 +1,24 @@
-'use client';
+"use client"
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useParams } from 'next/navigation';
-import { getConfig, getTimeline, getGuestBySlug } from '@/lib/sheet-api';
-import { Countdown } from '@/components/ui/Countdown';
-import { Section } from '@/components/ui/Section';
-import { FloralDivider } from '@/components/ui/FloralDivider';
-import { LocationCard } from '@/components/ui/LocationCard';
-import { Timeline } from '@/components/ui/Timeline';
-import { DressCode } from '@/components/sections/DressCode';
-import { GiftTable } from '@/components/sections/GiftTable';
-import { SongRequest } from '@/components/sections/SongRequest';
-import { RSVP } from '@/components/sections/RSVP';
-import { AdultsOnly } from '@/components/sections/AdultsOnly';
-import { MusicPlayer } from '@/components/ui/MusicPlayer';
+import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
+import { useParams } from "next/navigation"
+import { getConfig, getTimeline, getGuestBySlug } from "@/lib/sheet-api"
+import { Countdown } from "@/components/ui/Countdown"
+import { Section } from "@/components/ui/Section"
+import { FloralDivider } from "@/components/ui/FloralDivider"
+import { LocationCard } from "@/components/ui/LocationCard"
+import { Timeline } from "@/components/ui/Timeline"
+import { DressCode } from "@/components/sections/DressCode"
+import { GiftTable } from "@/components/sections/GiftTable"
+import { SongRequest } from "@/components/sections/SongRequest"
+import { RSVP } from "@/components/sections/RSVP"
+import { AdultsOnly } from "@/components/sections/AdultsOnly"
+import { MusicPlayer } from "@/components/ui/MusicPlayer"
 
 const galleryImages = [
   { src: "/gallery/image-1.webp", offset: "center 80%" },
+  { src: "/gallery/image-14.webp", offset: "center 35%" },
   { src: "/gallery/image-3.webp", offset: "center 50%" },
   { src: "/gallery/image-2.webp", offset: "center 45%" },
   { src: "/gallery/image-11.webp", offset: "center 50%" },
@@ -26,49 +27,63 @@ const galleryImages = [
 ]
 
 export default function InvitationPage() {
-  const params = useParams();
-  const slug = params.slug as string;
+  const params = useParams()
+  const slug = params.slug as string
 
-  const [config, setConfig] = useState<Record<string, string>>({});
-  const [timeline, setTimeline] = useState([]);
-  const [guest, setGuest] = useState<{ id: string; nombre: string; apellidos: string; acompanantes_autorizados: number } | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [config, setConfig] = useState<Record<string, string>>({})
+  const [timeline, setTimeline] = useState([])
+  const [guest, setGuest] = useState<{
+    id: string
+    nombre: string
+    apellidos: string
+    acompanantes_autorizados: number
+  } | null>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     Promise.all([getConfig(), getTimeline(), getGuestBySlug(slug)])
       .then(([configData, timelineData, guestData]) => {
-        setConfig(configData);
-        setTimeline(timelineData);
+        setConfig(configData)
+        setTimeline(timelineData)
         if (guestData) {
           setGuest({
             id: guestData.id,
             nombre: guestData.nombre,
             apellidos: guestData.apellidos,
-            acompanantes_autorizados: parseInt(guestData.acompanantes_autorizados) || 0,
-          });
+            acompanantes_autorizados:
+              parseInt(guestData.acompanantes_autorizados) || 0,
+          })
         }
       })
       .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [slug]);
+      .finally(() => setLoading(false))
+  }, [slug])
 
-  const fotoPrincipal = config.fotoPrincipal || '/images/principal.webp';
+  const fotoPrincipal = config.fotoPrincipal || "/images/principal.webp"
 
   if (loading) {
     return (
       <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
-        <img src={fotoPrincipal} alt="Cargando" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <img
+          src={fotoPrincipal}
+          alt="Cargando"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 text-center">
-            <div className="animate-pulse text-detalle font-playfair text-2xl md:text-3xl">Lilian & Felipe</div>
+          <div className="animate-pulse text-detalle font-playfair text-2xl md:text-3xl">
+            Lilian & Felipe
+          </div>
         </div>
       </div>
-    );
+    )
   }
 
-  const weddingDate = config.fecha || '2027-04-15';
-  const novio = config.novio || 'Felipe';
-  const novia = config.novia || 'Lilian';
+  const rawDate = config.fecha || "2027-04-15"
+  const [y, m, d] = rawDate.split('-').map(Number);
+  const weddingDate = new Date(y, m - 1, d);
+  const novio = config.novio || "Felipe"
+  const novia = config.novia || "Lilian"
 
   return (
     <>
@@ -152,7 +167,7 @@ export default function InvitationPage() {
                 <motion.div
                   animate={{ y: [0, 12, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
-                  className="w-1 h-3 bg-detalle rounded-full mt-2"
+                  className="w-1 h-3 bg-detalle rounded-full mt-2 ml-2"
                 />
               </div>
               <motion.div
@@ -160,10 +175,31 @@ export default function InvitationPage() {
                 transition={{ duration: 1.2, repeat: Infinity }}
                 className="md:hidden text-white/50"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M6 9l6 6 6-6" />
                 </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="-mt-3 opacity-40">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="-mt-3 opacity-40"
+                >
                   <path d="M6 9l6 6 6-6" />
                 </svg>
               </motion.div>
@@ -177,7 +213,7 @@ export default function InvitationPage() {
             <div className="flex items-center justify-center gap-4 mb-6">
               <div className="h-px w-16 bg-detalle/40" />
               <span className="font-playfair text-lg md:text-xl text-text-primary tracking-wide">
-                {new Date(weddingDate).toLocaleDateString("es-PE", {
+                {weddingDate.toLocaleDateString("es-PE", {
                   weekday: "long",
                   day: "numeric",
                   month: "long",
@@ -187,15 +223,35 @@ export default function InvitationPage() {
               <div className="h-px w-16 bg-detalle/40" />
             </div>
 
+            <p className="text-text-primary text-md uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
+              PREPÁRATE!
+            </p>
             <p className="text-text-primary text-sm uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
               Nos vemos en..
             </p>
             <Countdown targetDate={weddingDate} />
-            <p className="text-text-primary text-sm uppercase tracking-[0.3em] mt-4 font-cormorant font-extrabold">
-              PREPÁRATE!
-            </p>
           </div>
+        </Section>
 
+        {/* Imagen entre secciones */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden"
+        >
+          <img
+            src={galleryImages[0].src}
+            alt="Momento especial"
+            className="w-full h-[45vh] md:h-[55vh] object-cover"
+            style={{ objectPosition: galleryImages[0].offset }}
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
+        </motion.div>
+
+        <Section id="mensaje" className="bg-white-off">
           <FloralDivider className="mb-8" />
           <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
             {config.mensajeBienvenida ||
@@ -213,10 +269,10 @@ export default function InvitationPage() {
           className="relative overflow-hidden"
         >
           <img
-            src={galleryImages[0].src}
+            src={galleryImages[1].src}
             alt="Momento especial"
             className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[0].offset }}
+            style={{ objectPosition: galleryImages[1].offset }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
@@ -263,10 +319,10 @@ export default function InvitationPage() {
           className="relative overflow-hidden"
         >
           <img
-            src={galleryImages[1].src}
+            src={galleryImages[2].src}
             alt="Momento especial"
             className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[1].offset }}
+            style={{ objectPosition: galleryImages[2].offset }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
@@ -294,10 +350,10 @@ export default function InvitationPage() {
           className="relative overflow-hidden"
         >
           <img
-            src={galleryImages[2].src}
+            src={galleryImages[3].src}
             alt="Momento especial"
             className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[2].offset }}
+            style={{ objectPosition: galleryImages[3].offset }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
@@ -325,10 +381,10 @@ export default function InvitationPage() {
           className="relative overflow-hidden"
         >
           <img
-            src={galleryImages[3].src}
+            src={galleryImages[4].src}
             alt="Momento especial"
             className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[3].offset }}
+            style={{ objectPosition: galleryImages[4].offset }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
@@ -357,10 +413,10 @@ export default function InvitationPage() {
           className="relative overflow-hidden"
         >
           <img
-            src={galleryImages[4].src}
+            src={galleryImages[5].src}
             alt="Momento especial"
             className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[4].offset }}
+            style={{ objectPosition: galleryImages[5].offset }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
@@ -388,10 +444,10 @@ export default function InvitationPage() {
           className="relative overflow-hidden"
         >
           <img
-            src={galleryImages[5].src}
+            src={galleryImages[6].src}
             alt="Momento especial"
             className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[5].offset }}
+            style={{ objectPosition: galleryImages[6].offset }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />

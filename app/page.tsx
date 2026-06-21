@@ -18,6 +18,7 @@ import { Music, Heart } from 'lucide-react';
 
 const galleryImages = [
   { src: "/gallery/image-1.webp", offset: "center 80%" },
+  { src: "/gallery/image-14.webp", offset: "center 35%" },
   { src: "/gallery/image-3.webp", offset: "center 50%" },
   { src: "/gallery/image-2.webp", offset: "center 45%" },
   { src: "/gallery/image-11.webp", offset: "center 50%" },
@@ -60,7 +61,9 @@ export default function WeddingPage() {
     );
   }
 
-  const weddingDate = config.fecha || '2027-04-15';
+  const rawDate = config.fecha || '2027-04-15';
+  const [y, m, d] = rawDate.split('-').map(Number);
+  const weddingDate = new Date(y, m - 1, d);
   const novio = config.novio || 'Felipe';
   const novia = config.novia || 'Lilian';
 
@@ -133,7 +136,7 @@ export default function WeddingPage() {
                 <motion.div
                   animate={{ y: [0, 12, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
-                  className="w-1 h-3 bg-detalle rounded-full mt-2"
+                  className="w-1 h-3 bg-detalle rounded-full ml-2"
                 />
               </div>
               {/* Mobile: flechas abajo */}
@@ -142,10 +145,31 @@ export default function WeddingPage() {
                 transition={{ duration: 1.2, repeat: Infinity }}
                 className="md:hidden text-white/50"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M6 9l6 6 6-6" />
                 </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="-mt-3 opacity-40">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="-mt-3 opacity-40"
+                >
                   <path d="M6 9l6 6 6-6" />
                 </svg>
               </motion.div>
@@ -159,7 +183,7 @@ export default function WeddingPage() {
             <div className="flex items-center justify-center gap-4 mb-6">
               <div className="h-px w-16 bg-detalle/40" />
               <span className="font-playfair text-lg md:text-xl text-text-primary tracking-wide">
-                {new Date(weddingDate).toLocaleDateString("es-PE", {
+                {weddingDate.toLocaleDateString("es-PE", {
                   weekday: "long",
                   day: "numeric",
                   month: "long",
@@ -169,15 +193,35 @@ export default function WeddingPage() {
               <div className="h-px w-16 bg-detalle/40" />
             </div>
 
+            <p className="text-text-primary text-md uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
+              PREPÁRATE!
+            </p>
             <p className="text-text-primary text-sm uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
               Nos vemos en..
             </p>
             <Countdown targetDate={weddingDate} />
-            <p className="text-text-primary text-sm uppercase tracking-[0.3em] mt-4 font-cormorant font-extrabold">
-              PREPÁRATE!
-            </p>
           </div>
+        </Section>
 
+        {/* Imagen entre secciones */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden"
+        >
+          <img
+            src={galleryImages[0].src}
+            alt="Momento especial"
+            className="w-full h-[45vh] md:h-[55vh] object-cover"
+            style={{ objectPosition: galleryImages[0].offset }}
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
+        </motion.div>
+
+        <Section id="mensaje" className="bg-white-off">
           <FloralDivider className="mb-8" />
           <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
             {config.mensajeBienvenida ||
@@ -195,10 +239,10 @@ export default function WeddingPage() {
           className="relative overflow-hidden"
         >
           <img
-            src={galleryImages[0].src}
+            src={galleryImages[1].src}
             alt="Momento especial"
             className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[0].offset }}
+            style={{ objectPosition: galleryImages[1].offset }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
@@ -245,10 +289,10 @@ export default function WeddingPage() {
           className="relative overflow-hidden"
         >
           <img
-            src={galleryImages[1].src}
+            src={galleryImages[2].src}
             alt="Momento especial"
             className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[1].offset }}
+            style={{ objectPosition: galleryImages[2].offset }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
@@ -276,10 +320,10 @@ export default function WeddingPage() {
           className="relative overflow-hidden"
         >
           <img
-            src={galleryImages[2].src}
+            src={galleryImages[3].src}
             alt="Momento especial"
             className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[2].offset }}
+            style={{ objectPosition: galleryImages[3].offset }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
@@ -307,10 +351,10 @@ export default function WeddingPage() {
           className="relative overflow-hidden"
         >
           <img
-            src={galleryImages[3].src}
+            src={galleryImages[4].src}
             alt="Momento especial"
             className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[3].offset }}
+            style={{ objectPosition: galleryImages[4].offset }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
@@ -339,10 +383,10 @@ export default function WeddingPage() {
           className="relative overflow-hidden"
         >
           <img
-            src={galleryImages[4].src}
+            src={galleryImages[5].src}
             alt="Momento especial"
             className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[4].offset }}
+            style={{ objectPosition: galleryImages[5].offset }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
@@ -378,10 +422,10 @@ export default function WeddingPage() {
           className="relative overflow-hidden"
         >
           <img
-            src={galleryImages[5].src}
+            src={galleryImages[6].src}
             alt="Momento especial"
             className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[5].offset }}
+            style={{ objectPosition: galleryImages[6].offset }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />

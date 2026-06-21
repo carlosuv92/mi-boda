@@ -37,14 +37,10 @@ export function DressCode({
           <CoupleDress className="w-36 h-36 text-principal" />
         </div>
         <h3 className="font-playfair text-xl font-semibold text-text-primary mb-2">
-          Elegante
+          Damas vestido largo, caballeros saco y corbata
         </h3>
         <p className="font-cormorant text-lg">
-          Los tonos{" "}
-          <span className="font-semibold text-principal-light">
-            {coloresReservados.join(", ")}
-          </span>{" "}
-          están reservados para la novia.
+          Los colores blancos y derivados quedan reservados para la novia.
         </p>
       </motion.div>
     </div>
