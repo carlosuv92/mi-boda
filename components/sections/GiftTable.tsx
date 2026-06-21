@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Copy, CreditCard, Smartphone } from 'lucide-react';
+import { Copy } from 'lucide-react';
 import { useState } from 'react';
 
 interface GiftTableProps {
@@ -27,115 +27,81 @@ export function GiftTable({
     setTimeout(() => setCopied(null), 2000);
   };
 
+  const CopyButton = ({ label, value, type }: { label: string; value: string; type: string }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="group flex items-center justify-between gap-4 py-4 border-b border-cream-dark last:border-b-0"
+    >
+      <div>
+        <p className="text-xs uppercase tracking-[0.2em] text-text-light font-cormorant mb-1">{label}</p>
+        <p className="text-text-primary font-cormorant text-lg tracking-wide">{value}</p>
+      </div>
+      <button
+        onClick={() => copyToClipboard(value, type)}
+        className="flex-shrink-0 p-2 rounded-full opacity-40 group-hover:opacity-100 transition-opacity hover:bg-charcoal/5"
+      >
+        <Copy className="w-4 h-4 text-text-secondary" />
+      </button>
+      {copied === type && (
+        <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-charcoal text-white text-xs rounded-full font-cormorant">
+          ¡Copiado!
+        </span>
+      )}
+    </motion.div>
+  );
+
   return (
-    <div>
-      <div className="text-center mb-12">
+    <div className="max-w-xl mx-auto">
+      <div className="text-center mb-10">
+        <div className="flex items-center justify-center gap-3 mb-6">
+          <div className="h-px w-12 bg-detalle/50" />
+          <div className="w-2 h-2 bg-detalle rounded-full" />
+          <div className="h-px w-12 bg-detalle/50" />
+        </div>
         <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-4">
           Mesa de Regalos
         </h2>
-        <p className="text-text-secondary leading-relaxed max-w-md mx-auto font-cormorant text-lg">
+        <p className="text-text-secondary leading-relaxed max-w-md mx-auto font-cormorant text-lg italic">
           {mensaje}
         </p>
+        <div className="flex items-center justify-center gap-3 mt-6">
+          <div className="h-px w-12 bg-detalle/50" />
+          <div className="w-2 h-2 bg-detalle rounded-full" />
+          <div className="h-px w-12 bg-detalle/50" />
+        </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-cream-dark">
         {cuentaBancaria && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-2xl p-6 border border-cream-dark"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <CreditCard className="w-6 h-6 text-principal" />
-              <h3 className="font-playfair text-lg font-semibold text-text-primary">
-                Transferencia Bancaria
-              </h3>
-            </div>
-            <div className="bg-cream rounded-lg p-4 flex items-center justify-between gap-4">
-              <code className="text-text-primary font-mono text-sm break-all">
-                {cuentaBancaria}
-              </code>
-              <button
-                onClick={() => copyToClipboard(cuentaBancaria, 'cuenta')}
-                className="flex-shrink-0 p-2 hover:bg-cream-dark rounded-lg transition-colors"
-              >
-                <Copy className="w-4 h-4 text-text-secondary" />
-              </button>
-            </div>
-            {copied === 'cuenta' && (
-              <p className="text-xs text-principal mt-2">¡Copiado!</p>
-            )}
-          </motion.div>
+          <div className="mb-6">
+            <p className="text-xs uppercase tracking-[0.3em] text-text-light font-cormorant text-center mb-4">
+              Transferencia Bancaria
+            </p>
+            <CopyButton label="Número de cuenta" value={cuentaBancaria} type="cuenta" />
+          </div>
         )}
 
-        <div className="grid grid-cols-2 gap-4">
-          {yape && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="bg-white rounded-2xl p-6 text-center border border-cream-dark"
-            >
-              <Smartphone className="w-8 h-8 text-purple-600 mx-auto mb-3" />
-              <h4 className="font-semibold text-text-primary mb-2 font-cormorant text-lg">Yape</h4>
-              <div className="bg-cream rounded-lg p-3 flex items-center justify-between gap-2">
-                <span className="text-sm text-text-secondary font-cormorant">{yape}</span>
-                <button
-                  onClick={() => copyToClipboard(yape, 'yape')}
-                  className="p-1 hover:bg-cream-dark rounded transition-colors"
-                >
-                  <Copy className="w-3 h-3 text-text-secondary" />
-                </button>
-              </div>
-              {copied === 'yape' && (
-                <p className="text-xs text-principal mt-2">¡Copiado!</p>
-              )}
-            </motion.div>
-          )}
-
-          {plin && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="bg-white rounded-2xl p-6 text-center border border-cream-dark"
-            >
-              <Smartphone className="w-8 h-8 text-green-600 mx-auto mb-3" />
-              <h4 className="font-semibold text-text-primary mb-2 font-cormorant text-lg">Plin</h4>
-              <div className="bg-cream rounded-lg p-3 flex items-center justify-between gap-2">
-                <span className="text-sm text-text-secondary font-cormorant">{plin}</span>
-                <button
-                  onClick={() => copyToClipboard(plin, 'plin')}
-                  className="p-1 hover:bg-cream-dark rounded transition-colors"
-                >
-                  <Copy className="w-3 h-3 text-text-secondary" />
-                </button>
-              </div>
-              {copied === 'plin' && (
-                <p className="text-xs text-principal mt-2">¡Copiado!</p>
-              )}
-            </motion.div>
-          )}
-        </div>
+        {(yape || plin) && (
+          <div className={`${cuentaBancaria ? 'pt-4 border-t border-cream-dark' : ''}`}>
+            <p className="text-xs uppercase tracking-[0.3em] text-text-light font-cormorant text-center mb-4">
+              Billetera Digital
+            </p>
+            {yape && <CopyButton label="Yape" value={yape} type="yape" />}
+            {plin && <CopyButton label="Plin" value={plin} type="plin" />}
+          </div>
+        )}
 
         {qrUrl && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="bg-white rounded-2xl p-6 text-center border border-cream-dark"
-          >
-            <h3 className="font-playfair text-lg font-semibold text-text-primary mb-4">
+          <div className={`${(cuentaBancaria || yape || plin) ? 'pt-6 border-t border-cream-dark mt-6' : ''} text-center`}>
+            <p className="text-xs uppercase tracking-[0.3em] text-text-light font-cormorant text-center mb-5">
               Escanea el QR
-            </h3>
-            <div className="w-48 h-48 mx-auto bg-white rounded-xl p-4 shadow-sm border border-cream-dark">
+            </p>
+            <div className="w-44 h-44 mx-auto bg-white rounded-2xl p-3 shadow-sm border border-cream-dark">
               <img src={qrUrl} alt="QR de regalo" className="w-full h-full object-contain" />
             </div>
-          </motion.div>
+          </div>
         )}
       </div>
     </div>
