@@ -16,7 +16,12 @@ const songSchema = z.object({
 
 type SongForm = z.infer<typeof songSchema>;
 
-export function SongRequest() {
+interface SongRequestProps {
+  guestId?: string;
+  guestNombre?: string;
+}
+
+export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -33,8 +38,8 @@ export function SongRequest() {
     setLoading(true);
     try {
       await submitSong({
-        guest_id: '',
-        guest_name: 'Invitado',
+        guest_id: guestId || '',
+        guest_name: guestNombre || 'Invitado',
         ...data,
         comentario: data.comentario || '',
       });

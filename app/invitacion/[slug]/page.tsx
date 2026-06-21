@@ -204,7 +204,7 @@ export default function InvitationPage() {
             <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">Playlist</h2>
             <p className="text-text-secondary font-cormorant text-lg">Ayúdanos con la música, sugiere esa canción que no puede faltar</p>
           </div>
-          <SongRequest />
+          <SongRequest guestId={guest?.id} guestNombre={guest?.nombre} />
         </Section>
 
         {/* Imagen entre secciones */}
