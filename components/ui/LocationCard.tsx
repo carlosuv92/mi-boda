@@ -35,7 +35,7 @@ export function LocationCard({
     >
       <div className="p-6 md:p-8 text-center">
         <div className="flex justify-center mb-4">
-          <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-cream-dark shadow-sm">
+          <div className="w-36 h-36 rounded-xl overflow-hidden border border-cream-dark shadow-sm">
             <img
               src={displayFoto}
               alt={titulo}
