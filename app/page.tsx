@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { getConfig, getTimeline, getGallery, getGuestBySlug } from '@/lib/sheet-api';
+import { getConfig, getTimeline } from '@/lib/api';
+import type { TimelineEvent } from '@/types';
 import { Countdown } from '@/components/ui/Countdown';
 import { Section } from '@/components/ui/Section';
 import { FloralDivider } from '@/components/ui/FloralDivider';
@@ -28,7 +29,7 @@ const galleryImages = [
 
 export default function WeddingPage() {
   const [config, setConfig] = useState<Record<string, string>>({});
-  const [timeline, setTimeline] = useState([]);
+  const [timeline, setTimeline] = useState<TimelineEvent[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

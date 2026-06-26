@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { getGuests, createGuest, updateGuest, deleteGuest } from '@/lib/sheet-api';
+import { getGuests, createGuest, updateGuest, deleteGuest } from '@/lib/api';
 import { slugify } from '@/lib/utils';
 import { Search, Plus, Edit2, Trash2, Download, X } from 'lucide-react';
 import * as XLSX from 'xlsx';

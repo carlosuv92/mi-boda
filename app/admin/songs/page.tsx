@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getSongs } from '@/lib/sheet-api';
+import { getSongs } from '@/lib/api';
 
 interface Song {
   guest_id: string;

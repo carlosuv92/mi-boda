@@ -15,14 +15,20 @@ export default function AdminLogin() {
     setLoading(true);
     setError('');
 
-    const adminUser = process.env.NEXT_PUBLIC_ADMIN_USER || 'admin';
-    const adminPass = process.env.NEXT_PUBLIC_ADMIN_PASS || 'boda2027';
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
 
-    if (username === adminUser && password === adminPass) {
-      document.cookie = 'admin_auth=true; path=/; max-age=86400';
-      router.push('/admin/guests');
-    } else {
-      setError('Credenciales incorrectas');
+      if (res.ok) {
+        router.push('/admin/guests');
+      } else {
+        setError('Credenciales incorrectas');
+      }
+    } catch {
+      setError('Error al conectar con el servidor');
     }
 
     setLoading(false);

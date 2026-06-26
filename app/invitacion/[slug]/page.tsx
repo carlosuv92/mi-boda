@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useParams } from "next/navigation"
-import { getConfig, getTimeline, getGuestBySlug } from "@/lib/sheet-api"
+import { getConfig, getTimeline, getGuestBySlug } from "@/lib/api"
+import type { TimelineEvent } from "@/types"
 import { Countdown } from "@/components/ui/Countdown"
 import { Section } from "@/components/ui/Section"
 import { FloralDivider } from "@/components/ui/FloralDivider"
@@ -31,7 +32,7 @@ export default function InvitationPage() {
   const slug = params.slug as string
 
   const [config, setConfig] = useState<Record<string, string>>({})
-  const [timeline, setTimeline] = useState([])
+  const [timeline, setTimeline] = useState<TimelineEvent[]>([])
   const [guest, setGuest] = useState<{
     id: string
     nombre: string
@@ -51,7 +52,7 @@ export default function InvitationPage() {
             nombre: guestData.nombre,
             apellidos: guestData.apellidos,
             acompanantes_autorizados:
-              parseInt(guestData.acompanantes_autorizados) || 0,
+              guestData.acompanantes_autorizados || 0,
           })
         }
       })

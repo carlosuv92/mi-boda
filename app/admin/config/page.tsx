@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getConfig, updateConfig } from '@/lib/sheet-api';
+import { getConfig, updateConfig } from '@/lib/api';
 import { Save, ChevronDown, ChevronUp, Users, MapPin, Shirt, Gift, Clock, MessageSquare, Settings } from 'lucide-react';
 
 const configSections = [

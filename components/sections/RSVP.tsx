@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { submitRSVP, getGuestBySlug, getRSVPByGuestId, updateRSVP } from '@/lib/sheet-api';
+import { submitRSVP, getGuestBySlug, getRSVPByGuestId, updateRSVP } from '@/lib/api';
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Check, X, Edit } from 'lucide-react';
@@ -51,7 +51,7 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
               id: data.id,
               nombre: data.nombre,
               apellidos: data.apellidos,
-              acompanantes_autorizados: parseInt(data.acompanantes_autorizados) || 0,
+              acompanantes_autorizados: data.acompanantes_autorizados || 0,
             });
           }
         })
@@ -74,7 +74,7 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
         if (data) {
           setExistingRSVP({
             estado: data.estado,
-            acompanantes_confirmados: parseInt(data.acompanantes_confirmados) || 0,
+            acompanantes_confirmados: data.acompanantes_confirmados || 0,
             comentario: data.comentario || '',
           });
         }

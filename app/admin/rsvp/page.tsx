@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getRSVPs, getGuests } from '@/lib/sheet-api';
+import { getRSVPs, getGuests } from '@/lib/api';
 import { Download } from 'lucide-react';
 import * as XLSX from 'xlsx';
 
