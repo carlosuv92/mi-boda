@@ -432,6 +432,9 @@ export default function WeddingPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
+        {/* Adults Only */}
+        <AdultsOnly mensaje={config.mensajeAdultos} />
+
         {/* RSVP - Invitation only */}
         <Section id="confirmar">
           <div className="text-center">
@@ -451,9 +454,6 @@ export default function WeddingPage() {
             </div>
           </div>
         </Section>
-
-        {/* Adults Only */}
-        <AdultsOnly mensaje={config.mensajeAdultos} />
 
         {/* Footer */}
         <footer className="py-16 text-center bg-gradient-to-t from-charcoal to-charcoal-light text-white">

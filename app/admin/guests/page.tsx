@@ -207,7 +207,6 @@ export default function GuestsPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-          onClick={(e) => e.target === e.currentTarget && resetForm()}
         >
           <motion.div
             initial={{ scale: 0.95 }}
