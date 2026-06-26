@@ -424,17 +424,19 @@ export default function InvitationPage() {
         </motion.div>
 
         {/* Song Request */}
-        <Section id="canciones" className="bg-white-off">
-          <div className="text-center mb-8">
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
-              Playlist
-            </h2>
-            <p className="text-text-secondary font-cormorant text-lg">
-              Ayúdanos con la música, sugiere esa canción que no puede faltar
-            </p>
-          </div>
-          <SongRequest guestId={guest?.id} guestNombre={guest?.nombre} />
-        </Section>
+        {guest && (
+          <Section id="canciones" className="bg-white-off">
+            <div className="text-center mb-8">
+              <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
+                Playlist
+              </h2>
+              <p className="text-text-secondary font-cormorant text-lg">
+                Ayúdanos con la música, sugiere esa canción que no puede faltar
+              </p>
+            </div>
+            <SongRequest guestId={guest.id} guestNombre={guest.nombre} />
+          </Section>
+        )}
 
         {/* Imagen entre secciones */}
         <motion.div
@@ -455,23 +457,25 @@ export default function InvitationPage() {
         </motion.div>
 
         {/* RSVP */}
-        <Section id="confirmar">
-          <div className="text-center mb-8">
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
-              Confirmar Asistencia
-            </h2>
-            <p className="text-text-secondary font-cormorant text-lg">
-              Por favor confirma tu asistencia antes del{" "}
-              {config.fechaLimiteRSVP || "10 de mayo"}
-            </p>
-          </div>
-          <RSVP
-            guestId={guest?.id}
-            guestNombre={guest?.nombre}
-            guestApellidos={guest?.apellidos}
-            acompanantesAutorizados={guest?.acompanantes_autorizados}
-          />
-        </Section>
+        {guest && (
+          <Section id="confirmar">
+            <div className="text-center mb-8">
+              <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
+                Confirmar Asistencia
+              </h2>
+              <p className="text-text-secondary font-cormorant text-lg">
+                Por favor confirma tu asistencia antes del{" "}
+                {config.fechaLimiteRSVP || "10 de mayo"}
+              </p>
+            </div>
+            <RSVP
+              guestId={guest.id}
+              guestNombre={guest.nombre}
+              guestApellidos={guest.apellidos}
+              acompanantesAutorizados={guest.acompanantes_autorizados}
+            />
+          </Section>
+        )}
 
         {/* Adults Only */}
         <AdultsOnly mensaje={config.mensajeAdultos} />
