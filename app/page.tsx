@@ -15,7 +15,8 @@ import { SongRequest } from '@/components/sections/SongRequest';
 import { RSVP } from '@/components/sections/RSVP';
 import { AdultsOnly } from '@/components/sections/AdultsOnly';
 import { MusicPlayer } from '@/components/ui/MusicPlayer';
-import { Music, Heart } from 'lucide-react';
+import { Music, Heart, Image as ImageIcon } from 'lucide-react';
+import { GuestPhotoGallery } from '@/components/sections/GuestPhotoGallery';
 
 const galleryImages = [
   { src: "/gallery/image-1.webp", offset: "center 80%" },
@@ -434,6 +435,40 @@ export default function WeddingPage() {
 
         {/* Adults Only */}
         <AdultsOnly mensaje={config.mensajeAdultos} />
+
+        {/* Imagen entre secciones */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden"
+        >
+          <img
+            src={galleryImages[6].src}
+            alt="Momento especial"
+            className="w-full h-[45vh] md:h-[55vh] object-cover"
+            style={{ objectPosition: galleryImages[6].offset }}
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
+        </motion.div>
+
+        {/* Guest Gallery */}
+        <Section id="galeria-invitados">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-charcoal rounded-full mb-6">
+              <ImageIcon className="w-8 h-8 text-detalle" />
+            </div>
+            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
+              Fotos de la Boda
+            </h2>
+            <p className="text-text-secondary font-cormorant text-lg">
+              Fotos compartidas por nuestros invitados
+            </p>
+          </div>
+          <GuestPhotoGallery />
+        </Section>
 
         {/* RSVP - Invitation only */}
         <Section id="confirmar">

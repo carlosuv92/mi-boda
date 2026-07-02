@@ -3,12 +3,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Users, Calendar, Music, Settings, LogOut, Menu, X } from 'lucide-react';
+import { Users, Calendar, Music, Settings, Image as ImageIcon, LogOut, Menu, X } from 'lucide-react';
 
 const navItems = [
   { href: '/admin/guests', label: 'Invitados', icon: Users },
   { href: '/admin/rsvp', label: 'Confirmaciones', icon: Calendar },
   { href: '/admin/songs', label: 'Canciones', icon: Music },
+  { href: '/admin/gallery', label: 'Galería', icon: ImageIcon },
   { href: '/admin/config', label: 'Configuración', icon: Settings },
 ];
 

@@ -4,6 +4,8 @@ export interface IGallery extends Document {
   url: string;
   descripcion: string;
   tipo: 'foto' | 'video';
+  subido_por: string;
+  aprobado: boolean;
 }
 
 const GallerySchema = new Schema<IGallery>(
@@ -15,6 +17,8 @@ const GallerySchema = new Schema<IGallery>(
       enum: ['foto', 'video'],
       default: 'foto',
     },
+    subido_por: { type: String, default: 'invitado' },
+    aprobado: { type: Boolean, default: false },
   },
   {
     timestamps: true,

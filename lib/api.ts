@@ -94,3 +94,26 @@ export async function getTimeline(): Promise<TimelineEvent[]> {
 export async function getGallery(): Promise<GalleryImage[]> {
   return apiFetch<GalleryImage[]>('/api/gallery');
 }
+
+/* Guest Gallery */
+export async function getGuestGallery(aprobadas = true): Promise<GalleryImage[]> {
+  return apiFetch<GalleryImage[]>(`/api/guest-gallery?aprobadas=${aprobadas}`);
+}
+
+export async function submitGuestPhoto(data: { url: string; descripcion?: string; subido_por?: string }): Promise<GalleryImage> {
+  return apiFetch<GalleryImage>('/api/guest-gallery', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateGalleryImage(id: string, data: Partial<GalleryImage>): Promise<GalleryImage> {
+  return apiFetch<GalleryImage>(`/api/guest-gallery/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteGalleryImage(id: string): Promise<{ success: boolean }> {
+  return apiFetch<{ success: boolean }>(`/api/guest-gallery/${id}`, { method: 'DELETE' });
+}

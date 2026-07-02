@@ -44,6 +44,9 @@ export interface GalleryImage {
   url: string;
   descripcion: string;
   tipo: 'foto' | 'video';
+  subido_por?: string;
+  aprobado?: boolean;
+  createdAt?: string;
 }
 
 export interface MoodboardImage {
