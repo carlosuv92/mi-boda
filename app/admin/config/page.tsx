@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { getConfig, updateConfig } from '@/lib/api';
-import { Save, ChevronDown, ChevronUp, Users, MapPin, Shirt, Gift, Clock, MessageSquare, Settings } from 'lucide-react';
+import { Save, ChevronDown, ChevronUp, Users, MapPin, MessageSquare, Settings } from 'lucide-react';
 
 const configSections = [
   {
@@ -42,38 +42,6 @@ const configSections = [
       { key: 'horaRecepcion', label: 'Hora Recepción', type: 'text', placeholder: 'Ej: 1:00 PM' },
       { key: 'estacionamientoRecepcion', label: 'Estacionamiento Recepción', type: 'text' },
       { key: 'mapsRecepcion', label: 'Google Maps Recepción', type: 'text', placeholder: 'https://maps.google.com/...' },
-    ],
-  },
-  {
-    id: 'vestimenta',
-    title: 'Dress Code',
-    icon: Shirt,
-    fields: [
-      { key: 'vestimentaHombres', label: 'Vestimenta Hombres', type: 'text', placeholder: 'Ej: Formal' },
-      { key: 'vestimentaMujeres', label: 'Vestimenta Mujeres', type: 'text', placeholder: 'Ej: Formal' },
-      { key: 'coloresSugeridos', label: 'Colores Sugeridos (separados por coma)', type: 'text', placeholder: 'Ej: Azul,Rosa,Dorado' },
-      { key: 'coloresReservados', label: 'Colores Reservados (separados por coma)', type: 'text', placeholder: 'Ej: Blanco,Crema' },
-      { key: 'restriccionesColores', label: 'Restricciones de Colores', type: 'textarea' },
-    ],
-  },
-  {
-    id: 'regalos',
-    title: 'Mesa de Regalos',
-    icon: Gift,
-    fields: [
-      { key: 'mensajeRegalos', label: 'Mensaje Mesa de Regalos', type: 'textarea' },
-      { key: 'cuentaBancaria', label: 'Cuenta Bancaria', type: 'text' },
-      { key: 'yape', label: 'Número Yape', type: 'text' },
-      { key: 'plin', label: 'Número Plin', type: 'text' },
-      { key: 'qrRegalo', label: 'URL QR de Regalo', type: 'text' },
-    ],
-  },
-  {
-    id: 'itinerario',
-    title: 'Itinerario y RSVP',
-    icon: Clock,
-    fields: [
-      { key: 'fechaLimiteRSVP', label: 'Fecha Límite RSVP', type: 'text', placeholder: 'Ej: 10 de mayo' },
     ],
   },
   {

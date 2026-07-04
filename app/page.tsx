@@ -1,21 +1,19 @@
-'use client';
+"use client"
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { getConfig } from '@/lib/api';
-import { Countdown } from '@/components/ui/Countdown';
-import { Section } from '@/components/ui/Section';
-import { FloralDivider } from '@/components/ui/FloralDivider';
-import { LocationCard } from '@/components/ui/LocationCard';
-import { Timeline } from '@/components/ui/Timeline';
-import { DressCode } from '@/components/sections/DressCode';
-import { GiftTable } from '@/components/sections/GiftTable';
-import { SongRequest } from '@/components/sections/SongRequest';
-import { RSVP } from '@/components/sections/RSVP';
-import { AdultsOnly } from '@/components/sections/AdultsOnly';
-import { MusicPlayer } from '@/components/ui/MusicPlayer';
-import { Music, Heart, Image as ImageIcon } from 'lucide-react';
-import { GuestPhotoGallery } from '@/components/sections/GuestPhotoGallery';
+import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
+import { getConfig } from "@/lib/api"
+import { Countdown } from "@/components/ui/Countdown"
+import { Section } from "@/components/ui/Section"
+import { FloralDivider } from "@/components/ui/FloralDivider"
+import { LocationCard } from "@/components/ui/LocationCard"
+import { Timeline } from "@/components/ui/Timeline"
+import { DressCode } from "@/components/sections/DressCode"
+import { GiftTable } from "@/components/sections/GiftTable"
+import { AdultsOnly } from "@/components/sections/AdultsOnly"
+import { MusicPlayer } from "@/components/ui/MusicPlayer"
+import { Music, Heart } from "lucide-react"
+import LogoSVG from "@/components/icons/Logo"
 
 const galleryImages = [
   { src: "/gallery/image-1.webp", offset: "center 80%" },
@@ -28,17 +26,17 @@ const galleryImages = [
 ]
 
 export default function WeddingPage() {
-  const [config, setConfig] = useState<Record<string, string>>({});
-  const [loading, setLoading] = useState(true);
+  const [config, setConfig] = useState<Record<string, string>>({})
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     getConfig()
       .then(setConfig)
       .catch(console.error)
-      .finally(() => setLoading(false));
-  }, []);
+      .finally(() => setLoading(false))
+  }, [])
 
-  const fotoPrincipal = config.fotoPrincipal || '/images/principal.webp';
+  const fotoPrincipal = config.fotoPrincipal || "/images/principal.webp"
 
   if (loading) {
     return (
@@ -55,14 +53,14 @@ export default function WeddingPage() {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
-  const rawDate = config.fecha || '2027-04-15';
-  const [y, m, d] = rawDate.split('-').map(Number);
-  const weddingDate = new Date(y, m - 1, d);
-  const novio = config.novio || 'Felipe';
-  const novia = config.novia || 'Lilian';
+  const rawDate = config.fecha || "2027-04-15"
+  const [y, m, d] = rawDate.split("-").map(Number)
+  const weddingDate = new Date(y, m - 1, d)
+  const novio = config.novio || "Felipe"
+  const novia = config.novia || "Lilian"
 
   return (
     <>
@@ -75,7 +73,7 @@ export default function WeddingPage() {
               alt={`${novia} & ${novio}`}
               className="w-full h-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+            <div className="absolute inset-0 bg-linear-to-b from-black/50 via-black/30 to-black/60" />
           </div>
 
           <div className="relative z-10 w-full flex flex-col items-center justify-between min-h-screen py-12">
@@ -86,25 +84,11 @@ export default function WeddingPage() {
               transition={{ duration: 1.2, ease: "easeOut" }}
               className="px-6 text-center"
             >
-              <div className="flex items-center justify-center gap-4 mb-3">
-                <div className="h-px w-10 bg-detalle/50" />
-                <span className="font-playfair text-4xl md:text-5xl font-semibold text-white">
-                  {novia.charAt(0)}
-                </span>
-                <span className="text-detalle text-2xl md:text-3xl font-light">
-                  &
-                </span>
-                <span className="font-playfair text-4xl md:text-5xl font-semibold text-white">
-                  {novio.charAt(0)}
-                </span>
-                <div className="h-px w-10 bg-detalle/50" />
-              </div>
-
-              <p className="text-white/90 text-xs uppercase tracking-[0.3em] mb-10 font-cormorant">
+              <p className="text-white text-sm uppercase tracking-[0.3em] my-8 font-cormorant">
                 ¡Nos casamos!
               </p>
 
-              <p className="text-white text-xs md:text-sm mb-8 uppercase tracking-[0.2em] font-cormorant">
+              <p className="text-white text-sm md:text-sm mb-2 uppercase tracking-[0.2em] font-cormorant">
                 {config.biblia ||
                   '"Y sobre todo vístanse de amor" — Colosenses 3:14'}
               </p>
@@ -115,9 +99,7 @@ export default function WeddingPage() {
                 transition={{ duration: 1, delay: 0.5 }}
                 className="mb-2"
               >
-                <h1 className="font-great-vibes text-4xl md:text-6xl lg:text-7xl text-white mb-3 drop-shadow-lg">
-                  {novia} <span className="text-detalle-light">&</span> {novio}
-                </h1>
+                <LogoSVG className="w-36 md:w-48 lg:w-56 mx-auto text-detalle drop-shadow-lg" />
               </motion.div>
             </motion.div>
 
@@ -215,7 +197,7 @@ export default function WeddingPage() {
             style={{ objectPosition: galleryImages[0].offset }}
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
         <Section id="mensaje" className="bg-white-off">
@@ -242,7 +224,7 @@ export default function WeddingPage() {
             style={{ objectPosition: galleryImages[1].offset }}
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
         {/* Ceremony & Reception */}
@@ -275,6 +257,12 @@ export default function WeddingPage() {
               mapsUrl={config.mapsRecepcion || "#"}
             />
           </div>
+          <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
+            Queremos que disfruten y celebren con nosotros sin preocupaciones.
+            Si pueden, les recomendamos venir sin auto. Si necesitan
+            estacionamiento, con gusto les reservaremos un espacio; solo
+            avísennos con anticipación, ya que los cupos son limitados.
+          </p>
         </Section>
 
         {/* Imagen entre secciones */}
@@ -292,7 +280,7 @@ export default function WeddingPage() {
             style={{ objectPosition: galleryImages[2].offset }}
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
         {/* Dress Code */}
@@ -323,7 +311,7 @@ export default function WeddingPage() {
             style={{ objectPosition: galleryImages[3].offset }}
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
         {/* Timeline */}
@@ -354,7 +342,7 @@ export default function WeddingPage() {
             style={{ objectPosition: galleryImages[4].offset }}
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
         {/* Gift Table */}
@@ -364,9 +352,9 @@ export default function WeddingPage() {
               config.mensajeRegalos ||
               "Nuestro mejor regalo será compartir este día contigo, pero si deseas tener un detalle con nosotros, aquí te dejamos nuestros datos."
             }
-            cuentaBancaria={config.cuentaBancaria}
-            yape={config.yape}
-            plin={config.plin}
+            cuentaBancaria="0064 6896 0000 01"
+            cci="091 003 0064 8960 0014 9"
+            telefono="993 323 090"
             qrUrl={config.qrRegalo}
           />
         </Section>
@@ -386,7 +374,7 @@ export default function WeddingPage() {
             style={{ objectPosition: galleryImages[5].offset }}
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
         {/* Song Request - Invitation only */}
@@ -425,45 +413,11 @@ export default function WeddingPage() {
             style={{ objectPosition: galleryImages[6].offset }}
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/10 to-black/30" />
         </motion.div>
 
         {/* Adults Only */}
         <AdultsOnly mensaje={config.mensajeAdultos} />
-
-        {/* Imagen entre secciones */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative overflow-hidden"
-        >
-          <img
-            src={galleryImages[6].src}
-            alt="Momento especial"
-            className="w-full h-[45vh] md:h-[55vh] object-cover"
-            style={{ objectPosition: galleryImages[6].offset }}
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30" />
-        </motion.div>
-
-        {/* Guest Gallery */}
-        <Section id="galeria-invitados">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-charcoal rounded-full mb-6">
-              <ImageIcon className="w-8 h-8 text-detalle" />
-            </div>
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
-              Fotos de la Boda
-            </h2>
-            <p className="text-text-secondary font-cormorant text-lg">
-              Fotos compartidas por nuestros invitados
-            </p>
-          </div>
-          <GuestPhotoGallery />
-        </Section>
 
         {/* RSVP - Invitation only */}
         <Section id="confirmar">
@@ -486,7 +440,7 @@ export default function WeddingPage() {
         </Section>
 
         {/* Footer */}
-        <footer className="py-16 text-center bg-gradient-to-t from-charcoal to-charcoal-light text-white">
+        <footer className="py-16 text-center bg-linear-to-t from-charcoal to-charcoal-light text-white">
           <div className="max-w-2xl mx-auto px-6">
             <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">
               {novia} <span className="text-detalle">&</span> {novio}

@@ -1,72 +1,81 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Heart, Wine, UtensilsCrossed, Music, PartyPopper } from 'lucide-react';
+import IglesiaSVG from '@/components/icons/timeline/Iglesia';
+import LocalSVG from '@/components/icons/timeline/Local';
+import CopasSVG from '@/components/icons/timeline/Copas';
+import NoviosSVG from '@/components/icons/timeline/Novios';
+import CenaSVG from '@/components/icons/timeline/Cena';
+import BaileSVG from '@/components/icons/timeline/Baile';
 
 const events = [
-  { icon: Heart, label: 'Ceremonia', time: '11:00 AM', desc: 'Iglesia Nuestra Señora del Rosario' },
-  { icon: Wine, label: 'Cocktail', time: '12:30 PM', desc: 'Salón de recepciones' },
-  { icon: UtensilsCrossed, label: 'Cena', time: '2:00 PM', desc: 'Banquete de tres tiempos' },
-  { icon: PartyPopper, label: 'Baile', time: '4:00 PM', desc: 'Apertura de pista' },
-  { icon: Music, label: 'Fiesta', time: '6:00 PM', desc: 'Música y diversión' },
+  { icon: IglesiaSVG, label: 'Ceremonia Religiosa' },
+  { icon: LocalSVG, label: 'Recepción' },
+  { icon: CopasSVG, label: 'Último ingreso de invitados' },
+  { icon: NoviosSVG, label: 'Ingreso de los Novios' },
+  { icon: CenaSVG, label: 'Cena' },
+  { icon: BaileSVG, label: '¡A bailar!' },
 ];
 
 export function Timeline() {
   return (
-    <div className="relative max-w-2xl mx-auto px-4">
-      <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-principal/20 via-principal/60 to-principal/20 md:-translate-x-px" />
+    <div className="bg-white rounded-2xl p-6 text-center border border-cream-dark">
+      <div className="relative">
+        <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-text-primary -translate-x-1/2" />
 
-      <div className="space-y-10 md:space-y-8">
-        {events.map((event, index) => {
-          const isLeft = index % 2 === 0;
+        <div className="absolute left-1/2 -top-1.25 w-2.5 h-2.5 bg-text-primary rounded-full -translate-x-1/2 z-10" />
 
-          return (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-              className={`relative flex md:items-start ${
-                isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
-              } flex-row pl-16 md:pl-0`}
-            >
-              {/* Lado vacío (alternancia) */}
-              <div className="hidden md:block w-1/2" />
+        <div className="absolute left-1/2 -bottom-1.25 w-2.5 h-2.5 bg-text-primary rounded-full -translate-x-1/2 z-10" />
 
-              {/* Marcador en la línea */}
-              <div className="absolute left-6 md:left-1/2 top-6 md:-translate-x-1/2 z-10">
-                <div className="w-10 h-10 bg-white border-2 border-principal/40 rounded-full flex items-center justify-center shadow-sm">
-                  <div className="w-2 h-2 bg-principal rounded-full" />
+        <div className="space-y-0">
+          {events.map((event, index) => {
+            const Icon = event.icon
+            const isRight = index % 2 === 0
+
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                className="relative min-h-22.5 md:min-h-25"
+              >
+                {/* Alternating left/right en todos los tamaños */}
+                <div className="flex w-full h-full items-start pt-2">
+                  {isRight ? (
+                    <>
+                      <div className="w-1/2" />
+                      <div className="w-1/2 relative flex justify-start pl-8 md:pl-14">
+                        <div className="absolute top-3.5 left-0 w-8 md:w-14 h-[1.5px] bg-text-primary" />
+                        <div className="flex flex-col items-center text-center">
+                          <Icon className="text-text-primary mb-2" />
+                          <h3 className="font-cormorant text-sm md:text-lg leading-tight text-text-primary">
+                            {event.label}
+                          </h3>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="w-1/2 relative flex justify-end pr-8 md:pr-14">
+                        <div className="absolute top-3.5 right-0 w-8 md:w-14 h-[1.5px] bg-text-primary" />
+                        <div className="flex flex-col items-center text-center">
+                          <Icon className="text-text-primary mb-2" />
+                          <h3 className="font-cormorant text-sm md:text-lg leading-tight text-text-primary">
+                            {event.label}
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="w-1/2" />
+                    </>
+                  )}
                 </div>
-              </div>
-
-              {/* Conector horizontal (solo desktop) */}
-              <div className={`hidden md:block absolute top-6 h-px w-6 bg-principal/30 ${
-                isLeft ? 'left-[calc(50%+24px)]' : 'right-[calc(50%+24px)]'
-              }`} />
-
-              {/* Card del evento */}
-              <div className={`md:w-1/2 ${isLeft ? 'md:pr-8' : 'md:pl-8'}`}>
-                <div className="bg-white rounded-2xl p-5 border border-cream-dark shadow-sm">
-                  <div className="flex items-center gap-3 mb-2">
-                    <event.icon className="w-5 h-5 text-principal shrink-0" />
-                    <span className="text-principal font-cormorant text-lg tracking-wide font-medium">
-                      {event.time}
-                    </span>
-                  </div>
-                  <h4 className="font-playfair text-xl text-text-primary">
-                    {event.label}
-                  </h4>
-                  <p className="text-text-secondary font-cormorant text-base mt-1">
-                    {event.desc}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          );
-        })}
+              </motion.div>
+            )
+          })}
+        </div>
       </div>
     </div>
-  );
+  )
 }

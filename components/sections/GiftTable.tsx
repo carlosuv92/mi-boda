@@ -7,16 +7,16 @@ import { useState } from 'react';
 interface GiftTableProps {
   mensaje: string;
   cuentaBancaria?: string;
-  yape?: string;
-  plin?: string;
+  cci?: string;
+  telefono?: string;
   qrUrl?: string;
 }
 
 export function GiftTable({
   mensaje,
   cuentaBancaria,
-  yape,
-  plin,
+  cci,
+  telefono,
   qrUrl,
 }: GiftTableProps) {
   const [copied, setCopied] = useState<string | null>(null);
@@ -35,7 +35,7 @@ export function GiftTable({
       className="group flex items-center justify-between gap-4 py-4 border-b border-cream-dark last:border-b-0"
     >
       <div>
-        <p className="text-xs uppercase tracking-[0.2em] text-text-light font-cormorant mb-1">{label}</p>
+        <p className="text-xs uppercase tracking-[0.2em] font-cormorant mb-1">{label}</p>
         <p className="text-text-primary font-cormorant text-lg tracking-wide">{value}</p>
       </div>
       <button
@@ -63,8 +63,12 @@ export function GiftTable({
         <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-4">
           Mesa de Regalos
         </h2>
-        <p className="text-text-secondary leading-relaxed max-w-md mx-auto font-cormorant text-lg italic">
-          {mensaje}
+        <p className="text-text-secondary leading-relaxed mx-auto font-cormorant text-lg italic">
+          Comenzamos juntos una nueva etapa, construyendo nuestro futuro con
+          mucha ilusión.
+        </p>
+        <p className="text-text-secondary leading-relaxed mx-auto font-cormorant text-lg italic">
+          Nuestro mejor regalo es disfrutar de este día con todos ustedes, pero si quieres tener un detalle con nosotros, te compartimos las siguientes opciones para hacerlo. ¡Gracias por tu cariño y apoyo!
         </p>
         <div className="flex items-center justify-center gap-3 mt-6">
           <div className="h-px w-12 bg-principal/50" />
@@ -74,36 +78,63 @@ export function GiftTable({
       </div>
 
       <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-cream-dark">
-        {cuentaBancaria && (
+        {(cuentaBancaria || cci) && (
           <div className="mb-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-text-light font-cormorant text-center mb-4">
+            <p className="text-xs uppercase tracking-[0.3em] font-cormorant text-center mb-4">
               Transferencia Bancaria
             </p>
-            <CopyButton label="Número de cuenta" value={cuentaBancaria} type="cuenta" />
+            {cuentaBancaria && (
+              <CopyButton
+                label="Compartamos Banco — Número de cuenta"
+                value={cuentaBancaria}
+                type="cuenta"
+              />
+            )}
+            {cci && <CopyButton label="CCI" value={cci} type="cci" />}
           </div>
         )}
 
-        {(yape || plin) && (
-          <div className={`${cuentaBancaria ? 'pt-4 border-t border-cream-dark' : ''}`}>
-            <p className="text-xs uppercase tracking-[0.3em] text-text-light font-cormorant text-center mb-4">
-              Billetera Digital
+        {telefono && (
+          <div
+            className={`${cuentaBancaria || cci ? "pt-4 border-t border-cream-dark" : ""}`}
+          >
+            <p className="text-xs uppercase tracking-[0.3em] font-cormorant text-center mb-4">
+              También por Yape o Plin
             </p>
-            {yape && <CopyButton label="Yape" value={yape} type="yape" />}
-            {plin && <CopyButton label="Plin" value={plin} type="plin" />}
+            <CopyButton
+              label="Compartamos Banco"
+              value={telefono}
+              type="telefono"
+            />
           </div>
         )}
 
         {qrUrl && (
-          <div className={`${(cuentaBancaria || yape || plin) ? 'pt-6 border-t border-cream-dark mt-6' : ''} text-center`}>
-            <p className="text-xs uppercase tracking-[0.3em] text-text-light font-cormorant text-center mb-5">
+          <div className="pt-6 border-t border-cream-dark mt-6 text-center">
+            <p className="text-xs uppercase tracking-[0.3em] font-cormorant text-center mb-5">
               Escanea el QR
             </p>
             <div className="w-44 h-44 mx-auto bg-white rounded-2xl p-3 shadow-sm border border-cream-dark">
-              <img src={qrUrl} alt="QR de regalo" className="w-full h-full object-contain" />
+              <img
+                src={qrUrl}
+                alt="QR de regalo"
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
         )}
+
+        <div className="mt-8 pt-6 border-t border-cream-dark">
+          <p className="text-xs uppercase tracking-[0.3em] font-cormorant text-center mb-4">
+            Lista de Regalos
+          </p>
+          <div className="flex items-center justify-center gap-3 opacity-50">
+            <div className="h-px w-8 bg-text-light" />
+            <span className="font-cormorant italic text-lg">Próximamente</span>
+            <div className="h-px w-8 bg-text-light" />
+          </div>
+        </div>
       </div>
     </div>
-  );
+  )
 }

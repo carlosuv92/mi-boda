@@ -15,6 +15,7 @@ import { SongRequest } from "@/components/sections/SongRequest"
 import { RSVP } from "@/components/sections/RSVP"
 import { AdultsOnly } from "@/components/sections/AdultsOnly"
 import { MusicPlayer } from "@/components/ui/MusicPlayer"
+import LogoSVG from "@/components/icons/Logo"
 
 const galleryImages = [
   { src: "/gallery/image-1.webp", offset: "center 80%" },
@@ -109,35 +110,21 @@ export default function InvitationPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
-                  className="text-white/60 text-sm md:text-base mb-4 font-cormorant tracking-wide"
+                  className="text-white text-md md:text-base mb-4 font-cormorant tracking-wide"
                 >
                   Bienvenido/a{" "}
-                  <span className="text-white font-medium">
+                  <span className="text-detalle font-medium">
                     {guest.nombre} {guest.apellidos}
                   </span>{" "}
                   y acompañantes
                 </motion.p>
               )}
 
-              <div className="flex items-center justify-center gap-4 mb-3">
-                <div className="h-px w-10 bg-detalle/50" />
-                <span className="font-playfair text-4xl md:text-5xl font-semibold text-white">
-                  {novia.charAt(0)}
-                </span>
-                <span className="text-detalle text-2xl md:text-3xl font-light">
-                  &
-                </span>
-                <span className="font-playfair text-4xl md:text-5xl font-semibold text-white">
-                  {novio.charAt(0)}
-                </span>
-                <div className="h-px w-10 bg-detalle/50" />
-              </div>
-
-              <p className="text-white/90 text-xs uppercase tracking-[0.3em] mb-10 font-cormorant">
+              <p className="text-white text-sm uppercase tracking-[0.3em] my-8 font-cormorant">
                 ¡Nos casamos!
               </p>
 
-              <p className="text-white/90 text-xs md:text-sm mb-8 uppercase tracking-[0.2em] font-cormorant">
+              <p className="text-white text-sm md:text-sm mb-2 uppercase tracking-[0.2em] font-cormorant">
                 {config.biblia ||
                   '"Y sobre todo vístanse de amor" — Colosenses 3:14'}
               </p>
@@ -148,9 +135,7 @@ export default function InvitationPage() {
                 transition={{ duration: 1, delay: 0.5 }}
                 className="mb-2"
               >
-                <h1 className="font-great-vibes text-4xl md:text-6xl lg:text-7xl text-white mb-3 drop-shadow-lg">
-                  {novia} <span className="text-detalle-light">&</span> {novio}
-                </h1>
+                <LogoSVG className="w-36 md:w-48 lg:w-56 mx-auto text-detalle drop-shadow-lg" />
               </motion.div>
             </motion.div>
 
@@ -305,6 +290,12 @@ export default function InvitationPage() {
               estacionamiento={config.estacionamientoRecepcion}
               mapsUrl={config.mapsRecepcion || "#"}
             />
+            <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
+              Queremos que disfruten y celebren con nosotros sin preocupaciones.
+              Si pueden, les recomendamos venir sin auto. Si necesitan
+              estacionamiento, con gusto les reservaremos un espacio; solo
+              avísennos con anticipación, ya que los cupos son limitados.
+            </p>
           </div>
         </Section>
 
@@ -395,9 +386,9 @@ export default function InvitationPage() {
               config.mensajeRegalos ||
               "Nuestro mejor regalo será compartir este día contigo, pero si deseas tener un detalle con nosotros, aquí te dejamos nuestros datos."
             }
-            cuentaBancaria={config.cuentaBancaria}
-            yape={config.yape}
-            plin={config.plin}
+            cuentaBancaria="0064 6896 0000 01"
+            cci="091 003 0064 8960 0014 9"
+            telefono="993 323 090"
             qrUrl={config.qrRegalo}
           />
         </Section>
@@ -471,8 +462,10 @@ export default function InvitationPage() {
               Confirmar Asistencia
             </h2>
             <p className="text-text-secondary font-cormorant text-lg">
-              Por favor confirma tu asistencia antes del{" "}
-              {config.fechaLimiteRSVP || "10 de mayo"}
+              Nos encantaría contar con tu presencia en la lista de invitados.
+            </p>
+            <p className="text-text-secondary font-cormorant text-lg">
+              Confirmanos tu asistencia hasta el <strong>31 DE AGOSTO</strong>
             </p>
           </div>
           {guest ? (
