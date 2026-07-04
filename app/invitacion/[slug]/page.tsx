@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useParams } from "next/navigation"
-import { getConfig, getTimeline, getGuestBySlug } from "@/lib/api"
-import type { TimelineEvent } from "@/types"
+import { getConfig, getGuestBySlug } from "@/lib/api"
 import { Countdown } from "@/components/ui/Countdown"
 import { Section } from "@/components/ui/Section"
 import { FloralDivider } from "@/components/ui/FloralDivider"
@@ -32,7 +31,6 @@ export default function InvitationPage() {
   const slug = params.slug as string
 
   const [config, setConfig] = useState<Record<string, string>>({})
-  const [timeline, setTimeline] = useState<TimelineEvent[]>([])
   const [guest, setGuest] = useState<{
     id: string
     nombre: string
@@ -42,10 +40,9 @@ export default function InvitationPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    Promise.all([getConfig(), getTimeline(), getGuestBySlug(slug)])
-      .then(([configData, timelineData, guestData]) => {
+    Promise.all([getConfig(), getGuestBySlug(slug)])
+      .then(([configData, guestData]) => {
         setConfig(configData)
-        setTimeline(timelineData)
         if (guestData) {
           setGuest({
             id: guestData.id,
@@ -370,7 +367,7 @@ export default function InvitationPage() {
               Cronograma de actividades
             </p>
           </div>
-          <Timeline events={timeline} />
+          <Timeline />
         </Section>
 
         {/* Imagen entre secciones */}

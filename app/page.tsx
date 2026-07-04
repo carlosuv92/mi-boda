@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { getConfig, getTimeline } from '@/lib/api';
-import type { TimelineEvent } from '@/types';
+import { getConfig } from '@/lib/api';
 import { Countdown } from '@/components/ui/Countdown';
 import { Section } from '@/components/ui/Section';
 import { FloralDivider } from '@/components/ui/FloralDivider';
@@ -30,15 +29,11 @@ const galleryImages = [
 
 export default function WeddingPage() {
   const [config, setConfig] = useState<Record<string, string>>({});
-  const [timeline, setTimeline] = useState<TimelineEvent[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([getConfig(), getTimeline()])
-      .then(([configData, timelineData]) => {
-        setConfig(configData);
-        setTimeline(timelineData);
-      })
+    getConfig()
+      .then(setConfig)
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
@@ -341,7 +336,7 @@ export default function WeddingPage() {
               Cronograma de actividades
             </p>
           </div>
-          <Timeline events={timeline} />
+          <Timeline />
         </Section>
 
         {/* Imagen entre secciones */}
