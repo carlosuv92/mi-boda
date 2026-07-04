@@ -117,7 +117,7 @@ export default function InvitationPage() {
                     {guest.nombre} {guest.apellidos}
                   </span>
                   {guest.acompanantes_autorizados > 0 && (
-                    <>{" "}y acompañantes</>
+                    <>{" "}y acompañante{guest.acompanantes_autorizados > 1 ? 's' : ''}</>
                   )}
                 </motion.p>
               )}
