@@ -52,6 +52,14 @@ const configSections = [
       { key: 'mensajeAdultos', label: 'Mensaje Solo Adultos', type: 'textarea' },
     ],
   },
+  {
+    id: 'invitacionMensaje',
+    title: 'Mensaje Invitación',
+    icon: MessageSquare,
+    fields: [
+      { key: 'mensajeInvitado', label: 'Plantilla Mensaje', type: 'textarea', placeholder: 'Ej: Hola {{invitado}}, te invitamos a nuestra boda...' },
+    ],
+  },
 ];
 
 function ConfigSection({ section, config, onChange, fieldsPerRow = 2 }: {

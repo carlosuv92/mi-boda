@@ -6,7 +6,9 @@ export interface Guest {
   telefono: string;
   email: string;
   acompanantes_autorizados: number;
+  acompanantes_confirmados: number;
   estado: 'pendiente' | 'confirmado' | 'rechazado';
+  lado: 'novio' | 'novia';
 }
 
 export interface RSVP {

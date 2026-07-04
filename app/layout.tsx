@@ -21,12 +21,17 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Lilian & Felipe - Nuestra Boda",
+  title: "Felipe y Lilian - Nuestra Boda",
   description: "Estás invitado a nuestra boda. Celebramos nuestro amor el 15 de abril de 2027.",
   openGraph: {
-  title: "Lilian & Felipe - Nuestra Boda",
+    title: "Felipe y Lilian - Nuestra Boda",
     description: "Estás invitado a nuestra boda. Celebramos nuestro amor el 15 de abril de 2027.",
     type: "website",
+    images: [{ url: '/og', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: '/og',
   },
 };
 

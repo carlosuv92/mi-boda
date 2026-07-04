@@ -7,7 +7,9 @@ export interface IGuest extends Document {
   telefono: string;
   email: string;
   acompanantes_autorizados: number;
+  acompanantes_confirmados: number;
   estado: 'pendiente' | 'confirmado' | 'rechazado';
+  lado: 'novio' | 'novia';
 }
 
 const GuestSchema = new Schema<IGuest>(
@@ -18,10 +20,16 @@ const GuestSchema = new Schema<IGuest>(
     telefono: { type: String, default: '' },
     email: { type: String, default: '' },
     acompanantes_autorizados: { type: Number, default: 0 },
+    acompanantes_confirmados: { type: Number, default: 0 },
     estado: {
       type: String,
       enum: ['pendiente', 'confirmado', 'rechazado'],
       default: 'pendiente',
+    },
+    lado: {
+      type: String,
+      enum: ['novio', 'novia'],
+      default: 'novio',
     },
   },
   {

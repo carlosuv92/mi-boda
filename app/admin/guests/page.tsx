@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { getGuests, createGuest, updateGuest, deleteGuest } from '@/lib/api';
+import { getGuests, createGuest, updateGuest, deleteGuest, getConfig } from '@/lib/api';
 import { slugify } from '@/lib/utils';
-import { Search, Plus, Edit2, Trash2, Download, X } from 'lucide-react';
+import { Search, Plus, Edit2, Trash2, Download, Link, MessageCircle, X, Check } from 'lucide-react';
 import * as XLSX from 'xlsx';
 
 interface Guest {
@@ -15,7 +15,9 @@ interface Guest {
   telefono: string;
   email: string;
   acompanantes_autorizados: number;
+  acompanantes_confirmados: number;
   estado: string;
+  lado: string;
 }
 
 export default function GuestsPage() {
@@ -26,6 +28,8 @@ export default function GuestsPage() {
   const [editingGuest, setEditingGuest] = useState<Guest | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [mensajeInvitado, setMensajeInvitado] = useState('');
 
   const [formData, setFormData] = useState({
     nombre: '',
@@ -34,10 +38,12 @@ export default function GuestsPage() {
     email: '',
     acompanantes_autorizados: 0,
     slug: '',
+    lado: 'novio' as 'novio' | 'novia',
   });
 
   useEffect(() => {
     loadGuests();
+    getConfig().then((data) => setMensajeInvitado(data.mensajeInvitado || '')).catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -67,6 +73,29 @@ export default function GuestsPage() {
     }
   };
 
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+
+  const copyLink = (guest: Guest) => {
+    const url = `${baseUrl}/invitacion/${guest.slug}`;
+    navigator.clipboard.writeText(url);
+    setCopiedId(guest.id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const sendMessage = (guest: Guest) => {
+    if (!guest.telefono) return;
+    const link = `${baseUrl}/invitacion/${guest.slug}`;
+    const texto = mensajeInvitado
+      .replace(/\{\{invitado\}\}/g, `${guest.nombre} ${guest.apellidos}`)
+      .replace(/\uFE0F/g, '');
+    const url = `https://api.whatsapp.com/send?phone=${guest.telefono}&text=${encodeURIComponent(texto + '\n\n' + link)}`;
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.click();
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -81,6 +110,7 @@ export default function GuestsPage() {
         await createGuest({
           ...formData,
           slug,
+          acompanantes_confirmados: 0,
         });
       }
 
@@ -101,6 +131,7 @@ export default function GuestsPage() {
       email: '',
       acompanantes_autorizados: 0,
       slug: '',
+      lado: 'novio',
     });
     setEditingGuest(null);
     setShowForm(false);
@@ -115,6 +146,7 @@ export default function GuestsPage() {
       email: guest.email,
       acompanantes_autorizados: guest.acompanantes_autorizados,
       slug: guest.slug,
+      lado: guest.lado as 'novio' | 'novia',
     });
     setShowForm(true);
   };
@@ -139,7 +171,9 @@ export default function GuestsPage() {
       Teléfono: g.telefono,
       Email: g.email,
       'Acompañantes Autorizados': g.acompanantes_autorizados,
+      'Acompañantes Confirmados': g.acompanantes_confirmados,
       Estado: g.estado,
+      Lado: g.lado,
     }));
 
     const ws = XLSX.utils.json_to_sheet(data);
@@ -289,6 +323,20 @@ export default function GuestsPage() {
                 />
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">
+                  Lado
+                </label>
+                <select
+                  value={formData.lado}
+                  onChange={(e) => setFormData({ ...formData, lado: e.target.value as 'novio' | 'novia' })}
+                  className="w-full px-4 py-2 border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50 bg-white"
+                >
+                  <option value="novio">Novio</option>
+                  <option value="novia">Novia</option>
+                </select>
+              </div>
+
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
@@ -325,6 +373,9 @@ export default function GuestsPage() {
                 <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary">
                   Acomp.
                 </th>
+                <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary hidden md:table-cell">
+                  Lado
+                </th>
                 <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary">
                   Estado
                 </th>
@@ -336,7 +387,7 @@ export default function GuestsPage() {
             <tbody>
               {filteredGuests.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="text-center py-8 text-text-secondary">
+                  <td colSpan={6} className="text-center py-8 text-text-secondary">
                     No se encontraron invitados
                   </td>
                 </tr>
@@ -360,6 +411,13 @@ export default function GuestsPage() {
                     <td className="px-4 py-3 text-center">
                       <span className="inline-flex items-center justify-center w-8 h-8 bg-principal-soft rounded-full text-sm font-medium text-text-primary">
                         {guest.acompanantes_autorizados}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-center hidden md:table-cell">
+                      <span className={`text-xs font-medium uppercase tracking-wider ${
+                        guest.lado === 'novio' ? 'text-blue-600' : 'text-pink-600'
+                      }`}>
+                        {guest.lado === 'novio' ? 'Novio' : 'Novia'}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-center">
@@ -388,6 +446,24 @@ export default function GuestsPage() {
                           className="p-2 hover:bg-red-50 rounded-lg transition-colors"
                         >
                           <Trash2 className="w-4 h-4 text-red-500" />
+                        </button>
+                        <button
+                          onClick={() => copyLink(guest)}
+                          className="p-2 hover:bg-cream rounded-lg transition-colors"
+                          title="Copiar link de invitación"
+                        >
+                          {copiedId === guest.id ? (
+                            <Check className="w-4 h-4 text-green-500" />
+                          ) : (
+                            <Link className="w-4 h-4 text-text-secondary" />
+                          )}
+                        </button>
+                        <button
+                          onClick={() => sendMessage(guest)}
+                          className="p-2 hover:bg-green-50 rounded-lg transition-colors"
+                          title="Enviar mensaje por WhatsApp"
+                        >
+                          <MessageCircle className="w-4 h-4 text-green-600" />
                         </button>
                       </div>
                     </td>
