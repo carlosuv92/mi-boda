@@ -21,6 +21,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://mi-boda-one.vercel.app'),
   title: "Felipe y Lilian - Nuestra Boda",
   description: "Estás invitado a nuestra boda. Celebramos nuestro amor el 15 de abril de 2027.",
   openGraph: {
