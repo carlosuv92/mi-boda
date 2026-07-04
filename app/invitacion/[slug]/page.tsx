@@ -115,12 +115,14 @@ export default function InvitationPage() {
                   Bienvenido/a{" "}
                   <span className="text-detalle font-medium">
                     {guest.nombre} {guest.apellidos}
-                  </span>{" "}
-                  y acompañantes
+                  </span>
+                  {guest.acompanantes_autorizados > 0 && (
+                    <>{" "}y acompañantes</>
+                  )}
                 </motion.p>
               )}
 
-              <p className="text-white text-sm uppercase tracking-[0.3em] my-8 font-cormorant">
+              <p className="text-white text-sm uppercase tracking-[0.3em] my-6 font-cormorant">
                 ¡Nos casamos!
               </p>
 
