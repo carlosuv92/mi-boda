@@ -1,23 +1,17 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Great_Vibes, Cormorant_Garamond } from "next/font/google";
+import { Cormorant_Garamond, Tangerine } from "next/font/google";
 import "./globals.css";
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const greatVibes = Great_Vibes({
-  variable: "--font-great-vibes",
-  subsets: ["latin"],
-  weight: ["400"],
-});
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const tangerine = Tangerine({
+  variable: "--font-alex-brush",
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -44,7 +38,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${playfair.variable} ${greatVibes.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${tangerine.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-text-primary antialiased">
         {children}

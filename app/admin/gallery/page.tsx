@@ -66,7 +66,7 @@ export default function GalleryAdminPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="font-playfair text-2xl font-semibold text-text-primary">
+        <h1 className="font-cormorant text-2xl font-semibold text-text-primary">
           Galería de Invitados
         </h1>
         <p className="text-text-secondary text-sm mt-1 font-cormorant">

@@ -70,7 +70,7 @@ export default function InvitationPage() {
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 text-center">
-          <div className="animate-pulse text-detalle font-playfair text-2xl md:text-3xl">
+          <div className="animate-pulse text-detalle italic font-cormorant text-2xl md:text-3xl">
             Lilian & Felipe
           </div>
         </div>
@@ -117,7 +117,11 @@ export default function InvitationPage() {
                     {guest.nombre} {guest.apellidos}
                   </span>
                   {guest.acompanantes_autorizados > 0 && (
-                    <>{" "}y acompañante{guest.acompanantes_autorizados > 1 ? 's' : ''}</>
+                    <>
+                      {" "}
+                      y acompañante
+                      {guest.acompanantes_autorizados > 1 ? "s" : ""}
+                    </>
                   )}
                 </motion.p>
               )}
@@ -135,7 +139,7 @@ export default function InvitationPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.5 }}
-                className="mb-2"
+                className="mb-0"
               >
                 <LogoSVG className="w-36 md:w-48 lg:w-56 mx-auto text-detalle drop-shadow-lg" />
               </motion.div>
@@ -197,7 +201,7 @@ export default function InvitationPage() {
           <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-4 mb-6">
               <div className="h-px w-16 bg-detalle/40" />
-              <span className="font-playfair text-lg md:text-xl text-text-primary tracking-wide">
+              <span className="font-cormorant text-2xl md:text-2xl text-text-primary tracking-wide capitalize font-bold">
                 {weddingDate.toLocaleDateString("es-PE", {
                   weekday: "long",
                   day: "numeric",
@@ -208,10 +212,30 @@ export default function InvitationPage() {
               <div className="h-px w-16 bg-detalle/40" />
             </div>
 
-            <p className="text-text-primary text-md uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
+            {/* Separator + Names */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.7 }}
+            >
+              <div className="w-16 h-px mx-auto my-3" />
+              <p className="font-[family-name:var(--font-alex-brush)] italic text-6xl md:text-6xl drop-shadow-lg leading-tight">
+                {novia}
+              </p>
+              <p className="font-[family-name:var(--font-alex-brush)] text-2xl  tracking-[0.5em] my-2">
+                <span className="inline-block w-6 h-px bg-black/50 align-middle mr-3" />
+                y
+                <span className="inline-block w-6 h-px bg-black/50 align-middle ml-1" />
+              </p>
+              <p className="font-[family-name:var(--font-alex-brush)] italic text-6xl md:text-6xl drop-shadow-lg leading-tight">
+                {novio}
+              </p>
+            </motion.div>
+
+            <p className="text-text-primary text-lg uppercase tracking-[0.3em] mb-4 mt-6 font-cormorant font-extrabold">
               PREPÁRATE!
             </p>
-            <p className="text-text-primary text-sm uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
+            <p className="text-text-primary text-md uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
               Nos vemos en..
             </p>
             <Countdown targetDate={weddingDate} />
@@ -238,7 +262,7 @@ export default function InvitationPage() {
 
         <Section id="mensaje" className="bg-white-off">
           <FloralDivider className="mb-8" />
-          <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
+          <p className="text-center italic italic leading-relaxed font-cormorant text-lg md:text-xl">
             {config.mensajeBienvenida ||
               "Con nuestro amor, la bendición de Dios y en compañía de nuestros padres, los invitamos a celebrar el día más especial de nuestras vidas."}
           </p>
@@ -266,10 +290,10 @@ export default function InvitationPage() {
         {/* Ceremony & Reception */}
         <Section id="ubicacion">
           <div className="text-center mb-12">
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
+            <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
               Ubicación
             </h2>
-            <p className="text-text-secondary font-cormorant text-lg">
+            <p className="italic font-cormorant text-lg">
               Ceremonia y recepción
             </p>
           </div>
@@ -292,11 +316,10 @@ export default function InvitationPage() {
               estacionamiento={config.estacionamientoRecepcion}
               mapsUrl={config.mapsRecepcion || "#"}
             />
-            <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
-              Queremos que disfruten y celebren con nosotros sin preocupaciones.
-              Si pueden, les recomendamos venir sin auto. Si necesitan
-              estacionamiento, con gusto les reservaremos un espacio; solo
-              avísennos con anticipación, ya que los cupos son limitados.
+            <p className="text-center italic italic leading-relaxed font-cormorant text-lg md:text-xl">
+              Habrá bebida y baile, así que nos encantaría que vengan sin auto.
+              Si necesitan estacionamiento, con gusto se lo reservamos;
+              avísennos con tiempo.
             </p>
           </div>
         </Section>
@@ -353,10 +376,10 @@ export default function InvitationPage() {
         {/* Timeline */}
         <Section id="itinerario">
           <div className="text-center mb-12">
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
+            <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
               Itinerario
             </h2>
-            <p className="text-text-secondary font-cormorant text-lg">
+            <p className="italic font-cormorant text-lg">
               Cronograma de actividades
             </p>
           </div>
@@ -416,10 +439,10 @@ export default function InvitationPage() {
         {/* Song Request */}
         <Section id="canciones" className="bg-white-off">
           <div className="text-center mb-8">
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
+            <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
               Playlist
             </h2>
-            <p className="text-text-secondary font-cormorant text-lg">
+            <p className="italic font-cormorant text-lg">
               Ayúdanos con la música, sugiere esa canción que no puede faltar
             </p>
           </div>
@@ -460,13 +483,13 @@ export default function InvitationPage() {
         {/* RSVP */}
         <Section id="confirmar">
           <div className="text-center mb-8">
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
+            <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-4">
               Confirmar Asistencia
             </h2>
-            <p className="text-text-secondary font-cormorant text-lg">
+            <p className="italic font-cormorant text-lg">
               Nos encantaría contar con tu presencia en la lista de invitados.
             </p>
-            <p className="text-text-secondary font-cormorant text-lg">
+            <p className="italic font-cormorant text-lg">
               Confirmanos tu asistencia hasta el <strong>31 DE AGOSTO</strong>
             </p>
           </div>
@@ -491,10 +514,10 @@ export default function InvitationPage() {
         {/* Footer */}
         <footer className="py-16 text-center bg-gradient-to-t from-charcoal to-charcoal-light text-white">
           <div className="max-w-2xl mx-auto px-6">
-            <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">
+            <h3 className="font-cormorant text-5xl md:text-6xl mb-4 italic">
               {novia} & {novio}
             </h3>
-            <p className="text-white/60 mb-8 font-cormorant text-lg">
+            <p className="text-white/80 mb-8 font-cormorant text-lg italic">
               Esperamos contar con su presencia
             </p>
             <div className="flex items-center justify-center gap-3">
@@ -502,7 +525,7 @@ export default function InvitationPage() {
               <div className="w-2 h-2 bg-principal/60 rounded-full" />
               <div className="h-px w-12 bg-principal/40" />
             </div>
-            <p className="text-white/40 text-sm mt-8 font-cormorant">
+            <p className="text-white/80 text-md mt-8 font-cormorant">
               Muchas gracias
             </p>
           </div>

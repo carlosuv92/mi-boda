@@ -179,7 +179,7 @@ export function GuestPhotoUpload({ guestName, onUploadSuccess }: GuestPhotoUploa
           whileTap={{ scale: 0.95 }}
           onClick={() => setShowUploader(true)}
           className="w-full py-4 bg-detalle text-charcoal rounded-xl
-            font-playfair text-lg font-medium shadow-sm hover:shadow-md
+            font-cormorant text-lg font-medium shadow-sm hover:shadow-md
             transition-all duration-300"
         >
           Sube tus fotos
@@ -200,7 +200,7 @@ export function GuestPhotoUpload({ guestName, onUploadSuccess }: GuestPhotoUploa
               <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
                 <Check className="w-8 h-8 text-green-600" />
               </div>
-              <p className="font-playfair text-lg text-green-700">
+              <p className="font-cormorant text-lg text-green-700">
                 {successCount === 1 ? '¡Foto subida!' : `¡${successCount} fotos subidas!`}
               </p>
               <p className="text-text-light text-sm font-cormorant">
@@ -224,7 +224,7 @@ export function GuestPhotoUpload({ guestName, onUploadSuccess }: GuestPhotoUploa
           ) : (
             <>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-playfair text-lg text-text-primary">
+                <h3 className="font-cormorant text-lg text-text-primary">
                   Subir fotos
                 </h3>
                 <button

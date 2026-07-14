@@ -16,8 +16,9 @@ interface Guest {
   email: string;
   acompanantes_autorizados: number;
   acompanantes_confirmados: number;
-  estado: string;
-  lado: string;
+  acompanantes_nombres: string[];
+  estado: 'pendiente' | 'confirmado' | 'rechazado';
+  lado: 'novio' | 'novia';
 }
 
 export default function GuestsPage() {
@@ -30,6 +31,11 @@ export default function GuestsPage() {
   const [saving, setSaving] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [mensajeInvitado, setMensajeInvitado] = useState('');
+  const [tab, setTab] = useState<'todos' | 'novio' | 'novia'>('todos');
+  const [confirmGuest, setConfirmGuest] = useState<Guest | null>(null);
+  const [confirmNombres, setConfirmNombres] = useState<string[]>([]);
+  const [confirmAutorizados, setConfirmAutorizados] = useState(0);
+  const [confirmSaving, setConfirmSaving] = useState(false);
 
   const [formData, setFormData] = useState({
     nombre: '',
@@ -37,8 +43,11 @@ export default function GuestsPage() {
     telefono: '',
     email: '',
     acompanantes_autorizados: 0,
+    acompanantes_confirmados: 0,
+    acompanantes_nombres: [] as string[],
     slug: '',
-    lado: 'novio' as 'novio' | 'novia',
+    estado: 'pendiente' as 'pendiente' | 'confirmado' | 'rechazado',
+    lado: 'novia' as 'novio' | 'novia',
   });
 
   useEffect(() => {
@@ -47,19 +56,20 @@ export default function GuestsPage() {
   }, []);
 
   useEffect(() => {
-    if (search) {
-      setFilteredGuests(
-        guests.filter(
-          (g) =>
-            g.nombre.toLowerCase().includes(search.toLowerCase()) ||
-            g.apellidos.toLowerCase().includes(search.toLowerCase()) ||
-            g.slug.toLowerCase().includes(search.toLowerCase())
-        )
-      );
-    } else {
-      setFilteredGuests(guests);
+    let result = guests;
+    if (tab !== 'todos') {
+      result = result.filter((g) => g.lado === tab);
     }
-  }, [search, guests]);
+    if (search) {
+      result = result.filter(
+        (g) =>
+          g.nombre.toLowerCase().includes(search.toLowerCase()) ||
+          g.apellidos.toLowerCase().includes(search.toLowerCase()) ||
+          g.slug.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+    setFilteredGuests(result);
+  }, [search, guests, tab]);
 
   const loadGuests = async () => {
     try {
@@ -96,21 +106,52 @@ export default function GuestsPage() {
     a.click();
   };
 
+  const openConfirm = (guest: Guest) => {
+    setConfirmGuest(guest);
+    setConfirmAutorizados(guest.acompanantes_autorizados);
+    setConfirmNombres(guest.acompanantes_nombres ? [...guest.acompanantes_nombres] : Array(guest.acompanantes_autorizados).fill(''));
+  };
+
+  const handleConfirm = async () => {
+    if (!confirmGuest) return;
+    if (confirmAutorizados > 0) {
+      const trimmed = confirmNombres.slice(0, confirmAutorizados).map((n) => n.trim());
+      if (trimmed.some((n) => !n)) {
+        alert('Ingresa los nombres de todos los acompañantes');
+        return;
+      }
+    }
+    setConfirmSaving(true);
+    try {
+      await updateGuest(confirmGuest.id, {
+        estado: 'confirmado',
+        acompanantes_autorizados: confirmAutorizados,
+        acompanantes_confirmados: confirmAutorizados,
+        acompanantes_nombres: confirmNombres.slice(0, confirmAutorizados).map((n) => n.trim()),
+      });
+      await loadGuests();
+      setConfirmGuest(null);
+    } catch (error) {
+      console.error('Error confirming guest:', error);
+    } finally {
+      setConfirmSaving(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
 
     try {
       if (editingGuest) {
-        await updateGuest(editingGuest.id, {
-          ...formData,
-        });
+        await updateGuest(editingGuest.id, formData);
       } else {
         const slug = slugify(`${formData.nombre}-${formData.apellidos}`);
         await createGuest({
           ...formData,
           slug,
           acompanantes_confirmados: 0,
+          acompanantes_nombres: [],
         });
       }
 
@@ -130,8 +171,11 @@ export default function GuestsPage() {
       telefono: '',
       email: '',
       acompanantes_autorizados: 0,
+      acompanantes_confirmados: 0,
+      acompanantes_nombres: [],
       slug: '',
-      lado: 'novio',
+      estado: 'pendiente',
+      lado: 'novia',
     });
     setEditingGuest(null);
     setShowForm(false);
@@ -145,7 +189,10 @@ export default function GuestsPage() {
       telefono: guest.telefono,
       email: guest.email,
       acompanantes_autorizados: guest.acompanantes_autorizados,
+      acompanantes_confirmados: guest.acompanantes_confirmados,
+      acompanantes_nombres: guest.acompanantes_nombres || [],
       slug: guest.slug,
+      estado: guest.estado,
       lado: guest.lado as 'novio' | 'novia',
     });
     setShowForm(true);
@@ -172,6 +219,7 @@ export default function GuestsPage() {
       Email: g.email,
       'Acompañantes Autorizados': g.acompanantes_autorizados,
       'Acompañantes Confirmados': g.acompanantes_confirmados,
+      'Nombres Acompañantes': (g.acompanantes_nombres || []).join(', '),
       Estado: g.estado,
       Lado: g.lado,
     }));
@@ -194,7 +242,7 @@ export default function GuestsPage() {
     <div>
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className="font-playfair text-2xl font-semibold text-text-primary">
+          <h1 className="font-cormorant text-2xl font-semibold text-text-primary">
             Gestión de Invitados
           </h1>
           <p className="text-text-secondary text-sm mt-1">
@@ -248,7 +296,7 @@ export default function GuestsPage() {
             className="bg-white rounded-2xl p-6 w-full max-w-md"
           >
             <div className="flex items-center justify-between mb-6">
-              <h2 className="font-playfair text-xl font-semibold text-text-primary">
+              <h2 className="font-cormorant text-xl font-semibold text-text-primary">
                 {editingGuest ? 'Editar Invitado' : 'Nuevo Invitado'}
               </h2>
               <button onClick={resetForm} className="p-2 hover:bg-cream rounded-lg">
@@ -257,6 +305,43 @@ export default function GuestsPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Lado — colorful toggle at top */}
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">
+                  Lado
+                </label>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, lado: 'novia' })}
+                    className={`flex-1 py-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 ${
+                      formData.lado === 'novia'
+                        ? 'bg-pink-100 text-pink-700 ring-2 ring-pink-300'
+                        : 'bg-cream text-text-secondary hover:bg-pink-50'
+                    }`}
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                    </svg>
+                    Novia
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, lado: 'novio' })}
+                    className={`flex-1 py-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 ${
+                      formData.lado === 'novio'
+                        ? 'bg-blue-100 text-blue-700 ring-2 ring-blue-300'
+                        : 'bg-cream text-text-secondary hover:bg-blue-50'
+                    }`}
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                    Novio
+                  </button>
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-1">
                   Nombre *
@@ -297,18 +382,6 @@ export default function GuestsPage() {
 
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-2 border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1">
                   Acompañantes autorizados
                 </label>
                 <input
@@ -323,19 +396,57 @@ export default function GuestsPage() {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1">
-                  Lado
-                </label>
-                <select
-                  value={formData.lado}
-                  onChange={(e) => setFormData({ ...formData, lado: e.target.value as 'novio' | 'novia' })}
-                  className="w-full px-4 py-2 border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50 bg-white"
-                >
-                  <option value="novio">Novio</option>
-                  <option value="novia">Novia</option>
-                </select>
-              </div>
+              {editingGuest && (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Acompañantes confirmados
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      max="10"
+                      value={formData.acompanantes_confirmados}
+                      onChange={(e) => {
+                        const count = parseInt(e.target.value) || 0;
+                        setFormData((prev) => ({
+                          ...prev,
+                          acompanantes_confirmados: count,
+                          acompanantes_nombres:
+                            count > prev.acompanantes_nombres.length
+                              ? [...prev.acompanantes_nombres, ...Array(count - prev.acompanantes_nombres.length).fill('')]
+                              : prev.acompanantes_nombres.slice(0, count),
+                        }));
+                      }}
+                      className="w-full px-4 py-2 border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50"
+                    />
+                  </div>
+
+                  {formData.acompanantes_confirmados > 0 && (
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-text-secondary mb-1">
+                        Nombres de acompañantes
+                      </label>
+                      {Array.from({ length: formData.acompanantes_confirmados }, (_, i) => (
+                        <input
+                          key={i}
+                          type="text"
+                          value={formData.acompanantes_nombres[i] || ''}
+                          onChange={(e) =>
+                            setFormData((prev) => {
+                              const next = [...prev.acompanantes_nombres];
+                              next[i] = e.target.value;
+                              return { ...prev, acompanantes_nombres: next };
+                            })
+                          }
+                          placeholder={`Acompañante ${i + 1}`}
+                          className="w-full px-4 py-2 border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50"
+                        />
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
 
               <div className="flex gap-3 pt-4">
                 <button
@@ -358,8 +469,25 @@ export default function GuestsPage() {
         </motion.div>
       )}
 
-      {/* Guests Table */}
-      <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
+      {/* Tabs */}
+      <div className="flex gap-1 mb-4 bg-cream-dark rounded-xl p-1 w-fit">
+        {(['todos', 'novio', 'novia'] as const).map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              tab === t
+                ? 'bg-white text-text-primary shadow-sm'
+                : 'text-text-secondary hover:text-text-primary'
+            }`}
+          >
+            {t === 'todos' ? 'Todos' : t === 'novio' ? 'Novio' : 'Novia'}
+          </button>
+        ))}
+      </div>
+
+      {/* Desktop Table */}
+      <div className="bg-white rounded-2xl overflow-hidden shadow-sm hidden md:block">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-cream-dark">
@@ -367,13 +495,13 @@ export default function GuestsPage() {
                 <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
                   Invitado
                 </th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary hidden md:table-cell">
+                <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
                   Contacto
                 </th>
                 <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary">
                   Acomp.
                 </th>
-                <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary hidden md:table-cell">
+                <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary">
                   Lado
                 </th>
                 <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary">
@@ -402,10 +530,10 @@ export default function GuestsPage() {
                         <p className="text-xs text-text-light">/{guest.slug}</p>
                       </div>
                     </td>
-                    <td className="px-4 py-3 hidden md:table-cell">
+                    <td className="px-4 py-3">
                       <div className="text-sm text-text-secondary">
                         {guest.telefono && <p>{guest.telefono}</p>}
-                        {guest.email && <p>{guest.email}</p>}
+                        {guest.email && <p className="text-xs">{guest.email}</p>}
                       </div>
                     </td>
                     <td className="px-4 py-3 text-center">
@@ -413,25 +541,35 @@ export default function GuestsPage() {
                         {guest.acompanantes_autorizados}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-center hidden md:table-cell">
+                    <td className="px-4 py-3 text-center">
                       <span className={`text-xs font-medium uppercase tracking-wider ${
                         guest.lado === 'novio' ? 'text-blue-600' : 'text-pink-600'
                       }`}>
                         {guest.lado === 'novio' ? 'Novio' : 'Novia'}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-center">
-                      <span
-                        className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                          guest.estado === 'confirmado'
-                            ? 'bg-green-100 text-green-700'
-                            : guest.estado === 'rechazado'
-                            ? 'bg-red-100 text-red-700'
-                            : 'bg-yellow-100 text-yellow-700'
-                        }`}
-                      >
-                        {guest.estado || 'pendiente'}
-                      </span>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center justify-center gap-2">
+                        <span
+                          className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                            guest.estado === 'confirmado'
+                              ? 'bg-green-100 text-green-700'
+                              : guest.estado === 'rechazado'
+                              ? 'bg-red-100 text-red-700'
+                              : 'bg-yellow-100 text-yellow-700'
+                          }`}
+                        >
+                          {guest.estado || 'pendiente'}
+                        </span>
+                        {guest.estado === 'pendiente' && (
+                          <button
+                            onClick={() => openConfirm(guest)}
+                            className="text-xs px-2 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+                          >
+                            Confirmar
+                          </button>
+                        )}
+                      </div>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-center gap-2">
@@ -474,6 +612,204 @@ export default function GuestsPage() {
           </table>
         </div>
       </div>
+
+      {/* Mobile Cards */}
+      <div className="md:hidden space-y-3">
+        {filteredGuests.length === 0 ? (
+          <div className="text-center py-8 text-text-secondary bg-white rounded-2xl">
+            No se encontraron invitados
+          </div>
+        ) : (
+          filteredGuests.map((guest) => (
+            <div key={guest.id} className="bg-white rounded-2xl p-4 shadow-sm">
+              {/* Header row: name + estado */}
+                <div className="flex items-start justify-between mb-3">
+                <div className="flex-1 min-w-0 pr-2">
+                  <p className="font-medium text-text-primary truncate">
+                    {guest.nombre} {guest.apellidos}
+                  </p>
+                  <p className="text-xs text-text-light truncate">/{guest.slug}</p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span
+                    className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                      guest.estado === 'confirmado'
+                        ? 'bg-green-100 text-green-700'
+                        : guest.estado === 'rechazado'
+                        ? 'bg-red-100 text-red-700'
+                        : 'bg-yellow-100 text-yellow-700'
+                    }`}
+                  >
+                    {guest.estado || 'pendiente'}
+                  </span>
+                  {guest.estado === 'pendiente' && (
+                    <button
+                      onClick={() => openConfirm(guest)}
+                      className="text-xs px-2.5 py-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+                    >
+                      Confirmar
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Details row */}
+              <div className="flex items-center gap-4 mb-3 text-sm text-text-secondary">
+                <span className="flex items-center gap-1">
+                  <span className={`inline-block w-2 h-2 rounded-full ${
+                    guest.lado === 'novio' ? 'bg-blue-500' : 'bg-pink-500'
+                  }`} />
+                  {guest.lado === 'novio' ? 'Novio' : 'Novia'}
+                </span>
+                <span>Aut: {guest.acompanantes_autorizados}</span>
+                <span>Conf: {guest.acompanantes_confirmados}</span>
+                {guest.telefono && <span>{guest.telefono}</span>}
+              </div>
+
+              {guest.acompanantes_nombres && guest.acompanantes_nombres.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {guest.acompanantes_nombres.filter(Boolean).map((nom, i) => (
+                    <span key={i} className="inline-flex items-center gap-1 px-2 py-0.5 bg-cream-dark rounded text-xs text-text-secondary">
+                      {nom}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Actions row */}
+              <div className="flex items-center gap-1 pt-2 border-t border-cream-dark/20">
+                <button
+                  onClick={() => handleEdit(guest)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-text-secondary hover:bg-cream rounded-lg transition-colors"
+                >
+                  <Edit2 className="w-3.5 h-3.5" />
+                  Editar
+                </button>
+                <button
+                  onClick={() => copyLink(guest)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-text-secondary hover:bg-cream rounded-lg transition-colors"
+                >
+                  {copiedId === guest.id ? (
+                    <Check className="w-3.5 h-3.5 text-green-500" />
+                  ) : (
+                    <Link className="w-3.5 h-3.5" />
+                  )}
+                  {copiedId === guest.id ? 'Copiado' : 'Link'}
+                </button>
+                {guest.telefono && (
+                  <button
+                    onClick={() => sendMessage(guest)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-green-700 hover:bg-green-50 rounded-lg transition-colors"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    WhatsApp
+                  </button>
+                )}
+                <button
+                  onClick={() => handleDelete(guest.id)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors ml-auto"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+      {/* Confirm Dialog */}
+      {confirmGuest && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+        >
+          <motion.div
+            initial={{ scale: 0.95 }}
+            animate={{ scale: 1 }}
+            className="bg-white rounded-2xl p-6 w-full max-w-md"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-cormorant text-xl font-semibold text-text-primary">
+                Confirmar invitado
+              </h2>
+              <button onClick={() => setConfirmGuest(null)} className="p-2 hover:bg-cream rounded-lg">
+                <X className="w-5 h-5 text-text-secondary" />
+              </button>
+            </div>
+
+            <p className="text-text-secondary font-cormorant text-lg mb-4">
+              ¿Confirmar asistencia de{' '}
+              <span className="font-semibold text-text-primary">
+                {confirmGuest.nombre} {confirmGuest.apellidos}
+              </span>
+              ?
+            </p>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-text-secondary mb-1">
+                Acompañantes
+              </label>
+              <input
+                type="number"
+                min="0"
+                max="10"
+                value={confirmAutorizados}
+                onChange={(e) => {
+                  const count = parseInt(e.target.value) || 0;
+                  setConfirmAutorizados(count);
+                  setConfirmNombres((prev) => {
+                    if (count > prev.length) return [...prev, ...Array(count - prev.length).fill('')];
+                    return prev.slice(0, count);
+                  });
+                }}
+                className="w-full px-4 py-2 border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50"
+              />
+            </div>
+
+            {confirmAutorizados > 0 && (
+              <div className="space-y-3 mb-4">
+                <p className="text-sm font-medium text-text-secondary">
+                  Nombres de los acompañantes
+                </p>
+                {Array.from({ length: confirmAutorizados }, (_, i) => (
+                  <input
+                    key={i}
+                    type="text"
+                    value={confirmNombres[i] || ''}
+                    onChange={(e) =>
+                      setConfirmNombres((prev) => {
+                        const next = [...prev];
+                        next[i] = e.target.value;
+                        return next;
+                      })
+                    }
+                    placeholder={`Acompañante ${i + 1}`}
+                    className="w-full px-4 py-2 border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50"
+                    required
+                  />
+                ))}
+              </div>
+            )}
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setConfirmGuest(null)}
+                className="flex-1 py-2 border border-cream-dark rounded-lg text-text-secondary hover:bg-cream transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleConfirm}
+                disabled={confirmSaving}
+                className="flex-1 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
+              >
+                {confirmSaving ? 'Guardando...' : 'Confirmar asistencia'}
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 }

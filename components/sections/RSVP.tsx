@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { submitRSVP, getGuestBySlug, getRSVPByGuestId, updateRSVP } from '@/lib/api';
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Check, X, Edit } from 'lucide-react';
+import { Check, X, Edit, User } from 'lucide-react';
 
 const rsvpSchema = z.object({
   estado: z.enum(['ACEPTADO', 'RECHAZADO']),
@@ -38,6 +38,10 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
     acompanantes_confirmados: number;
     comentario: string;
   } | null>(null);
+
+  const [nombres, setNombres] = useState<string[]>([]);
+  const [nombresError, setNombresError] = useState(false);
+  const [nombresTocado, setNombresTocado] = useState(false);
 
   const searchParams = useSearchParams();
   const slug = searchParams.get('invitado');
@@ -77,6 +81,7 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
             acompanantes_confirmados: data.acompanantes_confirmados || 0,
             comentario: data.comentario || '',
           });
+          setNombres(data.acompanantes_nombres || []);
         }
       })
       .catch(console.error);
@@ -130,19 +135,44 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
   }, [existingRSVP, setValue]);
 
   const estado = watch('estado');
+  const acompanantesCount = watch('acompanantes_confirmados');
+
+  useEffect(() => {
+    setNombres((prev) => {
+      if (prev.length === acompanantesCount) return prev;
+      if (acompanantesCount > prev.length) return [...prev, ...Array(acompanantesCount - prev.length).fill('')];
+      return prev.slice(0, acompanantesCount);
+    });
+  }, [acompanantesCount]);
+
+  useEffect(() => {
+    if (nombresError) {
+      const allFilled = nombres.slice(0, acompanantesCount).every((n) => n.trim());
+      if (allFilled) setNombresError(false);
+    }
+  }, [nombres, acompanantesCount, nombresError]);
 
   const onSubmit = async (data: RSVPForm) => {
     setLoading(true);
+    const namesTrimmed = nombres.map((n) => n.trim());
+    if (data.acompanantes_confirmados > 0 && namesTrimmed.some((n) => !n)) {
+      setNombresError(true);
+      setLoading(false);
+      return;
+    }
+    const acompanantes_nombres = namesTrimmed.filter(Boolean);
     try {
       if (existingRSVP && editing) {
         await updateRSVP(guest?.id || slug || '', {
           ...data,
+          acompanantes_nombres,
           comentario: data.comentario || '',
         });
       } else {
         await submitRSVP({
           guest_id: guest?.id || slug || '',
           ...data,
+          acompanantes_nombres,
           comentario: data.comentario || '',
         });
       }
@@ -156,6 +186,8 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
       setLoading(false);
     }
   };
+
+  const canSubmit = !loading && !(estado === 'ACEPTADO' && acompanantesCount > 0 && (nombres.length !== acompanantesCount || nombres.slice(0, acompanantesCount).some((n) => !n.trim())));
 
   if (existingRSVP && !editing) {
     const isAccepted = existingRSVP.estado === 'ACEPTADO';
@@ -181,9 +213,21 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
           </div>
 
           {isAccepted && guest && guest.acompanantes_autorizados > 0 && (
-            <p className="text-white/70 font-cormorant text-lg mb-4">
-              {1 + (existingRSVP.acompanantes_confirmados || 0)} personas confirmadas
-            </p>
+            <>
+              <p className="text-white/70 font-cormorant text-lg mb-2">
+                {1 + (existingRSVP.acompanantes_confirmados || 0)} personas confirmadas
+              </p>
+              {nombres.length > 0 && (
+                <div className="flex flex-wrap justify-center gap-2 mb-4">
+                  {nombres.map((nom, i) => (
+                    <span key={i} className="inline-flex items-center gap-1 px-3 py-1 bg-charcoal-light rounded-full text-sm text-white/80">
+                      <User className="w-3 h-3" />
+                      {nom}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </>
           )}
 
           {!isAccepted && (
@@ -257,7 +301,14 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
           </label>
           <select
             value={watch('acompanantes_confirmados')}
-            onChange={(e) => setValue('acompanantes_confirmados', parseInt(e.target.value))}
+            onChange={(e) => {
+              const count = parseInt(e.target.value);
+              setValue('acompanantes_confirmados', count);
+              setNombres((prev) => {
+                if (count > prev.length) return [...prev, ...Array(count - prev.length).fill('')];
+                return prev.slice(0, count);
+              });
+            }}
             className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary font-cormorant text-lg appearance-none cursor-pointer"
           >
             {Array.from({ length: guest.acompanantes_autorizados + 1 }, (_, i) => i).map((num) => (
@@ -269,6 +320,51 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
           <p className="text-xs text-text-light mt-2 font-cormorant">
             Total confirmados: {1 + (watch('acompanantes_confirmados') || 0)} personas
           </p>
+        </div>
+      )}
+
+      {estado === 'ACEPTADO' && watch('acompanantes_confirmados') > 0 && (
+        <div className="mb-6 space-y-3">
+          <label className="block text-sm font-medium text-text-secondary font-cormorant text-base">
+            Nombres de tus acompañantes <span className="text-red-400">*</span>
+          </label>
+          {Array.from({ length: watch('acompanantes_confirmados') }, (_, i) => {
+            const isEmpty = (!nombres[i] || !nombres[i].trim());
+            const showError = nombresError && isEmpty;
+            return (
+              <div key={i} className="flex items-center gap-2">
+                <User className={`w-4 h-4 shrink-0 ${showError ? 'text-red-400' : isEmpty && acompanantesCount > 0 ? 'text-amber-300' : 'text-text-light'}`} />
+                <input
+                  type="text"
+                  value={nombres[i] || ''}
+                  onChange={(e) => {
+                    setNombresError(false);
+                    setNombres((prev) => {
+                      const next = [...prev];
+                      next[i] = e.target.value;
+                      return next;
+                    });
+                  }}
+                  placeholder={`Acompañante ${i + 1}`}
+                  className={`w-full px-4 py-3 bg-white border rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-lg ${
+                    showError ? 'border-red-400 ring-red-200' : isEmpty ? 'border-amber-300' : 'border-cream-dark'
+                  }`}
+                />
+              </div>
+            );
+          })}
+          {nombresError && (
+            <p className="text-red-500 text-sm font-cormorant flex items-center gap-1">
+              <X className="w-3.5 h-3.5" />
+              Ingresa el nombre de todos tus acompañantes
+            </p>
+          )}
+          {!nombresError && acompanantesCount > 0 && nombres.slice(0, acompanantesCount).some((n) => !n.trim()) && (
+            <p className="text-amber-500 text-sm font-cormorant flex items-center gap-1">
+              <span className="w-3.5 h-3.5 inline-flex items-center justify-center rounded-full bg-amber-100 text-amber-600 text-[10px] font-bold">!</span>
+              Completa los nombres para poder confirmar
+            </p>
+          )}
         </div>
       )}
 
@@ -286,14 +382,41 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
         </div>
 
         <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          whileHover={canSubmit ? { scale: 1.02 } : {}}
+          whileTap={canSubmit ? { scale: 0.98 } : {}}
           type="submit"
-          disabled={loading}
-          className="w-full py-3 bg-charcoal text-white rounded-xl font-medium hover:bg-charcoal-light transition-colors disabled:opacity-50 font-cormorant text-lg"
+          disabled={!canSubmit}
+          onClick={(e) => {
+            if (!canSubmit) {
+              e.preventDefault();
+              setNombresTocado(true);
+              setTimeout(() => setNombresTocado(false), 3000);
+            }
+          }}
+          className={`w-full py-3 rounded-xl font-medium font-cormorant text-lg transition-all ${
+            canSubmit
+              ? 'bg-charcoal text-white hover:bg-charcoal-light'
+              : 'bg-cream-dark text-text-light cursor-not-allowed'
+          }`}
         >
-          {loading ? 'Enviando...' : (existingRSVP ? 'Actualizar respuesta' : 'Confirmar asistencia')}
+          {loading
+            ? 'Enviando...'
+            : (existingRSVP ? 'Actualizar respuesta' : 'Confirmar asistencia')}
         </motion.button>
+
+        {nombresTocado && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-2"
+          >
+            <span className="w-5 h-5 inline-flex items-center justify-center rounded-full bg-amber-200 text-amber-700 text-xs font-bold shrink-0 mt-0.5">!</span>
+            <p className="text-sm text-amber-800 font-cormorant">
+              No olvides escribir los nombres de tus acompañantes para poder confirmar tu asistencia
+            </p>
+          </motion.div>
+        )}
       </form>
     </div>
   );

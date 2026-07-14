@@ -44,7 +44,7 @@ export default function AdminLayout({
   if (!isAuthenticated && !isLoginPage) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-cream">
-        <div className="animate-pulse text-principal font-playfair text-xl">
+        <div className="animate-pulse text-principal font-cormorant text-xl">
           Verificando...
         </div>
       </div>
@@ -61,7 +61,7 @@ export default function AdminLayout({
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
-        <span className="font-playfair text-lg text-text-primary">Admin</span>
+        <span className="font-cormorant text-lg text-text-primary">Admin</span>
         <button onClick={handleLogout} className="p-2 text-text-secondary">
           <LogOut className="w-5 h-5" />
         </button>
@@ -104,7 +104,7 @@ export default function AdminLayout({
         {/* Desktop sidebar */}
         <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-cream-dark min-h-screen sticky top-0">
           <div className="p-6 border-b border-cream-dark">
-            <h1 className="font-playfair text-xl text-text-primary">
+            <h1 className="font-cormorant text-xl text-text-primary">
               Panel Admin
             </h1>
             <p className="text-sm text-text-secondary mt-1 font-cormorant">

@@ -119,7 +119,7 @@ export function GuestPhotoGallery({ showAll = false, refreshTrigger = 0 }: Guest
                 )}
                 {isLastWithOverlay && (
                   <div className="absolute inset-0 bg-black/50 flex items-center justify-center group-hover:bg-black/60 transition-colors duration-300">
-                    <span className="text-white font-playfair text-3xl md:text-4xl font-bold">
+                    <span className="text-white font-cormorant text-3xl md:text-4xl font-bold">
                       +{hiddenCount}
                     </span>
                   </div>

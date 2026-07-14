@@ -16,7 +16,7 @@ export default function SlugRedirect() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-cream">
-      <div className="animate-pulse text-principal font-playfair text-2xl">
+      <div className="animate-pulse text-principal font-cormorant text-2xl">
         Cargando invitaci贸n...
       </div>
     </div>

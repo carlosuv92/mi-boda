@@ -21,7 +21,7 @@ export function DressCode({
   return (
     <div>
       <div className="text-center mb-12">
-        <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
+        <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
           Dress Code
         </h2>
       </div>
@@ -37,10 +37,10 @@ export function DressCode({
         <div className="flex justify-center mb-4">
           <CoupleDress className="w-36 h-36 text-principal" />
         </div>
-        <h3 className="font-playfair text-xl font-semibold text-text-primary mb-2">
+        <h3 className="font-cormorant text-xl font-semibold text-text-primary mb-2 italic">
           Damas vestido largo, caballeros con traje.
         </h3>
-        <p className="font-cormorant text-md">
+        <p className="font-cormorant text-md italic">
           Con mucho cariño, reservamos el color blanco y sus derivados exclusivamente para la novia.
         </p>
       </motion.div>

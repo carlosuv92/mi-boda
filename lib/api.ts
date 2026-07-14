@@ -20,7 +20,7 @@ export async function getGuestBySlug(slug: string): Promise<Guest | null> {
   return apiFetch<Guest | null>(`/api/guests?slug=${encodeURIComponent(slug)}`);
 }
 
-export async function createGuest(guest: Omit<Guest, 'id' | 'estado'>): Promise<Guest> {
+export async function createGuest(guest: Omit<Guest, 'id'>): Promise<Guest> {
   return apiFetch<Guest>('/api/guests', {
     method: 'POST',
     body: JSON.stringify(guest),
@@ -54,7 +54,7 @@ export async function submitRSVP(rsvp: Omit<RSVPType, 'total_confirmados' | 'fec
   });
 }
 
-export async function updateRSVP(guest_id: string, rsvp: Pick<RSVPType, 'estado' | 'acompanantes_confirmados' | 'comentario'>): Promise<RSVPType> {
+export async function updateRSVP(guest_id: string, rsvp: Pick<RSVPType, 'estado' | 'acompanantes_confirmados' | 'acompanantes_nombres' | 'comentario'>): Promise<RSVPType> {
   return apiFetch<RSVPType>(`/api/rsvps/${encodeURIComponent(guest_id)}`, {
     method: 'PUT',
     body: JSON.stringify(rsvp),

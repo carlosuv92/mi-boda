@@ -46,7 +46,7 @@ export default function SubeTusFotosPage() {
               Comparte tus fotos
             </p>
 
-            <h1 className="font-great-vibes text-4xl md:text-6xl text-white mb-4 drop-shadow-lg">
+            <h1 className="font-cormorant text-4xl md:text-6xl text-white mb-4 drop-shadow-lg">
               {novia} <span className="text-detalle">&</span> {novio}
             </h1>
 
@@ -69,7 +69,7 @@ export default function SubeTusFotosPage() {
       {/* Gallery Section */}
       <section className="py-12 md:py-16 px-4 md:px-6 max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <h2 className="font-playfair text-2xl md:text-3xl font-semibold text-text-primary mb-2">
+          <h2 className="font-cormorant text-2xl md:text-3xl font-semibold text-text-primary mb-2">
             Fotos de nuestros invitados
           </h2>
           <p className="text-text-secondary font-cormorant text-lg">
@@ -87,7 +87,7 @@ export default function SubeTusFotosPage() {
 
       {/* Footer */}
       <footer className="py-12 text-center bg-gradient-to-t from-charcoal to-charcoal-light text-white">
-        <h3 className="font-great-vibes text-3xl md:text-4xl mb-2">
+        <h3 className="font-cormorant text-3xl md:text-4xl mb-2">
           {novia} <span className="text-detalle">&</span> {novio}
         </h3>
         <p className="text-white/50 font-cormorant text-base">

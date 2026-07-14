@@ -62,7 +62,7 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
           className="bg-charcoal text-white rounded-2xl p-8 text-center"
         >
           <Music className="w-12 h-12 text-principal mx-auto mb-4" />
-          <h3 className="font-playfair text-xl font-semibold mb-2">
+          <h3 className="font-cormorant text-xl font-semibold mb-2">
             ¡Gracias!
           </h3>
           <p className="text-white/60 font-cormorant text-lg">

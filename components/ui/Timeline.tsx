@@ -7,6 +7,7 @@ import CopasSVG from '@/components/icons/timeline/Copas';
 import NoviosSVG from '@/components/icons/timeline/Novios';
 import CenaSVG from '@/components/icons/timeline/Cena';
 import BaileSVG from '@/components/icons/timeline/Baile';
+import FinSVG from '@/components/icons/timeline/Fin';
 
 const events = [
   { icon: IglesiaSVG, label: 'Ceremonia Religiosa' },
@@ -15,6 +16,7 @@ const events = [
   { icon: NoviosSVG, label: 'Ingreso de los Novios' },
   { icon: CenaSVG, label: 'Cena' },
   { icon: BaileSVG, label: '¡A bailar!' },
+  { icon: FinSVG, label: 'Fin de la fiesta' },
 ];
 
 export function Timeline() {
@@ -50,7 +52,7 @@ export function Timeline() {
                         <div className="absolute top-3.5 left-0 w-8 md:w-14 h-[1.5px] bg-text-primary" />
                         <div className="flex flex-col items-center text-center">
                           <Icon className="text-text-primary mb-2" />
-                          <h3 className="font-cormorant text-sm md:text-lg leading-tight text-text-primary">
+                          <h3 className="font-cormorant text-md italic md:text-lg leading-tight text-text-primary">
                             {event.label}
                           </h3>
                         </div>
@@ -62,7 +64,7 @@ export function Timeline() {
                         <div className="absolute top-3.5 right-0 w-8 md:w-14 h-[1.5px] bg-text-primary" />
                         <div className="flex flex-col items-center text-center">
                           <Icon className="text-text-primary mb-2" />
-                          <h3 className="font-cormorant text-sm md:text-lg leading-tight text-text-primary">
+                          <h3 className="font-cormorant text-md italic md:text-lg leading-tight text-text-primary">
                             {event.label}
                           </h3>
                         </div>

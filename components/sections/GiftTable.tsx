@@ -60,15 +60,12 @@ export function GiftTable({
           <div className="w-2 h-2 bg-principal rounded-full" />
           <div className="h-px w-12 bg-principal/50" />
         </div>
-        <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-4">
+        <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-4">
           Mesa de Regalos
         </h2>
         <p className="text-text-secondary leading-relaxed mx-auto font-cormorant text-lg italic">
-          Comenzamos juntos una nueva etapa, construyendo nuestro futuro con
-          mucha ilusión.
-        </p>
-        <p className="text-text-secondary leading-relaxed mx-auto font-cormorant text-lg italic">
-          Nuestro mejor regalo es disfrutar de este día con todos ustedes, pero si quieres tener un detalle con nosotros, te compartimos las siguientes opciones para hacerlo. ¡Gracias por tu cariño y apoyo!
+          Comenzamos una etapa nueva con mucha ilusión.
+          Si quieres acompañarnos con un detalle, aquí están las opciones.
         </p>
         <div className="flex items-center justify-center gap-3 mt-6">
           <div className="h-px w-12 bg-principal/50" />

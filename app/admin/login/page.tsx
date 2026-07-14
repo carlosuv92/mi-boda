@@ -38,7 +38,7 @@ export default function AdminLogin() {
     <div className="min-h-screen flex items-center justify-center bg-cream px-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="font-playfair text-3xl font-semibold text-text-primary">
+          <h1 className="font-cormorant text-3xl font-semibold text-text-primary">
             Panel Administrativo
           </h1>
           <p className="text-text-secondary mt-2 font-cormorant text-lg">

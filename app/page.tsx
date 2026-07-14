@@ -48,7 +48,7 @@ export default function WeddingPage() {
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 text-center">
-          <div className="animate-pulse text-detalle font-playfair text-2xl md:text-3xl">
+          <div className="animate-pulse text-detalle font-cormorant italic text-2xl md:text-3xl">
             Lilian & Felipe
           </div>
         </div>
@@ -161,7 +161,7 @@ export default function WeddingPage() {
           <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-4 mb-6">
               <div className="h-px w-16 bg-detalle/40" />
-              <span className="font-playfair text-lg md:text-xl text-text-primary tracking-wide">
+              <span className="font-cormorant text-2xl md:text-2xl text-text-primary tracking-wide capitalize font-bold">
                 {weddingDate.toLocaleDateString("es-PE", {
                   weekday: "long",
                   day: "numeric",
@@ -172,10 +172,10 @@ export default function WeddingPage() {
               <div className="h-px w-16 bg-detalle/40" />
             </div>
 
-            <p className="text-text-primary text-md uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
+            <p className="text-text-primary text-lg uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
               PREPÁRATE!
             </p>
-            <p className="text-text-primary text-sm uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
+            <p className="text-text-primary text-md uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
               Nos vemos en..
             </p>
             <Countdown targetDate={weddingDate} />
@@ -230,7 +230,7 @@ export default function WeddingPage() {
         {/* Ceremony & Reception */}
         <Section id="ubicacion">
           <div className="text-center mb-12">
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
+            <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
               Ubicación
             </h2>
             <p className="text-text-secondary font-cormorant text-lg">
@@ -258,10 +258,8 @@ export default function WeddingPage() {
             />
           </div>
           <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
-            Queremos que disfruten y celebren con nosotros sin preocupaciones.
-            Si pueden, les recomendamos venir sin auto. Si necesitan
-            estacionamiento, con gusto les reservaremos un espacio; solo
-            avísennos con anticipación, ya que los cupos son limitados.
+            Habrá bebida y baile, así que nos encantaría que vengan sin auto.
+            Si necesitan estacionamiento, con gusto se lo reservamos; avísennos con tiempo.
           </p>
         </Section>
 
@@ -317,7 +315,7 @@ export default function WeddingPage() {
         {/* Timeline */}
         <Section id="itinerario">
           <div className="text-center mb-12">
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-2">
+            <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
               Itinerario
             </h2>
             <p className="text-text-secondary font-cormorant text-lg">
@@ -383,7 +381,7 @@ export default function WeddingPage() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-charcoal rounded-full mb-6">
               <Music className="w-8 h-8 text-detalle" />
             </div>
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-4">
+            <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-4">
               Playlist
             </h2>
             <p className="text-text-secondary font-cormorant text-lg max-w-md mx-auto">
@@ -425,7 +423,7 @@ export default function WeddingPage() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-charcoal rounded-full mb-6">
               <Heart className="w-8 h-8 text-detalle" />
             </div>
-            <h2 className="font-playfair text-3xl md:text-4xl font-semibold text-text-primary mb-4">
+            <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-4">
               Confirmar Asistencia
             </h2>
             <p className="text-text-secondary font-cormorant text-lg max-w-md mx-auto">
@@ -442,10 +440,10 @@ export default function WeddingPage() {
         {/* Footer */}
         <footer className="py-16 text-center bg-linear-to-t from-charcoal to-charcoal-light text-white">
           <div className="max-w-2xl mx-auto px-6">
-            <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">
+            <h3 className="font-cormorant text-5xl md:text-6xl mb-4 italic">
               {novia} <span className="text-detalle">&</span> {novio}
             </h3>
-            <p className="text-white/60 mb-8 font-cormorant text-lg">
+            <p className="text-white/60 mb-8 font-cormorant text-lg italic">
               Esperamos contar con su presencia
             </p>
             <div className="flex items-center justify-center gap-3">

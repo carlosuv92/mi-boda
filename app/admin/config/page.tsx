@@ -81,7 +81,7 @@ function ConfigSection({ section, config, onChange, fieldsPerRow = 2 }: {
           <div className="p-2 bg-cream-dark rounded-lg">
             <Icon className="w-5 h-5 text-principal" />
           </div>
-          <h3 className="font-playfair text-lg font-semibold text-text-primary">
+          <h3 className="font-cormorant text-lg font-semibold text-text-primary">
             {section.title}
           </h3>
         </div>
@@ -203,7 +203,7 @@ export default function ConfigPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-playfair text-2xl font-semibold text-text-primary">
+          <h1 className="font-cormorant text-2xl font-semibold text-text-primary">
             Configuración General
           </h1>
           <p className="text-text-secondary text-sm mt-1">

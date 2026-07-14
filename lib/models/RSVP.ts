@@ -4,6 +4,7 @@ export interface IRSVP extends Document {
   guest_id: string;
   estado: 'ACEPTADO' | 'RECHAZADO' | 'PENDIENTE';
   acompanantes_confirmados: number;
+  acompanantes_nombres: string[];
   total_confirmados: number;
   fecha: string;
   comentario: string;
@@ -18,6 +19,7 @@ const RSVPSchema = new Schema<IRSVP>(
       default: 'PENDIENTE',
     },
     acompanantes_confirmados: { type: Number, default: 0 },
+    acompanantes_nombres: { type: [String], default: [] },
     total_confirmados: { type: Number, default: 1 },
     fecha: { type: String, default: '' },
     comentario: { type: String, default: '' },

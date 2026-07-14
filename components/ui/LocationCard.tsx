@@ -44,26 +44,28 @@ export function LocationCard({
           </div>
         </div>
         
-        <h3 className="font-playfair text-xl md:text-2xl font-semibold text-text-primary mb-4">
+        <h3 className="font-cormorant text-xl md:text-2xl font-semibold text-text-primary mb-4">
           {titulo}
         </h3>
         
-        <div className="space-y-3 text-text-secondary font-cormorant text-lg">
+        <div className="space-y-3 font-cormorant text-lg">
           <div className="flex items-center justify-center gap-2">
             <Clock className="w-4 h-4 text-principal" />
-            <span>{hora}</span>
+            <span className="font-cormorant text-md italic">{hora}</span>
           </div>
           
           <div className="flex items-start justify-center gap-2">
             <MapPin className="w-4 h-4 text-principal mt-0.5 flex-shrink-0" />
-            <span>{direccion}</span>
+            <span className="font-cormorant text-md italic">{direccion}</span>
           </div>
           
           {estacionamiento && (
             <div className="flex items-center justify-center gap-2">
               <Car className="w-4 h-4 text-principal" />
-              <span className="text-base">{estacionamiento}</span>
+              <span className="font-cormorant text-md italic">{estacionamiento}</span>
+              
             </div>
+            
           )}
         </div>
         

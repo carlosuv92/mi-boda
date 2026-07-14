@@ -7,6 +7,7 @@ export interface Guest {
   email: string;
   acompanantes_autorizados: number;
   acompanantes_confirmados: number;
+  acompanantes_nombres: string[];
   estado: 'pendiente' | 'confirmado' | 'rechazado';
   lado: 'novio' | 'novia';
 }
@@ -15,6 +16,7 @@ export interface RSVP {
   guest_id: string;
   estado: 'ACEPTADO' | 'RECHAZADO' | 'PENDIENTE';
   acompanantes_confirmados: number;
+  acompanantes_nombres: string[];
   total_confirmados: number;
   fecha: string;
   comentario: string;
