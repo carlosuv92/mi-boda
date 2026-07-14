@@ -257,7 +257,7 @@ export default function WeddingPage() {
               mapsUrl={config.mapsRecepcion || "#"}
             />
           </div>
-          <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
+          <p className="text-center mt-4 italic leading-relaxed font-cormorant text-lg md:text-xl">
             Habrá bebida y baile, así que nos encantaría que vengan sin auto.
             Si necesitan estacionamiento, con gusto se lo reservamos; avísennos con tiempo.
           </p>

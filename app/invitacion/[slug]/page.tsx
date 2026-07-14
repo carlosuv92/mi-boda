@@ -262,7 +262,7 @@ export default function InvitationPage() {
 
         <Section id="mensaje" className="bg-white-off">
           <FloralDivider className="mb-8" />
-          <p className="text-center italic italic leading-relaxed font-cormorant text-lg md:text-xl">
+          <p className="text-center italic leading-relaxed font-cormorant text-lg md:text-xl">
             {config.mensajeBienvenida ||
               "Con nuestro amor, la bendición de Dios y en compañía de nuestros padres, los invitamos a celebrar el día más especial de nuestras vidas."}
           </p>
@@ -317,7 +317,7 @@ export default function InvitationPage() {
               mapsUrl={config.mapsRecepcion || "#"}
             />
           </div>
-          <p className="text-center italic italic leading-relaxed font-cormorant text-lg md:text-xl">
+          <p className="text-center mt-4 italic leading-relaxed font-cormorant text-lg md:text-xl">
             Habrá bebida y baile, así que nos encantaría que vengan sin auto. Si
             necesitan estacionamiento, con gusto se lo reservamos; avísennos con
             tiempo.
