@@ -237,7 +237,7 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
           )}
 
           {existingRSVP.comentario && (
-            <p className="text-white/50 text-sm font-cormorant italic mb-4">
+            <p className="text-white/50 text-sm font-cormorant  mb-4">
               "{existingRSVP.comentario}"
             </p>
           )}

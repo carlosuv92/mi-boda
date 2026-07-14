@@ -37,10 +37,10 @@ export function DressCode({
         <div className="flex justify-center mb-4">
           <CoupleDress className="w-36 h-36 text-principal" />
         </div>
-        <h3 className="font-cormorant text-xl font-semibold text-text-primary mb-2 italic">
+        <h3 className="font-cormorant text-xl font-semibold text-text-primary mb-2 ">
           Damas vestido largo, caballeros con traje.
         </h3>
-        <p className="font-cormorant text-md italic">
+        <p className="font-cormorant text-md ">
           Con mucho cariño, reservamos el color blanco y sus derivados exclusivamente para la novia.
         </p>
       </motion.div>

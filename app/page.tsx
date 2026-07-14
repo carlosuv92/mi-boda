@@ -48,7 +48,7 @@ export default function WeddingPage() {
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 text-center">
-          <div className="animate-pulse text-detalle font-cormorant italic text-2xl md:text-3xl">
+          <div className="animate-pulse text-detalle font-cormorant  text-2xl md:text-3xl">
             Lilian & Felipe
           </div>
         </div>
@@ -84,11 +84,11 @@ export default function WeddingPage() {
               transition={{ duration: 1.2, ease: "easeOut" }}
               className="px-6 text-center"
             >
-              <p className="text-white text-sm uppercase tracking-[0.3em] my-8 font-cormorant">
+              <p className="text-white text-lg uppercase tracking-[0.3em] my-4 font-cormorant font-bold">
                 ¡Nos casamos!
               </p>
 
-              <p className="text-white text-sm md:text-sm mb-2 uppercase tracking-[0.2em] font-cormorant">
+              <p className="text-white text-md md:text-md mb-2 uppercase tracking-[0.2em] font-cormorant">
                 {config.biblia ||
                   '"Y sobre todo vístanse de amor" — Colosenses 3:14'}
               </p>
@@ -159,20 +159,67 @@ export default function WeddingPage() {
         {/* Countdown + Welcome Message */}
         <Section className="bg-white-off">
           <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="h-px w-16 bg-detalle/40" />
-              <span className="font-cormorant text-2xl md:text-2xl text-text-primary tracking-wide capitalize font-bold">
-                {weddingDate.toLocaleDateString("es-PE", {
-                  weekday: "long",
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </span>
-              <div className="h-px w-16 bg-detalle/40" />
+            <div className="flex flex-col items-center gap-2 mb-6">
+              <div className="flex items-center justify-center gap-4">
+                <div className="h-px w-16 bg-detalle/40" />
+
+                <div className="flex items-center gap-4">
+                  <div className="flex flex-col items-center px-3">
+                    <span className="font-cormorant text-4xl md:text-5xl text-text-primary font-bold">
+                      {String(d).padStart(2, "0")}
+                    </span>
+                    <div className="text-xs md:text-sm uppercase tracking-widest text-text-secondary mt-1">
+                      DIA
+                    </div>
+                  </div>
+
+                  <div className="text-4xl text-text-primary font-bold">.</div>
+
+                  <div className="flex flex-col items-center px-3">
+                    <span className="font-cormorant text-4xl md:text-5xl text-text-primary font-bold">
+                      {String(m).padStart(2, "0")}
+                    </span>
+                    <div className="text-xs md:text-sm uppercase tracking-widest text-text-secondary mt-1">
+                      MES
+                    </div>
+                  </div>
+
+                  <div className="text-4xl text-text-primary font-bold">.</div>
+
+                  <div className="flex flex-col items-center px-3">
+                    <span className="font-cormorant text-4xl md:text-5xl text-text-primary font-bold">
+                      {String(y).slice(-2)}
+                    </span>
+                    <div className="text-xs md:text-sm uppercase tracking-widest text-text-secondary mt-1">
+                      AÑO
+                    </div>
+                  </div>
+                </div>
+
+                <div className="h-px w-16 bg-detalle/40" />
+              </div>
             </div>
 
-            <p className="text-text-primary text-lg uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.7 }}
+            >
+              <div className="w-16 h-px mx-auto my-3" />
+              <p className="font-[family-name:var(--font-alex-brush)]  text-6xl md:text-6xl drop-shadow-lg leading-tight">
+                {novia}
+              </p>
+              <p className="font-[family-name:var(--font-alex-brush)] text-2xl  tracking-[0.5em] my-2">
+                <span className="inline-block w-6 h-px bg-black/50 align-middle mr-3" />
+                y
+                <span className="inline-block w-6 h-px bg-black/50 align-middle ml-1" />
+              </p>
+              <p className="font-[family-name:var(--font-alex-brush)]  text-6xl md:text-6xl drop-shadow-lg leading-tight">
+                {novio}
+              </p>
+            </motion.div>
+
+            <p className="text-text-primary text-lg uppercase tracking-[0.3em] mb-4 mt-6 font-cormorant font-extrabold">
               PREPÁRATE!
             </p>
             <p className="text-text-primary text-md uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
@@ -202,7 +249,7 @@ export default function WeddingPage() {
 
         <Section id="mensaje" className="bg-white-off">
           <FloralDivider className="mb-8" />
-          <p className="text-center text-text-secondary italic leading-relaxed font-cormorant text-lg md:text-xl">
+          <p className="text-center text-text-secondary  leading-relaxed font-cormorant text-lg md:text-xl">
             {config.mensajeBienvenida ||
               "Con nuestro amor, la bendición de Dios y en compañía de nuestros padres, los invitamos a celebrar el día más especial de nuestras vidas."}
           </p>
@@ -257,9 +304,10 @@ export default function WeddingPage() {
               mapsUrl={config.mapsRecepcion || "#"}
             />
           </div>
-          <p className="text-center mt-4 italic leading-relaxed font-cormorant text-lg md:text-xl">
-            Habrá bebida y baile, así que nos encantaría que vengan sin auto.
-            Si necesitan estacionamiento, con gusto se lo reservamos; avísennos con tiempo.
+          <p className="text-center mt-4  leading-relaxed font-cormorant text-lg md:text-xl">
+            Habrá bebida y baile, así que nos encantaría que vengan sin auto. Si
+            necesitan estacionamiento, con gusto se lo reservamos; avísennos con
+            tiempo.
           </p>
         </Section>
 
@@ -388,7 +436,7 @@ export default function WeddingPage() {
               Desde tu invitación personal podrás sugerir esa canción que no
               puede faltar
             </p>
-            <div className="flex items-center justify-center gap-2 mt-4 text-text-light text-sm font-cormorant italic">
+            <div className="flex items-center justify-center gap-2 mt-4 text-text-light text-sm font-cormorant ">
               <span>✦</span>
               <span>Requiere enlace de invitación</span>
               <span>✦</span>
@@ -429,7 +477,7 @@ export default function WeddingPage() {
             <p className="text-text-secondary font-cormorant text-lg max-w-md mx-auto">
               Desde tu invitación personal podrás confirmar tu asistencia
             </p>
-            <div className="flex items-center justify-center gap-2 mt-4 text-text-light text-sm font-cormorant italic">
+            <div className="flex items-center justify-center gap-2 mt-4 text-text-light text-sm font-cormorant ">
               <span>✦</span>
               <span>Requiere enlace de invitación</span>
               <span>✦</span>
@@ -440,10 +488,10 @@ export default function WeddingPage() {
         {/* Footer */}
         <footer className="py-16 text-center bg-linear-to-t from-charcoal to-charcoal-light text-white">
           <div className="max-w-2xl mx-auto px-6">
-            <h3 className="font-cormorant text-5xl md:text-6xl mb-4 italic">
+            <h3 className="font-cormorant text-5xl md:text-6xl mb-4 ">
               {novia} <span className="text-detalle">&</span> {novio}
             </h3>
-            <p className="text-white/60 mb-8 font-cormorant text-lg italic">
+            <p className="text-white/60 mb-8 font-cormorant text-lg ">
               Esperamos contar con su presencia
             </p>
             <div className="flex items-center justify-center gap-3">

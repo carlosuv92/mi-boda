@@ -70,7 +70,7 @@ export default function InvitationPage() {
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 text-center">
-          <div className="animate-pulse text-detalle italic font-cormorant text-2xl md:text-3xl">
+          <div className="animate-pulse text-detalle  font-cormorant text-2xl md:text-3xl">
             Lilian & Felipe
           </div>
         </div>
@@ -126,11 +126,11 @@ export default function InvitationPage() {
                 </motion.p>
               )}
 
-              <p className="text-white text-sm uppercase tracking-[0.3em] my-6 font-cormorant">
+              <p className="text-white text-lg uppercase tracking-[0.3em] my-4 font-cormorant font-bold">
                 ¡Nos casamos!
               </p>
 
-              <p className="text-white text-sm md:text-sm mb-2 uppercase tracking-[0.2em] font-cormorant">
+              <p className="text-white text-md md:text-md mb-2 uppercase tracking-[0.2em] font-cormorant ">
                 {config.biblia ||
                   '"Y sobre todo vístanse de amor" — Colosenses 3:14'}
               </p>
@@ -199,27 +199,54 @@ export default function InvitationPage() {
         {/* Countdown + Welcome Message */}
         <Section className="bg-white-off">
           <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="h-px w-16 bg-detalle/40" />
-              <span className="font-cormorant text-2xl md:text-2xl text-text-primary tracking-wide capitalize font-bold">
-                {weddingDate.toLocaleDateString("es-PE", {
-                  weekday: "long",
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </span>
-              <div className="h-px w-16 bg-detalle/40" />
+            <div className="flex flex-col items-center gap-2 mb-6">
+              <div className="flex items-center justify-center gap-4">
+                <div className="h-px w-16 bg-detalle/40" />
+
+                <div className="flex items-center gap-4">
+                  <div className="flex flex-col items-center px-3">
+                    <span className="font-cormorant text-4xl md:text-5xl text-text-primary font-bold">
+                      {String(d).padStart(2, "0")}
+                    </span>
+                    <div className="text-xs md:text-sm uppercase tracking-widest text-text-secondary mt-1">
+                      DIA
+                    </div>
+                  </div>
+
+                  <div className="text-4xl text-text-primary font-bold">.</div>
+
+                  <div className="flex flex-col items-center px-3">
+                    <span className="font-cormorant text-4xl md:text-5xl text-text-primary font-bold">
+                      {String(m).padStart(2, "0")}
+                    </span>
+                    <div className="text-xs md:text-sm uppercase tracking-widest text-text-secondary mt-1">
+                      MES
+                    </div>
+                  </div>
+
+                  <div className="text-4xl text-text-primary font-bold">.</div>
+
+                  <div className="flex flex-col items-center px-3">
+                    <span className="font-cormorant text-4xl md:text-5xl text-text-primary font-bold">
+                      {String(y).slice(-2)}
+                    </span>
+                    <div className="text-xs md:text-sm uppercase tracking-widest text-text-secondary mt-1">
+                      AÑO
+                    </div>
+                  </div>
+                </div>
+
+                <div className="h-px w-16 bg-detalle/40" />
+              </div>
             </div>
 
-            {/* Separator + Names */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.7 }}
             >
               <div className="w-16 h-px mx-auto my-3" />
-              <p className="font-[family-name:var(--font-alex-brush)] italic text-6xl md:text-6xl drop-shadow-lg leading-tight">
+              <p className="font-[family-name:var(--font-alex-brush)]  text-6xl md:text-6xl drop-shadow-lg leading-tight">
                 {novia}
               </p>
               <p className="font-[family-name:var(--font-alex-brush)] text-2xl  tracking-[0.5em] my-2">
@@ -227,7 +254,7 @@ export default function InvitationPage() {
                 y
                 <span className="inline-block w-6 h-px bg-black/50 align-middle ml-1" />
               </p>
-              <p className="font-[family-name:var(--font-alex-brush)] italic text-6xl md:text-6xl drop-shadow-lg leading-tight">
+              <p className="font-[family-name:var(--font-alex-brush)]  text-6xl md:text-6xl drop-shadow-lg leading-tight">
                 {novio}
               </p>
             </motion.div>
@@ -262,7 +289,7 @@ export default function InvitationPage() {
 
         <Section id="mensaje" className="bg-white-off">
           <FloralDivider className="mb-8" />
-          <p className="text-center italic leading-relaxed font-cormorant text-lg md:text-xl">
+          <p className="text-center  leading-relaxed font-cormorant text-lg md:text-xl">
             {config.mensajeBienvenida ||
               "Con nuestro amor, la bendición de Dios y en compañía de nuestros padres, los invitamos a celebrar el día más especial de nuestras vidas."}
           </p>
@@ -293,9 +320,7 @@ export default function InvitationPage() {
             <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
               Ubicación
             </h2>
-            <p className="italic font-cormorant text-lg">
-              Ceremonia y recepción
-            </p>
+            <p className=" font-cormorant text-lg">Ceremonia y recepción</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             <LocationCard
@@ -317,7 +342,7 @@ export default function InvitationPage() {
               mapsUrl={config.mapsRecepcion || "#"}
             />
           </div>
-          <p className="text-center mt-4 italic leading-relaxed font-cormorant text-lg md:text-xl">
+          <p className="text-center mt-4  leading-relaxed font-cormorant text-lg md:text-xl">
             Habrá bebida y baile, así que nos encantaría que vengan sin auto. Si
             necesitan estacionamiento, con gusto se lo reservamos; avísennos con
             tiempo.
@@ -379,9 +404,7 @@ export default function InvitationPage() {
             <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
               Itinerario
             </h2>
-            <p className="italic font-cormorant text-lg">
-              Cronograma de actividades
-            </p>
+            <p className=" font-cormorant text-lg">Cronograma de actividades</p>
           </div>
           <Timeline />
         </Section>
@@ -442,7 +465,7 @@ export default function InvitationPage() {
             <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
               Playlist
             </h2>
-            <p className="italic font-cormorant text-lg">
+            <p className=" font-cormorant text-lg">
               Ayúdanos con la música, sugiere esa canción que no puede faltar
             </p>
           </div>
@@ -450,7 +473,7 @@ export default function InvitationPage() {
             <SongRequest guestId={guest.id} guestNombre={guest.nombre} />
           ) : (
             <div className="text-center">
-              <div className="flex items-center justify-center gap-2 mt-4 text-text-light text-sm font-cormorant italic">
+              <div className="flex items-center justify-center gap-2 mt-4 text-text-light text-sm font-cormorant ">
                 <span>✦</span>
                 <span>Requiere enlace de invitación</span>
                 <span>✦</span>
@@ -486,10 +509,10 @@ export default function InvitationPage() {
             <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-4">
               Confirmar Asistencia
             </h2>
-            <p className="italic font-cormorant text-lg">
+            <p className=" font-cormorant text-lg">
               Nos encantaría contar con tu presencia en la lista de invitados.
             </p>
-            <p className="italic font-cormorant text-lg">
+            <p className=" font-cormorant text-lg">
               Confirmanos tu asistencia hasta el <strong>31 DE AGOSTO</strong>
             </p>
           </div>
@@ -502,7 +525,7 @@ export default function InvitationPage() {
             />
           ) : (
             <div className="text-center">
-              <div className="flex items-center justify-center gap-2 text-text-light text-sm font-cormorant italic">
+              <div className="flex items-center justify-center gap-2 text-text-light text-sm font-cormorant ">
                 <span>✦</span>
                 <span>Requiere enlace de invitación</span>
                 <span>✦</span>
@@ -514,10 +537,10 @@ export default function InvitationPage() {
         {/* Footer */}
         <footer className="py-16 text-center bg-gradient-to-t from-charcoal to-charcoal-light text-white">
           <div className="max-w-2xl mx-auto px-6">
-            <h3 className="font-cormorant text-5xl md:text-6xl mb-4 italic">
+            <h3 className="font-cormorant text-5xl md:text-6xl mb-4 ">
               {novia} & {novio}
             </h3>
-            <p className="text-white/80 mb-8 font-cormorant text-lg italic">
+            <p className="text-white/80 mb-8 font-cormorant text-lg ">
               Esperamos contar con su presencia
             </p>
             <div className="flex items-center justify-center gap-3">

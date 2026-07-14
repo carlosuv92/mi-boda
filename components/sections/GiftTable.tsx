@@ -63,7 +63,7 @@ export function GiftTable({
         <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-4">
           Mesa de Regalos
         </h2>
-        <p className="leading-relaxed mx-auto font-cormorant text-lg italic">
+        <p className="leading-relaxed mx-auto font-cormorant text-lg ">
           Comenzamos una etapa nueva con mucha ilusión.
           Si quieres acompañarnos con un detalle, aquí están las opciones.
         </p>
@@ -127,7 +127,7 @@ export function GiftTable({
           </p>
           <div className="flex items-center justify-center gap-3 opacity-50">
             <div className="h-px w-8 bg-text-light" />
-            <span className="font-cormorant italic text-lg">Próximamente</span>
+            <span className="font-cormorant  text-lg">Próximamente</span>
             <div className="h-px w-8 bg-text-light" />
           </div>
         </div>
