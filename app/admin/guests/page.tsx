@@ -398,58 +398,6 @@ export default function GuestsPage() {
                 />
               </div>
 
-              {editingGuest && (
-                <>
-                  <div>
-                    <label className="block text-sm font-medium text-text-secondary mb-1">
-                      Acompañantes confirmados
-                    </label>
-                    <input
-                      type="number"
-                      min="0"
-                      max="10"
-                      value={formData.acompanantes_confirmados}
-                      onChange={(e) => {
-                        const count = parseInt(e.target.value) || 0;
-                        setFormData((prev) => ({
-                          ...prev,
-                          acompanantes_confirmados: count,
-                          acompanantes_nombres:
-                            count > prev.acompanantes_nombres.length
-                              ? [...prev.acompanantes_nombres, ...Array(count - prev.acompanantes_nombres.length).fill('')]
-                              : prev.acompanantes_nombres.slice(0, count),
-                        }));
-                      }}
-                      className="w-full px-4 py-2 border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50"
-                    />
-                  </div>
-
-                  {formData.acompanantes_confirmados > 0 && (
-                    <div className="space-y-2">
-                      <label className="block text-sm font-medium text-text-secondary mb-1">
-                        Nombres de acompañantes
-                      </label>
-                      {Array.from({ length: formData.acompanantes_confirmados }, (_, i) => (
-                        <input
-                          key={i}
-                          type="text"
-                          value={formData.acompanantes_nombres[i] || ''}
-                          onChange={(e) =>
-                            setFormData((prev) => {
-                              const next = [...prev.acompanantes_nombres];
-                              next[i] = e.target.value;
-                              return { ...prev, acompanantes_nombres: next };
-                            })
-                          }
-                          placeholder={`Acompañante ${i + 1}`}
-                          className="w-full px-4 py-2 border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50"
-                        />
-                      ))}
-                    </div>
-                  )}
-                </>
-              )}
-
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
