@@ -1,3 +1,7 @@
+export function sanitizePhone(phone: string): string {
+  return phone.replace(/\D/g, '').slice(-9);
+}
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()

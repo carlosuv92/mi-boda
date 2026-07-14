@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { getGuests, createGuest, updateGuest, deleteGuest, getConfig } from '@/lib/api';
-import { slugify } from '@/lib/utils';
+import { slugify, sanitizePhone } from '@/lib/utils';
 import { Search, Plus, Edit2, Trash2, Download, Link, MessageCircle, X, Check } from 'lucide-react';
 import * as XLSX from 'xlsx';
 
@@ -142,13 +142,15 @@ export default function GuestsPage() {
     e.preventDefault();
     setSaving(true);
 
+    const data = { ...formData, telefono: sanitizePhone(formData.telefono) };
+
     try {
       if (editingGuest) {
-        await updateGuest(editingGuest.id, formData);
+        await updateGuest(editingGuest.id, data);
       } else {
         const slug = slugify(`${formData.nombre}-${formData.apellidos}`);
         await createGuest({
-          ...formData,
+          ...data,
           slug,
           acompanantes_confirmados: 0,
           acompanantes_nombres: [],
