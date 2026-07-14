@@ -316,12 +316,12 @@ export default function InvitationPage() {
               estacionamiento={config.estacionamientoRecepcion}
               mapsUrl={config.mapsRecepcion || "#"}
             />
-            <p className="text-center italic italic leading-relaxed font-cormorant text-lg md:text-xl">
-              Habrá bebida y baile, así que nos encantaría que vengan sin auto.
-              Si necesitan estacionamiento, con gusto se lo reservamos;
-              avísennos con tiempo.
-            </p>
           </div>
+          <p className="text-center italic italic leading-relaxed font-cormorant text-lg md:text-xl">
+            Habrá bebida y baile, así que nos encantaría que vengan sin auto. Si
+            necesitan estacionamiento, con gusto se lo reservamos; avísennos con
+            tiempo.
+          </p>
         </Section>
 
         {/* Imagen entre secciones */}
