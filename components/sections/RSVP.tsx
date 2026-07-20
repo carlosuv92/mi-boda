@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { submitRSVP, getGuestBySlug, getRSVPByGuestId, updateRSVP } from '@/lib/api';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Check, X, Edit, User } from 'lucide-react';
 
@@ -24,7 +24,7 @@ interface RSVPProps {
   acompanantesAutorizados?: number;
 }
 
-export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutorizados }: RSVPProps = {}) {
+function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizados }: RSVPProps = {}) {
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
   const [fetchedGuest, setFetchedGuest] = useState<{
@@ -59,7 +59,9 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
             });
           }
         })
-        .catch(console.error);
+        .catch((err) => {
+          console.error('Error al buscar invitado:', err);
+        });
     }
   }, [slug]);
 
@@ -84,7 +86,9 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
           setNombres(data.acompanantes_nombres || []);
         }
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error('Error al cargar RSVP existente:', err);
+      });
   };
 
   useEffect(() => {
@@ -419,5 +423,17 @@ export function RSVP({ guestId, guestNombre, guestApellidos, acompanantesAutoriz
         )}
       </form>
     </div>
+  );
+}
+
+export function RSVP(props: RSVPProps = {}) {
+  return (
+    <Suspense fallback={
+      <div className="max-w-md mx-auto text-center py-8">
+        <div className="animate-pulse text-text-light font-cormorant text-lg">Cargando...</div>
+      </div>
+    }>
+      <RSVPInner {...props} />
+    </Suspense>
   );
 }

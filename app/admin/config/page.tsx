@@ -132,6 +132,7 @@ export default function ConfigPage() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [savingSection, setSavingSection] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     getConfig()
@@ -146,7 +147,10 @@ export default function ConfigPage() {
         });
         setConfig(formatted);
       })
-      .catch(console.error)
+      .catch((err) => {
+        console.error('Error al cargar configuración:', err);
+        setError('No se pudo cargar la configuración.');
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -195,6 +199,14 @@ export default function ConfigPage() {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="animate-pulse text-text-secondary">Cargando configuración...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-red-500 font-cormorant text-lg">{error}</p>
       </div>
     );
   }

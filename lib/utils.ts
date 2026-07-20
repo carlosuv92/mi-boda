@@ -21,15 +21,3 @@ export function formatDate(date: Date | string): string {
     day: 'numeric',
   });
 }
-
-export function formatTime(time: string): string {
-  return time;
-}
-
-export function parseConfigValue<T>(value: string): T {
-  try {
-    return JSON.parse(value) as T;
-  } catch {
-    return value as unknown as T;
-  }
-}

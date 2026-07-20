@@ -52,10 +52,3 @@ export interface GalleryImage {
   aprobado?: boolean;
   createdAt?: string;
 }
-
-export interface MoodboardImage {
-  id: string;
-  url: string;
-  categoria: string;
-  descripcion: string;
-}

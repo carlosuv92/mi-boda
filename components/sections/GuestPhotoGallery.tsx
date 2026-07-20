@@ -25,7 +25,9 @@ export function GuestPhotoGallery({ showAll = false, refreshTrigger = 0 }: Guest
         prevCount.current = allImages.length;
         setAllImages(data);
       })
-      .catch(console.error)
+      .catch((err) => {
+        console.error('Error al cargar galería:', err);
+      })
       .finally(() => setLoading(false));
   }, [showAll, refreshTrigger]);
 

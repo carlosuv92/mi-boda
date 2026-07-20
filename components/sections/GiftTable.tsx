@@ -1,56 +1,67 @@
-'use client';
+'use client'
 
-import { motion } from 'framer-motion';
-import { Copy } from 'lucide-react';
-import { useState } from 'react';
+import { motion } from 'framer-motion'
+import { Copy } from 'lucide-react'
+import { useState } from 'react'
+import MesaRegalos from '@/components/icons/MesaRegalos'
 
 interface GiftTableProps {
-  mensaje: string;
-  cuentaBancaria?: string;
-  cci?: string;
-  telefono?: string;
-  qrUrl?: string;
+  cuentaBancaria?: string
+  cci?: string
+  telefono?: string
+  qrUrl?: string
 }
 
-export function GiftTable({
-  mensaje,
-  cuentaBancaria,
-  cci,
-  telefono,
-  qrUrl,
-}: GiftTableProps) {
-  const [copied, setCopied] = useState<string | null>(null);
-
-  const copyToClipboard = (text: string, type: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(type);
-    setTimeout(() => setCopied(null), 2000);
-  };
-
-  const CopyButton = ({ label, value, type }: { label: string; value: string; type: string }) => (
+function CopyButton({
+  label,
+  value,
+  copied,
+  onCopy,
+}: {
+  label: string
+  value: string
+  copied: boolean
+  onCopy: () => void
+}) {
+  return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group flex items-center justify-between gap-4 py-4 border-b border-cream-dark last:border-b-0"
+      className="group relative flex items-center justify-between gap-4 py-4 border-b border-cream-dark last:border-b-0"
     >
       <div>
         <p className="text-xs uppercase tracking-[0.2em] font-cormorant mb-1">{label}</p>
-        <p className="text-text-primary font-cormorant text-lg tracking-wide">{value}</p>
+        <p className="text-text-primary font-noto-sans text-sm tracking-wide">{value}</p>
       </div>
       <button
-        onClick={() => copyToClipboard(value, type)}
-        className="flex-shrink-0 p-2 rounded-full opacity-40 group-hover:opacity-100 transition-opacity hover:bg-charcoal/5"
+        onClick={onCopy}
+        className="shrink-0 p-2 rounded-full opacity-40 group-hover:opacity-100 transition-opacity hover:bg-charcoal/5"
       >
         <Copy className="w-4 h-4 text-text-secondary" />
       </button>
-      {copied === type && (
+      {copied && (
         <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-charcoal text-white text-xs rounded-full font-cormorant">
           ¡Copiado!
         </span>
       )}
     </motion.div>
-  );
+  )
+}
+
+export function GiftTable({
+  cuentaBancaria,
+  cci,
+  telefono,
+  qrUrl,
+}: GiftTableProps) {
+  const [copied, setCopied] = useState<string | null>(null)
+
+  const copyToClipboard = (text: string, type: string) => {
+    navigator.clipboard.writeText(text)
+    setCopied(type)
+    setTimeout(() => setCopied(null), 2000)
+  }
 
   return (
     <div className="max-w-xl mx-auto">
@@ -63,7 +74,8 @@ export function GiftTable({
         <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-4">
           Mesa de Regalos
         </h2>
-        <p className="leading-relaxed mx-auto font-cormorant text-lg ">
+        <MesaRegalos className="w-20 h-20 text-principal mx-auto mb-4" />
+        <p className="leading-relaxed mx-auto font-cormorant text-lg">
           Comenzamos una etapa nueva con mucha ilusión.
           Si quieres acompañarnos con un detalle, aquí están las opciones.
         </p>
@@ -74,7 +86,7 @@ export function GiftTable({
         </div>
       </div>
 
-      <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-cream-dark">
+      <div className="bg-white  font-bold rounded-3xl p-8 md:p-10 shadow-sm border border-cream-dark">
         {(cuentaBancaria || cci) && (
           <div className="mb-6">
             <p className="text-xs uppercase tracking-[0.3em] font-cormorant text-center mb-4">
@@ -84,16 +96,24 @@ export function GiftTable({
               <CopyButton
                 label="Compartamos Banco — Número de cuenta"
                 value={cuentaBancaria}
-                type="cuenta"
+                copied={copied === 'cuenta'}
+                onCopy={() => copyToClipboard(cuentaBancaria, 'cuenta')}
               />
             )}
-            {cci && <CopyButton label="CCI" value={cci} type="cci" />}
+            {cci && (
+              <CopyButton
+                label="CCI"
+                value={cci}
+                copied={copied === 'cci'}
+                onCopy={() => copyToClipboard(cci, 'cci')}
+              />
+            )}
           </div>
         )}
 
         {telefono && (
           <div
-            className={`${cuentaBancaria || cci ? "pt-4 border-t border-cream-dark" : ""}`}
+            className={`${cuentaBancaria || cci ? 'pt-4 border-t border-cream-dark' : ''}`}
           >
             <p className="text-xs uppercase tracking-[0.3em] font-cormorant text-center mb-4">
               También por Yape o Plin
@@ -101,7 +121,8 @@ export function GiftTable({
             <CopyButton
               label="Compartamos Banco"
               value={telefono}
-              type="telefono"
+              copied={copied === 'telefono'}
+              onCopy={() => copyToClipboard(telefono, 'telefono')}
             />
           </div>
         )}
@@ -127,7 +148,7 @@ export function GiftTable({
           </p>
           <div className="flex items-center justify-center gap-3 opacity-50">
             <div className="h-px w-8 bg-text-light" />
-            <span className="font-cormorant  text-lg">Próximamente</span>
+            <span className="font-cormorant text-lg">Próximamente</span>
             <div className="h-px w-8 bg-text-light" />
           </div>
         </div>

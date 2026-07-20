@@ -25,9 +25,9 @@ export function Timeline() {
       <div className="relative">
         <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-text-primary -translate-x-1/2" />
 
-        <div className="absolute left-1/2 -top-1.25 w-2.5 h-2.5 bg-text-primary rounded-full -translate-x-1/2 z-10" />
+        <div className="absolute left-1/2 -top-[0.3125rem] w-2.5 h-2.5 bg-text-primary rounded-full -translate-x-1/2 z-10" />
 
-        <div className="absolute left-1/2 -bottom-1.25 w-2.5 h-2.5 bg-text-primary rounded-full -translate-x-1/2 z-10" />
+        <div className="absolute left-1/2 -bottom-[0.3125rem] w-2.5 h-2.5 bg-text-primary rounded-full -translate-x-1/2 z-10" />
 
         <div className="space-y-0">
           {events.map((event, index) => {
@@ -41,7 +41,7 @@ export function Timeline() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="relative min-h-22.5 md:min-h-25"
+                className="relative min-h-[5.625rem] md:min-h-[6.25rem]"
               >
                 {/* Alternating left/right en todos los tamaños */}
                 <div className="flex w-full h-full items-start pt-2">

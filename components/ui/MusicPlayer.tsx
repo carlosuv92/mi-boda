@@ -1,30 +1,30 @@
-'use client';
+'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { Volume2, Play } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { Volume2, Play } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface MusicPlayerProps {
-  src: string;
-  title?: string;
+  src: string,
+  title: string
 }
 
 interface Note {
-  id: number;
-  x: number;
-  symbol: string;
-  size: number;
-  duration: number;
-  delay: number;
+  id: number
+  x: number
+  symbol: string
+  size: number
+  duration: number
+  yEnd: number
 }
 
-const musicSymbols = ['♪', '♫', '♬', '♩', '♭'];
+const musicSymbols = ['♪', '♫', '♬', '♩', '♭']
 
-export function MusicPlayer({ src, title = 'Canción' }: MusicPlayerProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [notes, setNotes] = useState<Note[]>([]);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const noteIdRef = useRef(0);
+export function MusicPlayer({ src }: MusicPlayerProps) {
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [notes, setNotes] = useState<Note[]>([])
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const noteIdRef = useRef(0)
 
   const spawnNote = useCallback(() => {
     const note: Note = {
@@ -33,43 +33,42 @@ export function MusicPlayer({ src, title = 'Canción' }: MusicPlayerProps) {
       symbol: musicSymbols[Math.floor(Math.random() * musicSymbols.length)],
       size: 16 + Math.random() * 20,
       duration: 2 + Math.random() * 2,
-      delay: 0,
-    };
-    setNotes((prev) => [...prev.slice(-15), note]);
-  }, []);
+      yEnd: -(80 + Math.random() * 60),
+    }
+    setNotes((prev) => [...prev.slice(-15), note])
+  }, [])
 
   useEffect(() => {
-    if (isPlaying) {
-      const interval = setInterval(spawnNote, 400);
-      spawnNote();
-      return () => clearInterval(interval);
-    } else {
-      setNotes([]);
+    if (!isPlaying) {
+      setNotes([])
+      return
     }
-  }, [isPlaying, spawnNote]);
+    const interval = setInterval(spawnNote, 400)
+    spawnNote()
+    return () => clearInterval(interval)
+  }, [isPlaying, spawnNote])
 
   const cleanupNote = (id: number) => {
-    setNotes((prev) => prev.filter((n) => n.id !== id));
-  };
+    setNotes((prev) => prev.filter((n) => n.id !== id))
+  }
 
   const togglePlay = () => {
     if (audioRef.current) {
       if (isPlaying) {
-        audioRef.current.pause();
+        audioRef.current.pause()
       } else {
-        audioRef.current.play();
+        audioRef.current.play()
       }
-      setIsPlaying(!isPlaying);
+      setIsPlaying(!isPlaying)
     }
-  };
+  }
 
   useEffect(() => {
+    const audio = audioRef.current
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-    };
-  }, []);
+      if (audio) audio.pause()
+    }
+  }, [])
 
   return (
     <>
@@ -89,7 +88,7 @@ export function MusicPlayer({ src, title = 'Canción' }: MusicPlayerProps) {
               animate={{
                 opacity: 0,
                 x: note.x,
-                y: -(80 + Math.random() * 60),
+                y: note.yEnd,
                 scale: 1.2,
                 rotate: 15,
               }}
@@ -128,11 +127,7 @@ export function MusicPlayer({ src, title = 'Canción' }: MusicPlayerProps) {
                 }
               : {}
           }
-          className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all cursor-pointer ${
-            isPlaying
-              ? 'bg-charcoal/90 backdrop-blur-sm'
-              : 'bg-charcoal/90 backdrop-blur-sm'
-          }`}
+          className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all cursor-pointer bg-charcoal/90 backdrop-blur-sm"
           aria-label={isPlaying ? 'Pausar música' : 'Reproducir música'}
         >
           {isPlaying ? (
@@ -143,5 +138,5 @@ export function MusicPlayer({ src, title = 'Canción' }: MusicPlayerProps) {
         </motion.button>
       </div>
     </>
-  );
+  )
 }

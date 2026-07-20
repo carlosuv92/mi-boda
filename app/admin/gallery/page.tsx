@@ -1,57 +1,57 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { getGuestGallery, updateGalleryImage, deleteGalleryImage } from '@/lib/api';
-import { Check, X, Trash2, Image as ImageIcon } from 'lucide-react';
-import type { GalleryImage } from '@/types';
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { getGuestGallery, updateGalleryImage, deleteGalleryImage } from '@/lib/api'
+import { Check, X, Trash2, Image as ImageIcon } from 'lucide-react'
+import type { GalleryImage } from '@/types'
 
 export default function GalleryAdminPage() {
-  const [images, setImages] = useState<GalleryImage[]>([]);
-  const [pending, setPending] = useState<GalleryImage[]>([]);
-  const [approved, setApproved] = useState<GalleryImage[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<'pending' | 'approved'>('pending');
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
-
-  useEffect(() => {
-    loadImages();
-  }, []);
+  const [images, setImages] = useState<GalleryImage[]>([])
+  const [pending, setPending] = useState<GalleryImage[]>([])
+  const [approved, setApproved] = useState<GalleryImage[]>([])
+  const [loading, setLoading] = useState(true)
+  const [tab, setTab] = useState<'pending' | 'approved'>('pending')
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
 
   const loadImages = async () => {
     try {
       const [allImages, approvedImages] = await Promise.all([
         getGuestGallery(false),
         getGuestGallery(true),
-      ]);
-      setImages(allImages);
-      setPending(allImages.filter((img) => !img.aprobado));
-      setApproved(approvedImages);
+      ])
+      setImages(allImages)
+      setPending(allImages.filter((img) => !img.aprobado))
+      setApproved(approvedImages)
     } catch (error) {
-      console.error('Error loading images:', error);
+      console.error('Error loading images:', error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
+
+  useEffect(() => {
+    loadImages()
+  }, [])
 
   const handleApprove = async (id: string) => {
     try {
-      await updateGalleryImage(id, { aprobado: true });
-      await loadImages();
+      await updateGalleryImage(id, { aprobado: true })
+      await loadImages()
     } catch (error) {
-      console.error('Error approving image:', error);
+      console.error('Error approving image:', error)
     }
-  };
+  }
 
   const handleReject = async (id: string) => {
-    if (!confirm('¿Eliminar esta foto?')) return;
+    if (!confirm('¿Eliminar esta foto?')) return
     try {
-      await deleteGalleryImage(id);
-      await loadImages();
+      await deleteGalleryImage(id)
+      await loadImages()
     } catch (error) {
-      console.error('Error deleting image:', error);
+      console.error('Error deleting image:', error)
     }
-  };
+  }
 
   if (loading) {
     return (
@@ -60,7 +60,7 @@ export default function GalleryAdminPage() {
           Cargando galería...
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -74,7 +74,6 @@ export default function GalleryAdminPage() {
         </p>
       </div>
 
-      {/* Tabs */}
       <div className="flex gap-2 mb-6">
         <button
           onClick={() => setTab('pending')}
@@ -98,7 +97,6 @@ export default function GalleryAdminPage() {
         </button>
       </div>
 
-      {/* Grid */}
       {tab === 'pending' && pending.length === 0 && (
         <div className="text-center py-16 bg-white rounded-2xl">
           <div className="w-16 h-16 mx-auto bg-cream-dark rounded-full flex items-center justify-center mb-4">
@@ -138,7 +136,6 @@ export default function GalleryAdminPage() {
               loading="lazy"
             />
 
-            {/* Hover overlay */}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100">
               {tab === 'pending' ? (
                 <>
@@ -168,7 +165,6 @@ export default function GalleryAdminPage() {
               )}
             </div>
 
-            {/* Info */}
             <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/60 to-transparent">
               <p className="text-white/90 text-xs font-cormorant truncate">
                 {image.subido_por || 'Invitado'}
@@ -178,7 +174,6 @@ export default function GalleryAdminPage() {
         ))}
       </div>
 
-      {/* Lightbox */}
       {selectedImage && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -213,5 +208,5 @@ export default function GalleryAdminPage() {
         </motion.div>
       )}
     </div>
-  );
+  )
 }

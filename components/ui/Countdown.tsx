@@ -66,7 +66,7 @@ export function Countdown({ targetDate, variant = 'light' }: CountdownProps) {
               isDark
                 ? "bg-white/10 backdrop-blur-md border border-white/20"
                 : "bg-white/80 backdrop-blur-sm shadow-sm"
-            } rounded-lg px-3 py-2 md:px-5 md:py-3 min-w-13.75 md:min-w-18.75`}
+            } rounded-lg px-3 py-2 md:px-5 md:py-3 min-w-[3.4375rem] md:min-w-[4.6875rem]`}
           >
             <span
               className={`text-3xl md:text-3xl lg:text-4xl font-cormorant font-semibold ${

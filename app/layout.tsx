@@ -1,17 +1,34 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Tangerine } from "next/font/google";
+import { Cormorant_Garamond, Tangerine, Courgette, Noto_Sans } from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  style: ["italic"],
+  display: "swap",
 });
 
-const tangerine = Tangerine({
-  variable: "--font-alex-brush",
+const dancingScript = Tangerine({
+  variable: "--font-dancing-script",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400"],
+  display: 'swap',
+});
+
+const courgette = Courgette({
+  variable: "--font-courgette",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: 'swap',
+});
+
+const notoSans = Noto_Sans({
+  variable: "--font-noto-sans",
+  subsets: ["latin"],
+  weight: ["300"],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -38,7 +55,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${cormorant.variable} ${tangerine.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${dancingScript.variable} ${courgette.variable} ${notoSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-text-primary antialiased">
         {children}

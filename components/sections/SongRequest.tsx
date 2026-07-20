@@ -24,6 +24,7 @@ interface SongRequestProps {
 export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const {
     register,
@@ -36,6 +37,7 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
 
   const onSubmit = async (data: SongForm) => {
     setLoading(true);
+    setError(null);
     try {
       await submitSong({
         guest_id: guestId || '',
@@ -46,8 +48,9 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
       setSubmitted(true);
       reset();
       setTimeout(() => setSubmitted(false), 3000);
-    } catch (error) {
-      console.error('Error al enviar canción:', error);
+    } catch (err) {
+      console.error('Error al enviar canción:', err);
+      setError('No se pudo enviar tu sugerencia. Intenta de nuevo.');
     } finally {
       setLoading(false);
     }
@@ -112,6 +115,10 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
               className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light resize-none font-cormorant text-lg"
             />
           </div>
+
+          {error && (
+            <p className="text-red-500 text-sm text-center font-cormorant">{error}</p>
+          )}
 
           <motion.button
             whileHover={{ scale: 1.02 }}

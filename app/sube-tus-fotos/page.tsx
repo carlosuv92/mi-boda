@@ -13,7 +13,9 @@ export default function SubeTusFotosPage() {
   useEffect(() => {
     getConfig()
       .then(setConfig)
-      .catch(console.error);
+      .catch((err) => {
+        console.error('Error al cargar configuración:', err);
+      });
   }, []);
 
   const novia = config.novia || 'Lilian';

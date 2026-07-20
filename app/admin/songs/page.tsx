@@ -14,11 +14,15 @@ interface Song {
 export default function SongsPage() {
   const [songs, setSongs] = useState<Song[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     getSongs()
       .then((data) => setSongs(data))
-      .catch(console.error)
+      .catch((err) => {
+        console.error('Error al cargar canciones:', err);
+        setError('No se pudieron cargar las canciones.');
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -26,6 +30,14 @@ export default function SongsPage() {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="animate-pulse text-text-secondary">Cargando canciones...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-red-500 font-cormorant text-lg">{error}</p>
       </div>
     );
   }
