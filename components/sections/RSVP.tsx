@@ -397,7 +397,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
           </p>
           <textarea
             {...register("comentario")}
-            placeholder="Algún mensaje o restricción alimentaria"
+            placeholder="Algún mensaje para nosotros"
             rows={3}
             className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light resize-none font-cormorant text-lg"
           />
