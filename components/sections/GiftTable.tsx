@@ -88,7 +88,7 @@ export function GiftTable({
     <div className="max-w-xl mx-auto">
       <SectionHeader
         title="Mesa de Regalos"
-        icon={<MesaRegalos className="w-20 h-20 text-principal mx-auto mb-4" />}
+        icon={<MesaRegalos className="w-30 text-principal mx-auto mb-4" />}
         text="Comenzamos una etapa nueva con mucha ilusión. Si quieres acompañarnos con un detalle, aquí están las opciones."
       />
 

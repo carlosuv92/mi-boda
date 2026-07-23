@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import { getConfig, getGuestBySlug } from '@/lib/api'
 import { InvitationContent } from '@/components/sections/InvitationContent'
 import { MusicPlayer } from '@/components/ui/MusicPlayer'
+import { WeddingConfetti } from '@/components/ui/WeddingConfetti'
 
 export default function InvitationPage() {
   const params = useParams()
@@ -79,6 +80,7 @@ export default function InvitationPage() {
 
   return (
     <>
+      <WeddingConfetti />
       <InvitationContent config={config} guest={guest} />
       <MusicPlayer src="/music/risk-bruno-mars.mp3" title="Risk - Bruno Mars" />
     </>

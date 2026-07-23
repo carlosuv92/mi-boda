@@ -22,7 +22,7 @@ export function SectionHeader({ title, icon, text, textInvitacion }: SectionHead
       </h2>
       {icon}
       {text && (
-        <p className="leading-relaxed mx-auto font-cormorant text-xl">
+        <p className="text-center text-xl md:text-xl">
           {text}
         </p>
       )}

@@ -125,7 +125,7 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
             whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-charcoal text-white rounded-xl font-medium hover:bg-charcoal-light transition-colors disabled:opacity-50 font-cormorant text-xl"
+            className="w-full py-3 bg-charcoal text-detalle rounded-xl font-semibold hover:bg-charcoal-light transition-colors disabled:opacity-50 font-cormorant text-xl"
           >
             {loading ? 'Enviando...' : 'Sugerir canción'}
           </motion.button>

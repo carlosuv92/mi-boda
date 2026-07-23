@@ -267,7 +267,11 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
           </p>
           {guest.acompanantes_autorizados > 0 && (
             <p className="font-cormorant text-lg text-text-secondary font-semibold mt-2">
-             Reservamos un asiento para ti y {guest.acompanantes_autorizados} adicional{guest.acompanantes_autorizados > 1 ? 'es' : ''}.
+              Te reservamos un asiento y{" "}
+              <span className="inline-block bg-principal font-noto-sans rounded-full px-2 py-1 text-sm text-white/80">
+                {guest.acompanantes_autorizados}
+              </span>{" "}
+              adicional{guest.acompanantes_autorizados > 1 ? "es" : ""}.
             </p>
           )}
         </div>
@@ -302,9 +306,9 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
 
       {estado === "ACEPTADO" && guest && guest.acompanantes_autorizados > 0 && (
         <div className="mb-6">
-          <label className="block text-md font-semibold mb-3 font-cormorant">
+          <p className="block text-md font-semibold mb-3 font-cormorant">
             ¿Cuántos acompañantes asistirán contigo?
-          </label>
+          </p>
           <select
             value={watch("acompanantes_confirmados")}
             onChange={(e) => {
@@ -332,16 +336,17 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
 
       {estado === "ACEPTADO" && watch("acompanantes_confirmados") > 0 && (
         <div className="mb-6 space-y-3">
-          <label className="block  text-md font-semibold mb-3 font-cormorant">
-            Nombres de tus acompañantes <span className="text-orange-400">*</span>
-          </label>
+          <p className="block  text-md font-semibold mb-3 font-cormorant">
+            Nombres de tus acompañantes{" "}
+            <span className="text-[#c69232]">*</span>
+          </p>
           {Array.from({ length: watch("acompanantes_confirmados") }, (_, i) => {
             const isEmpty = !nombres[i] || !nombres[i].trim()
             const showError = nombresError && isEmpty
             return (
               <div key={i} className="flex items-center gap-2">
                 <User
-                  className={`w-4 h-4 shrink-0 ${showError ? "text-orange-400" : isEmpty && acompanantesCount > 0 ? "text-orange-400" : "text-nowrap"}`}
+                  className={`w-4 h-4 shrink-0 ${showError ? "text-[#c69232]" : isEmpty && acompanantesCount > 0 ? "text-[#c69232]" : "text-nowrap"}`}
                 />
                 <input
                   type="text"
@@ -357,9 +362,9 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
                   placeholder={`Acompañante ${i + 1}`}
                   className={`w-full px-4 py-3 bg-white border rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-lg ${
                     showError
-                      ? "border-orange-400 ring-orange-200"
+                      ? "border-[#c69232] ring-[#c69232]"
                       : isEmpty
-                        ? "border-orange-400"
+                        ? "border-[#c69232]"
                         : "border-cream-dark"
                   }`}
                 />
@@ -367,7 +372,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
             )
           })}
           {nombresError && (
-            <p className="text-orange-500 text-md font-cormorant flex items-center gap-1">
+            <p className="text-[#c69232] text-md font-cormorant flex items-center gap-1">
               <X className="w-3.5 h-3.5" />
               Ingresa el nombre de todos tus acompañantes
             </p>
@@ -375,8 +380,8 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
           {!nombresError &&
             acompanantesCount > 0 &&
             nombres.slice(0, acompanantesCount).some((n) => !n.trim()) && (
-              <p className="text-orange-500 text-md font-cormorant flex items-center gap-1 font-semibold">
-                <span className="w-3.5 h-3.5 inline-flex items-center justify-center rounded-full bg-orange-100 text-orange-600 text-[10px] font-bold">
+              <p className="text-[#c69232] text-md font-cormorant flex items-center gap-1 font-semibold">
+                <span className="w-3.5 h-3.5 inline-flex items-center justify-center rounded-full bg-[#c69232] text-white text-[10px] font-bold">
                   !
                 </span>
                 Completa los nombres para poder confirmar
@@ -387,9 +392,9 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6">
-          <label className="block text-md font-semibold mb-2 font-cormorant ">
+          <p className="block text-md font-semibold mb-2 font-cormorant ">
             Comentario (opcional)
-          </label>
+          </p>
           <textarea
             {...register("comentario")}
             placeholder="Algún mensaje o restricción alimentaria"

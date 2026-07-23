@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
+    "canvas-confetti": "^1.9.4",
     "cloudinary": "^2.10.0",
     "date-fns": "^4.4.0",
     "framer-motion": "^12.40.0",
