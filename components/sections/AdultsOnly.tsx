@@ -46,7 +46,7 @@ export function AdultsOnly({ mensaje }: AdultsOnlyProps) {
             />
           </svg>
         </div>
-        <p className="text-white/70 leading-relaxed font-cormorant text-lg">
+        <p className="text-white/70 leading-relaxed font-cormorant text-xl">
           Los pequeños también tienen sus momentos especiales, pero en esta
           ocasión nuestra celebración estará destinada<strong className="text-detalle"> exclusivamente para
           adultos.</strong>

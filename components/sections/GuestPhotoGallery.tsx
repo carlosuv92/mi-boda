@@ -74,7 +74,7 @@ export function GuestPhotoGallery({ showAll = false, refreshTrigger = 0 }: Guest
         <div className="w-16 h-16 mx-auto rounded-full bg-cream-dark flex items-center justify-center mb-4">
           <ImageIcon className="w-8 h-8 text-text-light" />
         </div>
-        <p className="text-text-light font-cormorant text-lg">
+        <p className="text-text-light font-cormorant text-xl">
           Aún no hay fotos de invitados
         </p>
         <p className="text-text-light text-sm font-cormorant mt-1">
@@ -192,7 +192,7 @@ export function GuestPhotoGallery({ showAll = false, refreshTrigger = 0 }: Guest
               />
               <div className="text-center mt-3">
                 {allImages[selectedIndex].descripcion && (
-                  <p className="text-white/60 font-cormorant text-lg">
+                  <p className="text-white/60 font-cormorant text-xl">
                     {allImages[selectedIndex].descripcion}
                   </p>
                 )}

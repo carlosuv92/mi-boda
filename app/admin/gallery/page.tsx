@@ -56,7 +56,7 @@ export default function GalleryAdminPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-pulse text-text-secondary font-cormorant text-lg">
+        <div className="animate-pulse text-text-secondary font-cormorant text-xl">
           Cargando galería...
         </div>
       </div>
@@ -102,7 +102,7 @@ export default function GalleryAdminPage() {
           <div className="w-16 h-16 mx-auto bg-cream-dark rounded-full flex items-center justify-center mb-4">
             <Check className="w-8 h-8 text-green-500" />
           </div>
-          <p className="text-text-secondary font-cormorant text-lg">
+          <p className="text-text-secondary font-cormorant text-xl">
             No hay fotos pendientes
           </p>
         </div>
@@ -113,7 +113,7 @@ export default function GalleryAdminPage() {
           <div className="w-16 h-16 mx-auto bg-cream-dark rounded-full flex items-center justify-center mb-4">
             <ImageIcon className="w-8 h-8 text-text-light" />
           </div>
-          <p className="text-text-secondary font-cormorant text-lg">
+          <p className="text-text-secondary font-cormorant text-xl">
             No hay fotos aprobadas aún
           </p>
         </div>
@@ -194,7 +194,7 @@ export default function GalleryAdminPage() {
             onClick={(e) => e.stopPropagation()}
           />
           <div className="absolute bottom-6 text-center">
-            <p className="text-white/60 font-cormorant text-lg">
+            <p className="text-white/60 font-cormorant text-xl">
               {selectedImage.subido_por && `Foto de ${selectedImage.subido_por}`}
             </p>
             <p className="text-white/40 text-sm font-cormorant mt-1">

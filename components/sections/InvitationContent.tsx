@@ -109,7 +109,7 @@ function HeroSection({
             </motion.p>
           )}
 
-          <p className="text-white text-lg uppercase tracking-[0.3em] my-4 font-cormorant font-bold">
+          <p className="text-white text-xl uppercase tracking-[0.3em] my-4 font-cormorant font-bold">
             ¡Nos casamos!
           </p>
 
@@ -177,6 +177,17 @@ function CountdownSection({
   return (
     <Section className="bg-white-off">
       <div className="text-center mb-8">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.7 }}
+        >
+          <div className="w-16 h-px mx-auto" />
+          <p className="font-[family-name:var(--font-dancing-script)] text-6xl md:text-6xl  leading-tight mb-4">
+            {novia} <span className="px-3">y</span> {novio}
+          </p>
+        </motion.div>
+
         <div className="flex flex-col items-center gap-2 mb-6">
           <div className="flex items-center justify-center gap-4">
             <div className="h-px w-16 bg-detalle/40" />
@@ -212,18 +223,7 @@ function CountdownSection({
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.7 }}
-        >
-          <div className="w-16 h-px mx-auto my-3" />
-          <p className="font-[family-name:var(--font-dancing-script)] text-6xl md:text-6xl  leading-tight">
-            {novia} <span className="px-3">y</span> {novio}
-          </p>
-        </motion.div>
-
-        <p className="text-text-primary text-lg uppercase tracking-[0.3em] mb-4 mt-6 font-cormorant font-extrabold">
+        <p className="text-text-primary text-xl uppercase tracking-[0.3em] mb-4 mt-6 font-cormorant font-extrabold">
           PREPÁRATE!
         </p>
         <p className="text-text-primary text-md uppercase tracking-[0.3em] mb-4 font-cormorant font-extrabold">
@@ -267,7 +267,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
 
       <Section id="mensaje" className="bg-white-off">
         <FloralDivider className="mb-8" />
-        <p className="text-center text-lg md:text-xl">
+        <p className="text-center text-xl md:text-xl">
           {config.mensajeBienvenida ||
             'Con nuestro amor, la bendición de Dios y en compañía de nuestros padres, los invitamos a celebrar el día más especial de nuestras vidas.'}
         </p>
@@ -281,7 +281,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
           <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
             Ubicación
           </h2>
-          <p className="font-cormorant text-lg">Ceremonia y recepción</p>
+          <p className="font-cormorant text-xl">Ceremonia y recepción</p>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           <LocationCard
@@ -323,7 +323,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
           <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
             Itinerario
           </h2>
-          <p className="font-cormorant text-lg">Cronograma de actividades</p>
+          <p className="font-cormorant text-xl">Cronograma de actividades</p>
         </div>
         <Timeline />
       </Section>
@@ -347,7 +347,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
             <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
               Playlist
             </h2>
-            <p className="font-cormorant text-lg">
+            <p className="font-cormorant text-xl">
               Ayúdanos con la música, sugiere esa canción que no puede faltar
             </p>
           </div>
@@ -359,7 +359,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
             <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-4">
               Playlist
             </h2>
-            <p className="text-text-secondary font-cormorant text-lg max-w-md mx-auto">
+            <p className="text-text-secondary font-cormorant text-xl max-w-md mx-auto">
               Desde tu invitación personal podrás sugerir esa canción que no
               puede faltar
             </p>
@@ -386,11 +386,11 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
               <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-4">
                 Confirmar Asistencia
               </h2>
-              <p className="font-cormorant text-lg">
+              <p className="font-cormorant text-xl">
                 Nos encantaría contar con tu presencia en la lista de invitados.
               </p>
               {fechaLimiteRSVP && (
-                <p className="font-cormorant text-lg">
+                <p className="font-cormorant text-xl">
                   Confirmanos tu asistencia hasta el <strong>{fechaLimiteRSVP}</strong>
                 </p>
               )}
@@ -410,7 +410,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
             <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-4">
               Confirmar Asistencia
             </h2>
-            <p className="text-text-secondary font-cormorant text-lg max-w-md mx-auto">
+            <p className="text-text-secondary font-cormorant text-xl max-w-md mx-auto">
               Desde tu invitación personal podrás confirmar tu asistencia
             </p>
             <div className="flex items-center justify-center gap-2 mt-4 text-text-light text-sm font-cormorant">
@@ -427,7 +427,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
           <h3 className="font-cormorant text-5xl md:text-6xl mb-4">
             {novia} <span className="text-detalle">&</span> {novio}
           </h3>
-          <p className="text-white/60 mb-8 font-cormorant text-lg">
+          <p className="text-white/60 mb-8 font-cormorant text-xl">
             Esperamos contar con su presencia
           </p>
           <div className="flex items-center justify-center gap-3">

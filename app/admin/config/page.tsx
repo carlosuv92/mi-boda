@@ -81,7 +81,7 @@ function ConfigSection({ section, config, onChange, fieldsPerRow = 2 }: {
           <div className="p-2 bg-cream-dark rounded-lg">
             <Icon className="w-5 h-5 text-principal" />
           </div>
-          <h3 className="font-cormorant text-lg font-semibold text-text-primary">
+          <h3 className="font-cormorant text-xl font-semibold text-text-primary">
             {section.title}
           </h3>
         </div>
@@ -206,7 +206,7 @@ export default function ConfigPage() {
   if (error) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-red-500 font-cormorant text-lg">{error}</p>
+        <p className="text-red-500 font-cormorant text-xl">{error}</p>
       </div>
     );
   }

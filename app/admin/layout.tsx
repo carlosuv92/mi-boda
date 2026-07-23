@@ -61,7 +61,7 @@ export default function AdminLayout({
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
-        <span className="font-cormorant text-lg text-text-primary">Admin</span>
+        <span className="font-cormorant text-xl text-text-primary">Admin</span>
         <button onClick={handleLogout} className="p-2 text-text-secondary">
           <LogOut className="w-5 h-5" />
         </button>
@@ -76,7 +76,7 @@ export default function AdminLayout({
                 <Link
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg font-cormorant text-lg ${
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg font-cormorant text-xl ${
                     pathname === item.href
                       ? 'bg-charcoal text-white'
                       : 'text-text-secondary hover:bg-cream'
@@ -90,7 +90,7 @@ export default function AdminLayout({
             <li>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-cream w-full font-cormorant text-lg"
+                className="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-cream w-full font-cormorant text-xl"
               >
                 <LogOut className="w-5 h-5" />
                 Cerrar sesión
@@ -118,7 +118,7 @@ export default function AdminLayout({
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-cormorant text-lg ${
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-cormorant text-xl ${
                       pathname === item.href
                         ? 'bg-charcoal text-white'
                         : 'text-text-secondary hover:bg-cream'
@@ -135,7 +135,7 @@ export default function AdminLayout({
           <div className="p-4 border-t border-cream-dark">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-cream w-full transition-colors font-cormorant text-lg"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-cream w-full transition-colors font-cormorant text-xl"
             >
               <LogOut className="w-5 h-5" />
               Cerrar sesión

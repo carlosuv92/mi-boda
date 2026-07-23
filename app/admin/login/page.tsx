@@ -41,7 +41,7 @@ export default function AdminLogin() {
           <h1 className="font-cormorant text-3xl font-semibold text-text-primary">
             Panel Administrativo
           </h1>
-          <p className="text-text-secondary mt-2 font-cormorant text-lg">
+          <p className="text-text-secondary mt-2 font-cormorant text-xl">
             Ingresa tus credenciales
           </p>
         </div>
@@ -62,7 +62,7 @@ export default function AdminLogin() {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-4 py-3 bg-cream border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary font-cormorant text-lg"
+                className="w-full px-4 py-3 bg-cream border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary font-cormorant text-xl"
                 required
               />
             </div>
@@ -75,7 +75,7 @@ export default function AdminLogin() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-cream border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary font-cormorant text-lg"
+                className="w-full px-4 py-3 bg-cream border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary font-cormorant text-xl"
                 required
               />
             </div>
@@ -83,7 +83,7 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-charcoal text-white rounded-xl font-medium hover:bg-charcoal-light transition-colors disabled:opacity-50 font-cormorant text-lg"
+              className="w-full py-3 bg-charcoal text-white rounded-xl font-medium hover:bg-charcoal-light transition-colors disabled:opacity-50 font-cormorant text-xl"
             >
               {loading ? 'Ingresando...' : 'Ingresar'}
             </button>

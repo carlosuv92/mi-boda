@@ -48,7 +48,7 @@ export function LocationCard({
           {titulo}
         </h3>
         
-        <div className="space-y-3 font-cormorant text-lg">
+        <div className="space-y-3 font-cormorant text-xl">
           <div className="flex items-center justify-center gap-2">
             <Clock className="w-4 h-4 text-principal" />
             <span className="font-cormorant text-md ">{hora}</span>

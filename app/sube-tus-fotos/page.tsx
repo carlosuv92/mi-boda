@@ -52,7 +52,7 @@ export default function SubeTusFotosPage() {
               {novia} <span className="text-detalle">&</span> {novio}
             </h1>
 
-            <p className="text-white/80 font-cormorant text-lg md:text-xl max-w-md mx-auto mb-8">
+            <p className="text-white/80 font-cormorant text-xl md:text-xl max-w-md mx-auto mb-8">
               Sube tus fotos de este día tan especial y sé parte de nuestro álbum de recuerdos
             </p>
           </motion.div>
@@ -74,7 +74,7 @@ export default function SubeTusFotosPage() {
           <h2 className="font-cormorant text-2xl md:text-3xl font-semibold text-text-primary mb-2">
             Fotos de nuestros invitados
           </h2>
-          <p className="text-text-secondary font-cormorant text-lg">
+          <p className="text-text-secondary font-cormorant text-xl">
             Todas las fotos compartidas hasta ahora
           </p>
           <div className="flex items-center justify-center gap-3 mt-4">

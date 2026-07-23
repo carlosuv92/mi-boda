@@ -218,7 +218,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
 
           {isAccepted && guest && guest.acompanantes_autorizados > 0 && (
             <>
-              <p className="text-white/70 font-cormorant text-lg mb-2">
+              <p className="text-white/70 font-cormorant text-xl mb-2">
                 {1 + (existingRSVP.acompanantes_confirmados || 0)} personas confirmadas
               </p>
               {nombres.length > 0 && (
@@ -235,7 +235,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
           )}
 
           {!isAccepted && (
-            <p className="text-white/70 font-cormorant text-lg mb-4">
+            <p className="text-white/70 font-cormorant text-xl mb-4">
               Gracias por avisar
             </p>
           )}
@@ -261,7 +261,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
   return (
     <div className="max-w-md mx-auto">
       {guest && (
-        <p className="text-center text-text-secondary mb-6 font-cormorant text-lg">
+        <p className="text-center text-text-secondary mb-6 font-cormorant text-xl">
           Bienvenido/a <span className="font-semibold text-text-primary">{guest.nombre} {guest.apellidos}</span>
           {guest.acompanantes_autorizados > 0 && (
             <>
@@ -275,7 +275,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
         <button
           type="button"
           onClick={() => setValue('estado', 'ACEPTADO')}
-          className={`flex-1 py-4 rounded-xl font-medium transition-all flex items-center justify-center gap-2 font-cormorant text-lg ${
+          className={`flex-1 py-4 rounded-xl font-medium transition-all flex items-center justify-center gap-2 font-cormorant text-xl ${
             estado === 'ACEPTADO'
               ? 'bg-charcoal text-detalle'
               : 'bg-white border border-cream-dark text-text-secondary hover:bg-cream'
@@ -287,7 +287,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
         <button
           type="button"
           onClick={() => setValue('estado', 'RECHAZADO')}
-          className={`flex-1 py-4 rounded-xl font-medium transition-all flex items-center justify-center gap-2 font-cormorant text-lg ${
+          className={`flex-1 py-4 rounded-xl font-medium transition-all flex items-center justify-center gap-2 font-cormorant text-xl ${
             estado === 'RECHAZADO'
               ? 'bg-red-400 text-white'
               : 'bg-white border border-cream-dark text-text-secondary hover:bg-cream'
@@ -313,7 +313,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
                 return prev.slice(0, count);
               });
             }}
-            className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary font-cormorant text-lg appearance-none cursor-pointer"
+            className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary font-cormorant text-xl appearance-none cursor-pointer"
           >
             {Array.from({ length: guest.acompanantes_autorizados + 1 }, (_, i) => i).map((num) => (
               <option key={num} value={num}>
@@ -350,7 +350,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
                     });
                   }}
                   placeholder={`Acompañante ${i + 1}`}
-                  className={`w-full px-4 py-3 bg-white border rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-lg ${
+                  className={`w-full px-4 py-3 bg-white border rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-xl ${
                     showError ? 'border-red-400 ring-red-200' : isEmpty ? 'border-amber-300' : 'border-cream-dark'
                   }`}
                 />
@@ -381,7 +381,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
             {...register('comentario')}
             placeholder="Algún mensaje o restricción alimentaria"
             rows={3}
-            className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light resize-none font-cormorant text-lg"
+            className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light resize-none font-cormorant text-xl"
           />
         </div>
 
@@ -397,7 +397,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
               setTimeout(() => setNombresTocado(false), 3000);
             }
           }}
-          className={`w-full py-3 rounded-xl font-medium font-cormorant text-lg transition-all ${
+          className={`w-full py-3 rounded-xl font-medium font-cormorant text-xl transition-all ${
             canSubmit
               ? 'bg-charcoal text-white hover:bg-charcoal-light'
               : 'bg-cream-dark text-text-light cursor-not-allowed'
@@ -430,7 +430,7 @@ export function RSVP(props: RSVPProps = {}) {
   return (
     <Suspense fallback={
       <div className="max-w-md mx-auto text-center py-8">
-        <div className="animate-pulse text-text-light font-cormorant text-lg">Cargando...</div>
+        <div className="animate-pulse text-text-light font-cormorant text-xl">Cargando...</div>
       </div>
     }>
       <RSVPInner {...props} />

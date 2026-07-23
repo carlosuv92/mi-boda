@@ -68,7 +68,7 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
           <h3 className="font-cormorant text-xl font-semibold mb-2">
             ¡Gracias!
           </h3>
-          <p className="text-white/60 font-cormorant text-lg">
+          <p className="text-white/60 font-cormorant text-xl">
             Tu sugerencia ha sido enviada
           </p>
         </motion.div>
@@ -82,7 +82,7 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
               {...register('cancion')}
               type="text"
               placeholder="Nombre de la canción"
-              className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-lg"
+              className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-xl"
             />
             {errors.cancion && (
               <p className="text-red-500 text-xs mt-1">{errors.cancion.message}</p>
@@ -97,7 +97,7 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
               {...register('artista')}
               type="text"
               placeholder="Nombre del artista"
-              className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-lg"
+              className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-xl"
             />
             {errors.artista && (
               <p className="text-red-500 text-xs mt-1">{errors.artista.message}</p>
@@ -112,7 +112,7 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
               {...register('comentario')}
               placeholder="¿Por qué esta canción?"
               rows={3}
-              className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light resize-none font-cormorant text-lg"
+              className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light resize-none font-cormorant text-xl"
             />
           </div>
 
@@ -125,7 +125,7 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
             whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-charcoal text-white rounded-xl font-medium hover:bg-charcoal-light transition-colors disabled:opacity-50 font-cormorant text-lg"
+            className="w-full py-3 bg-charcoal text-white rounded-xl font-medium hover:bg-charcoal-light transition-colors disabled:opacity-50 font-cormorant text-xl"
           >
             {loading ? 'Enviando...' : 'Sugerir canción'}
           </motion.button>

@@ -47,7 +47,7 @@ export default function WeddingPage() {
           <p className="text-text-primary font-cormorant text-xl mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-6 py-2 bg-charcoal text-white rounded-xl font-cormorant text-lg hover:bg-charcoal-light transition-colors"
+            className="px-6 py-2 bg-charcoal text-white rounded-xl font-cormorant text-xl hover:bg-charcoal-light transition-colors"
           >
             Recargar
           </button>

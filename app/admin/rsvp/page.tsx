@@ -42,7 +42,7 @@ function GuestRow({ guest }: { guest: Guest }) {
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className="font-cormorant text-lg font-semibold text-text-primary">
+          <p className="font-cormorant text-xl font-semibold text-text-primary">
             {guest.nombre} {guest.apellidos}
           </p>
           <p className="text-sm text-text-light font-cormorant mt-0.5">
@@ -126,7 +126,7 @@ export default function RSVPAdminPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-pulse text-text-secondary font-cormorant text-lg">
+        <div className="animate-pulse text-text-secondary font-cormorant text-xl">
           Cargando respuestas...
         </div>
       </div>
@@ -181,7 +181,7 @@ export default function RSVPAdminPage() {
       </div>
 
       <div className="mb-4">
-        <h2 className="font-cormorant text-lg font-semibold text-text-primary">
+        <h2 className="font-cormorant text-xl font-semibold text-text-primary">
           Invitados Confirmados
         </h2>
         <p className="text-sm text-text-light font-cormorant">
@@ -191,7 +191,7 @@ export default function RSVPAdminPage() {
 
       {invitedGuests.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-2xl">
-          <p className="text-text-secondary font-cormorant text-lg">
+          <p className="text-text-secondary font-cormorant text-xl">
             No hay invitados confirmados aún
           </p>
         </div>

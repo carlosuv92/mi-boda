@@ -179,7 +179,7 @@ export function GuestPhotoUpload({ guestName, onUploadSuccess }: GuestPhotoUploa
           whileTap={{ scale: 0.95 }}
           onClick={() => setShowUploader(true)}
           className="w-full py-4 bg-detalle text-charcoal rounded-xl
-            font-cormorant text-lg font-medium shadow-sm hover:shadow-md
+            font-cormorant text-xl font-medium shadow-sm hover:shadow-md
             transition-all duration-300"
         >
           Sube tus fotos
@@ -200,7 +200,7 @@ export function GuestPhotoUpload({ guestName, onUploadSuccess }: GuestPhotoUploa
               <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
                 <Check className="w-8 h-8 text-green-600" />
               </div>
-              <p className="font-cormorant text-lg text-green-700">
+              <p className="font-cormorant text-xl text-green-700">
                 {successCount === 1 ? '¡Foto subida!' : `¡${successCount} fotos subidas!`}
               </p>
               <p className="text-text-light text-sm font-cormorant">
@@ -210,7 +210,7 @@ export function GuestPhotoUpload({ guestName, onUploadSuccess }: GuestPhotoUploa
           ) : uploading ? (
             <div className="flex flex-col items-center gap-4 py-4">
               <Loader2 className="w-10 h-10 text-principal animate-spin" />
-              <span className="text-text-secondary font-cormorant text-lg">
+              <span className="text-text-secondary font-cormorant text-xl">
                 Subiendo {uploaded + 1} de {total}
               </span>
               <div className="w-48 h-2 bg-cream-dark rounded-full overflow-hidden">
@@ -224,7 +224,7 @@ export function GuestPhotoUpload({ guestName, onUploadSuccess }: GuestPhotoUploa
           ) : (
             <>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-cormorant text-lg text-text-primary">
+                <h3 className="font-cormorant text-xl text-text-primary">
                   Subir fotos
                 </h3>
                 <button
@@ -256,14 +256,14 @@ export function GuestPhotoUpload({ guestName, onUploadSuccess }: GuestPhotoUploa
                     <div className="w-16 h-16 rounded-full bg-principal/20 flex items-center justify-center">
                       <Upload className="w-8 h-8 text-principal" />
                     </div>
-                    <span className="text-principal font-cormorant text-lg font-medium">
+                    <span className="text-principal font-cormorant text-xl font-medium">
                       Suelta tus fotos aquí
                     </span>
                   </>
                 ) : (
                   <>
                     <Images className="w-12 h-12 text-text-light" />
-                    <span className="text-text-secondary font-cormorant text-lg">
+                    <span className="text-text-secondary font-cormorant text-xl">
                       Arrastra tus fotos aquí o toca para seleccionar
                     </span>
                     <span className="text-text-light text-xs font-cormorant">

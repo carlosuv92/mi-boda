@@ -52,7 +52,7 @@ export function Timeline() {
                         <div className="absolute top-3.5 left-0 w-8 md:w-14 h-[1.5px] bg-text-primary" />
                         <div className="flex flex-col items-center text-center">
                           <Icon className="text-text-primary mb-2" />
-                          <h3 className="font-cormorant text-md italic md:text-lg leading-tight text-text-primary">
+                          <h3 className="font-cormorant text-md italic md:text-xl leading-tight text-text-primary">
                             {event.label}
                           </h3>
                         </div>
@@ -64,7 +64,7 @@ export function Timeline() {
                         <div className="absolute top-3.5 right-0 w-8 md:w-14 h-[1.5px] bg-text-primary" />
                         <div className="flex flex-col items-center text-center">
                           <Icon className="text-text-primary mb-2" />
-                          <h3 className="font-cormorant text-md italic md:text-lg leading-tight text-text-primary">
+                          <h3 className="font-cormorant text-md italic md:text-xl leading-tight text-text-primary">
                             {event.label}
                           </h3>
                         </div>

@@ -72,7 +72,7 @@ export default function GuestsAdminPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-pulse text-text-secondary font-cormorant text-lg">
+        <div className="animate-pulse text-text-secondary font-cormorant text-xl">
           Cargando invitados...
         </div>
       </div>
@@ -157,7 +157,7 @@ export default function GuestsAdminPage() {
 
       {filteredGuests.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-2xl">
-          <p className="text-text-secondary font-cormorant text-lg">
+          <p className="text-text-secondary font-cormorant text-xl">
             No se encontraron invitados
           </p>
         </div>
@@ -173,7 +173,7 @@ export default function GuestsAdminPage() {
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="font-cormorant text-lg font-semibold text-text-primary">
+                  <h3 className="font-cormorant text-xl font-semibold text-text-primary">
                     {guest.nombre} {guest.apellidos}
                   </h3>
                   <p className="text-sm text-text-light font-cormorant mt-0.5">
