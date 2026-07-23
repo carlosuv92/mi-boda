@@ -3,12 +3,12 @@
 import { useEffect, useRef } from 'react'
 
 const PETAL_COLORS = [
-  '#d99c2b', // text-detalle (gold)
+  '#c9b37e', // text-detalle (gold)
   '#FFEDA2', // detalle (light gold)
-  '#9db3e6', // principal-light (soft blue)
-  '#afc4ea', // principal-soft
-  '#fff3c2', // detalle-light
+  '#e8c87a', // warm gold
   '#d4a574', // warm rose gold
+  '#fff3c2', // detalle-light
+  '#c0a060', // deep gold
 ]
 
 function petal(ctx: CanvasRenderingContext2D) {
@@ -41,7 +41,7 @@ export function WeddingConfetti() {
     }
     resize()
 
-    const petals = Array.from({ length: 40 }, () => {
+    const petals = Array.from({ length: 50 }, () => {
       const p = petal(ctx)
       p.y = Math.random() * canvas.height * 0.3
       return p
