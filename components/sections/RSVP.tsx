@@ -267,7 +267,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
           </p>
           {guest.acompanantes_autorizados > 0 && (
             <p className="font-cormorant text-lg text-text-secondary font-semibold mt-2">
-              {guest.acompanantes_autorizados + 1} lugares reservados
+             Reservamos un asiento para ti y {guest.acompanantes_autorizados} adicional{guest.acompanantes_autorizados > 1 ? 'es' : ''}.
             </p>
           )}
         </div>
@@ -327,10 +327,6 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
               </option>
             ))}
           </select>
-          <p className="text-md mt-2 font-cormorant">
-            Total confirmados: {1 + (watch("acompanantes_confirmados") || 0)}{" "}
-            personas
-          </p>
         </div>
       )}
 

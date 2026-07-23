@@ -362,7 +362,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
           <SectionHeader
             title="Playlist"
             icon={
-              <Playlist className="w-20 h-20 text-principal mx-auto mb-4" />
+              <Playlist className="w-50 text-principal mx-auto mb-4" />
             }
             text="Aquí puedes sugerir esa canción que no puede faltar en nuestra boda"
           />
@@ -403,7 +403,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
             <SectionHeader
               title="Confirmar Asistencia"
               icon={
-                <Invitacion className="w-30 h-30 text-principal mx-auto mb-4" />
+                <Invitacion className="w-30 text-principal mx-auto mb-4" />
               }
               text="Nos encantaría contar con tu presencia en la lista de invitados."
               textInvitacion={
@@ -450,7 +450,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
             <div className="w-2 h-2 bg-detalle/60 rounded-full" />
             <div className="h-px w-12 bg-detalle/40" />
           </div>
-          <p className="text-white/40 text-sm mt-8 font-cormorant">
+          <p className="text-white/40 text-md mt-8 font-cormorant">
             Muchas gracias
           </p>
         </div>
