@@ -134,7 +134,7 @@ function HeroSection({
           transition={{ delay: 2 }}
           className="flex flex-col items-center gap-2"
         >
-          <div className="hidden md:block w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+          <div className="hidden md:block w-6 h-10 border-2 border-white/30 rounded-full justify-center">
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -183,7 +183,7 @@ function CountdownSection({
           transition={{ duration: 1, delay: 0.7 }}
         >
           <div className="w-16 h-px mx-auto" />
-          <p className="font-[family-name:var(--font-dancing-script)] text-6xl md:text-6xl  leading-tight mb-4">
+          <p className="font-dancing-script text-6xl md:text-6xl  leading-tight mb-4">
             {novia} <span className="px-3">y</span> {novio}
           </p>
         </motion.div>

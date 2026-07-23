@@ -1,8 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Copy } from 'lucide-react'
 import { useState } from 'react'
+import { Landmark, Hash, Smartphone, Gift, Check } from 'lucide-react'
+import { motion } from 'framer-motion'
 import MesaRegalos from '@/components/icons/MesaRegalos'
 
 interface GiftTableProps {
@@ -12,39 +12,59 @@ interface GiftTableProps {
   qrUrl?: string
 }
 
-function CopyButton({
-  label,
-  value,
-  copied,
-  onCopy,
-}: {
-  label: string
+interface InfoCardProps {
+  icon: React.ReactNode
+  title: string
+  subtitle?: string
   value: string
+  label: string
   copied: boolean
   onCopy: () => void
-}) {
+}
+
+function InfoCard({ icon, title, subtitle, value, label, copied, onCopy }: InfoCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative flex items-center justify-between gap-4 py-4 border-b border-cream-dark last:border-b-0"
+      className="bg-white rounded-2xl p-4 shadow-sm border border-cream-dark"
     >
-      <div>
-        <p className="text-xs uppercase tracking-[0.2em] font-cormorant mb-1">{label}</p>
-        <p className="text-text-primary font-noto-sans text-sm tracking-wide">{value}</p>
+      <div className="flex items-center gap-3 mb-2">
+        <div className="w-10 h-10 rounded-full bg-principal-soft/40 flex items-center justify-center shrink-0">
+          {icon}
+        </div>
+        <div className="min-w-0">
+          <p className="text-md font-semibold text-text-primary font-cormorant leading-tight">
+            {title}
+          </p>
+          {subtitle && (
+            <p className="text-[14px] font-cormorant mt-0.5">
+              {subtitle}
+            </p>
+          )}
+        </div>
       </div>
+      <p className="text-sm font-semibold tracking-wide font-noto-sans ml-13 mb-3">
+        {value}
+      </p>
       <button
         onClick={onCopy}
-        className="shrink-0 p-2 rounded-full opacity-40 group-hover:opacity-100 transition-opacity hover:bg-charcoal/5"
+        className={`w-full py-2 rounded-xl text-ms font-medium font-cormorant tracking-wide transition-all flex items-center justify-center gap-1.5 ${
+          copied
+            ? 'bg-charcoal-light text-white font-semibold'
+          : 'bg-charcoal hover:bg-charcoal-light transition-colors text-detalle font-semibold'
+        }`}
       >
-        <Copy className="w-4 h-4 text-text-secondary" />
+        {copied ? (
+          <>
+            <Check className="w-3.5 h-3.5" />
+            ¡Copiado!
+          </>
+        ) : (
+          <span>{label}</span>
+        )}
       </button>
-      {copied && (
-        <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-charcoal text-white text-xs rounded-full font-cormorant">
-          ¡Copiado!
-        </span>
-      )}
     </motion.div>
   )
 }
@@ -58,7 +78,7 @@ export function GiftTable({
   const [copied, setCopied] = useState<string | null>(null)
 
   const copyToClipboard = (text: string, type: string) => {
-    navigator.clipboard.writeText(text)
+    navigator.clipboard.writeText(text.replace(/\s/g, ''))
     setCopied(type)
     setTimeout(() => setCopied(null), 2000)
   }
@@ -86,73 +106,74 @@ export function GiftTable({
         </div>
       </div>
 
-      <div className="bg-white  font-bold rounded-3xl p-8 md:p-10 shadow-sm border border-cream-dark">
-        {(cuentaBancaria || cci) && (
-          <div className="mb-6">
-            <p className="text-xs uppercase tracking-[0.3em] font-cormorant text-center mb-4">
-              Transferencia Bancaria
-            </p>
-            {cuentaBancaria && (
-              <CopyButton
-                label="Compartamos Banco — Número de cuenta"
-                value={cuentaBancaria}
-                copied={copied === 'cuenta'}
-                onCopy={() => copyToClipboard(cuentaBancaria, 'cuenta')}
-              />
-            )}
-            {cci && (
-              <CopyButton
-                label="CCI"
-                value={cci}
-                copied={copied === 'cci'}
-                onCopy={() => copyToClipboard(cci, 'cci')}
-              />
-            )}
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+        {cuentaBancaria && (
+          <InfoCard
+            icon={<Landmark className="w-5 h-5 text-principal" />}
+            title="Transferencia Bancaria"
+            subtitle="Compartamos Banco"
+            value={cuentaBancaria}
+            label="Copiar número"
+            copied={copied === 'cuenta'}
+            onCopy={() => copyToClipboard(cuentaBancaria, 'cuenta')}
+          />
+        )}
+
+        {cci && (
+          <InfoCard
+            icon={<Hash className="w-5 h-5 text-principal" />}
+            title="Cuenta CCI"
+            subtitle="Interbancario"
+            value={cci}
+            label="Copiar CCI"
+            copied={copied === 'cci'}
+            onCopy={() => copyToClipboard(cci, 'cci')}
+          />
         )}
 
         {telefono && (
-          <div
-            className={`${cuentaBancaria || cci ? 'pt-4 border-t border-cream-dark' : ''}`}
-          >
-            <p className="text-xs uppercase tracking-[0.3em] font-cormorant text-center mb-4">
-              También por Yape o Plin
-            </p>
-            <CopyButton
-              label="Compartamos Banco"
-              value={telefono}
-              copied={copied === 'telefono'}
-              onCopy={() => copyToClipboard(telefono, 'telefono')}
-            />
-          </div>
+          <InfoCard
+            icon={<Smartphone className="w-5 h-5 text-principal" />}
+            title="Yape / Plin"
+            subtitle="Seleccionar Compartamos Banco"
+            value={telefono}
+            label="Copiar número"
+            copied={copied === 'telefono'}
+            onCopy={() => copyToClipboard(telefono, 'telefono')}
+          />
         )}
 
-        {qrUrl && (
-          <div className="pt-6 border-t border-cream-dark mt-6 text-center">
-            <p className="text-xs uppercase tracking-[0.3em] font-cormorant text-center mb-5">
-              Escanea el QR
-            </p>
-            <div className="w-44 h-44 mx-auto bg-white rounded-2xl p-3 shadow-sm border border-cream-dark">
-              <img
-                src={qrUrl}
-                alt="QR de regalo"
-                className="w-full h-full object-contain"
-              />
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-dark opacity-60">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-full bg-principal-soft/40 flex items-center justify-center shrink-0">
+              <Gift className="w-5 h-5 text-principal" />
             </div>
-          </div>
-        )}
-
-        <div className="mt-8 pt-6 border-t border-cream-dark">
-          <p className="text-xs uppercase tracking-[0.3em] font-cormorant text-center mb-4">
-            Lista de Regalos
-          </p>
-          <div className="flex items-center justify-center gap-3 opacity-50">
-            <div className="h-px w-8 bg-text-light" />
-            <span className="font-cormorant text-xl">Próximamente</span>
-            <div className="h-px w-8 bg-text-light" />
+            <div>
+              <p className="text-md font-semibold font-cormorant leading-tight">
+                Lista de Regalos
+              </p>
+              <p className="text-[13px] font-cormorant mt-0.5">
+                Próximamente
+              </p>
+            </div>
           </div>
         </div>
       </div>
+
+      {qrUrl && (
+        <div className="mt-6 text-center">
+          <p className="text-xs uppercase tracking-[0.3em] font-cormorant text-center mb-4">
+            Escanea el QR
+          </p>
+          <div className="w-44 h-44 mx-auto bg-white rounded-2xl p-3 shadow-sm border border-cream-dark">
+            <img
+              src={qrUrl}
+              alt="QR de regalo"
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -55,7 +55,7 @@ export function LocationCard({
           </div>
           
           <div className="flex items-start justify-center gap-2">
-            <MapPin className="w-4 h-4 text-principal mt-0.5 flex-shrink-0" />
+            <MapPin className="w-4 h-4 text-principal mt-0.5 shrink-0" />
             <span className="font-cormorant text-md ">{direccion}</span>
           </div>
           
@@ -73,7 +73,7 @@ export function LocationCard({
           href={mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-charcoal text-detalle rounded-full text-sm font-medium hover:bg-charcoal-light transition-colors"
+          className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-charcoal text-detalle rounded-full text-md font-semibold hover:bg-charcoal-light transition-colors"
         >
           <MapPin className="w-4 h-4 text-detalle" />
           Ver ubicación
