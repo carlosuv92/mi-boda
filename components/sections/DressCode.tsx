@@ -2,15 +2,14 @@
 
 import { motion } from 'framer-motion'
 import { CoupleDress } from '@/components/ui/DressCodeIcons'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
 export function DressCode() {
   return (
     <div>
-      <div className="text-center mb-12">
-        <h2 className="font-cormorant text-3xl md:text-4xl font-semibold mb-2">
-          Dress Code
-        </h2>
-      </div>
+      <SectionHeader
+        title="Dress Code"
+      />
 
       <motion.div
         initial={{ opacity: 0, x: -20 }}

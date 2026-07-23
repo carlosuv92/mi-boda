@@ -13,6 +13,9 @@ import { AdultsOnly } from '@/components/sections/AdultsOnly'
 import { Countdown } from '@/components/ui/Countdown'
 import { Music, Heart } from 'lucide-react'
 import LogoSVG from '@/components/icons/Logo'
+import { SectionHeader } from '@/components/ui/SectionHeader'
+import Playlist from '@/components/icons/Playlist'
+import Invitacion from "@/components/icons/Invitacion"
 
 const galleryImages = [
   { src: '/gallery/image-1.webp', offset: 'center 80%' },
@@ -251,7 +254,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
         guest={guest}
         novia={novia}
         novio={novio}
-        fotoPrincipal={config.fotoPrincipal || '/images/principal.webp'}
+        fotoPrincipal={config.fotoPrincipal || "/images/principal.webp"}
       />
 
       <CountdownSection
@@ -263,18 +266,24 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
         novio={novio}
       />
 
-      <SectionImage src={galleryImages[0].src} offset={galleryImages[0].offset} />
+      <SectionImage
+        src={galleryImages[0].src}
+        offset={galleryImages[0].offset}
+      />
 
       <Section id="mensaje" className="bg-white-off">
         <FloralDivider className="mb-8" />
         <p className="text-center text-xl md:text-xl">
           {config.mensajeBienvenida ||
-            'Con nuestro amor, la bendición de Dios y en compañía de nuestros padres, los invitamos a celebrar el día más especial de nuestras vidas.'}
+            "Con nuestro amor, la bendición de Dios y en compañía de nuestros padres, los invitamos a celebrar el día más especial de nuestras vidas."}
         </p>
         <FloralDivider className="mt-8" />
       </Section>
 
-      <SectionImage src={galleryImages[1].src} offset={galleryImages[1].offset} />
+      <SectionImage
+        src={galleryImages[1].src}
+        offset={galleryImages[1].offset}
+      />
 
       <Section id="ubicacion">
         <div className="text-center mb-12">
@@ -287,20 +296,20 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
           <LocationCard
             type="ceremonia"
             foto={config.fotoIglesia}
-            titulo={config.nombreIglesia || 'Ceremonia Religiosa'}
-            direccion={config.direccionIglesia || ''}
-            hora={config.horaCeremonia || '11:00 AM'}
+            titulo={config.nombreIglesia || "Ceremonia Religiosa"}
+            direccion={config.direccionIglesia || ""}
+            hora={config.horaCeremonia || "11:00 AM"}
             estacionamiento={config.estacionamientoIglesia}
-            mapsUrl={config.mapsIglesia || '#'}
+            mapsUrl={config.mapsIglesia || "#"}
           />
           <LocationCard
             type="recepcion"
             foto={config.fotoRecepcion}
-            titulo={config.nombreRecepcion || 'Recepción'}
-            direccion={config.direccionRecepcion || ''}
-            hora={config.horaRecepcion || '1:00 PM'}
+            titulo={config.nombreRecepcion || "Recepción"}
+            direccion={config.direccionRecepcion || ""}
+            hora={config.horaRecepcion || "1:00 PM"}
             estacionamiento={config.estacionamientoRecepcion}
-            mapsUrl={config.mapsRecepcion || '#'}
+            mapsUrl={config.mapsRecepcion || "#"}
           />
         </div>
         <p className="text-center mt-4 leading-relaxed font-cormorant text-lg md:text-xl">
@@ -310,25 +319,29 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
         </p>
       </Section>
 
-      <SectionImage src={galleryImages[2].src} offset={galleryImages[2].offset} />
+      <SectionImage
+        src={galleryImages[2].src}
+        offset={galleryImages[2].offset}
+      />
 
       <Section id="dresscode" className="bg-white-off">
-        <DressCode/>
+        <DressCode />
       </Section>
 
-      <SectionImage src={galleryImages[3].src} offset={galleryImages[3].offset} />
+      <SectionImage
+        src={galleryImages[3].src}
+        offset={galleryImages[3].offset}
+      />
 
       <Section id="itinerario">
-        <div className="text-center mb-12">
-          <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
-            Itinerario
-          </h2>
-          <p className="font-cormorant text-xl">Cronograma de actividades</p>
-        </div>
+        <SectionHeader title="Itinerario" text="Cronograma de actividades" />
         <Timeline />
       </Section>
 
-      <SectionImage src={galleryImages[4].src} offset={galleryImages[4].offset} />
+      <SectionImage
+        src={galleryImages[4].src}
+        offset={galleryImages[4].offset}
+      />
 
       <Section id="regalos" className="bg-white-off">
         <GiftTable
@@ -339,18 +352,20 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
         />
       </Section>
 
-      <SectionImage src={galleryImages[5].src} offset={galleryImages[5].offset} />
+      <SectionImage
+        src={galleryImages[5].src}
+        offset={galleryImages[5].offset}
+      />
 
       <Section id="canciones" className="bg-white-off">
         {isPersonalized ? (
-          <div className="text-center mb-8">
-            <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-2">
-              Playlist
-            </h2>
-            <p className="font-cormorant text-xl">
-              Ayúdanos con la música, sugiere esa canción que no puede faltar
-            </p>
-          </div>
+          <SectionHeader
+            title="Playlist"
+            icon={
+              <Playlist className="w-20 h-20 text-principal mx-auto mb-4" />
+            }
+            text="Aquí puedes sugerir esa canción que no puede faltar en nuestra boda"
+          />
         ) : (
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-charcoal rounded-full mb-6">
@@ -375,26 +390,26 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
         )}
       </Section>
 
-      <SectionImage src={galleryImages[6].src} offset={galleryImages[6].offset} />
+      <SectionImage
+        src={galleryImages[6].src}
+        offset={galleryImages[6].offset}
+      />
 
       <AdultsOnly mensaje={config.mensajeAdultos} />
 
       <Section id="confirmar">
         {isPersonalized ? (
           <>
-            <div className="text-center mb-8">
-              <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-text-primary mb-4">
-                Confirmar Asistencia
-              </h2>
-              <p className="font-cormorant text-xl">
-                Nos encantaría contar con tu presencia en la lista de invitados.
-              </p>
-              {fechaLimiteRSVP && (
-                <p className="font-cormorant text-xl">
-                  Confirmanos tu asistencia hasta el <strong>{fechaLimiteRSVP}</strong>
-                </p>
-              )}
-            </div>
+            <SectionHeader
+              title="Confirmar Asistencia"
+              icon={
+                <Invitacion className="w-30 h-30 text-principal mx-auto mb-4" />
+              }
+              text="Nos encantaría contar con tu presencia en la lista de invitados."
+              textInvitacion={
+                <>Confirmanos tu asistencia hasta el <strong>{fechaLimiteRSVP}</strong></>
+              }
+            />
             <RSVP
               guestId={guest!.id}
               guestNombre={guest!.nombre}

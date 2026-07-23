@@ -300,7 +300,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
 
       {estado === 'ACEPTADO' && guest && guest.acompanantes_autorizados > 0 && (
         <div className="mb-6">
-          <label className="block text-sm font-medium text-text-secondary mb-3 font-cormorant text-base">
+          <label className="block text-sm font-medium text-text-secondary mb-3 font-cormorant ">
             ¿Cuántos acompañantes asistirán contigo?
           </label>
           <select
@@ -329,7 +329,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
 
       {estado === 'ACEPTADO' && watch('acompanantes_confirmados') > 0 && (
         <div className="mb-6 space-y-3">
-          <label className="block text-sm font-medium text-text-secondary font-cormorant text-base">
+          <label className="block text-sm font-medium text-text-secondary font-cormorant ">
             Nombres de tus acompañantes <span className="text-red-400">*</span>
           </label>
           {Array.from({ length: watch('acompanantes_confirmados') }, (_, i) => {
@@ -374,7 +374,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6">
-          <label className="block text-sm font-medium text-text-secondary mb-2 font-cormorant text-base">
+          <label className="block text-sm font-medium text-text-secondary mb-2 font-cormorant ">
             Comentario (opcional)
           </label>
           <textarea

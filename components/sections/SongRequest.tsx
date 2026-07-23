@@ -75,14 +75,14 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-2 font-cormorant text-base">
+            <label className="block text-md font-semibold text-text-secondary mb-2 font-cormorant ">
               Canción *
             </label>
             <input
               {...register('cancion')}
               type="text"
               placeholder="Nombre de la canción"
-              className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-xl"
+              className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-lg"
             />
             {errors.cancion && (
               <p className="text-red-500 text-xs mt-1">{errors.cancion.message}</p>
@@ -90,14 +90,14 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-2 font-cormorant text-base">
+            <label className="block text-md font-semibold text-text-secondary mb-2 font-cormorant ">
               Artista *
             </label>
             <input
               {...register('artista')}
               type="text"
               placeholder="Nombre del artista"
-              className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-xl"
+              className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-lg"
             />
             {errors.artista && (
               <p className="text-red-500 text-xs mt-1">{errors.artista.message}</p>
@@ -105,19 +105,19 @@ export function SongRequest({ guestId, guestNombre }: SongRequestProps) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-2 font-cormorant text-base">
+            <label className="block text-md font-semibold text-text-secondary mb-2 font-cormorant">
               Comentario (opcional)
             </label>
             <textarea
               {...register('comentario')}
               placeholder="¿Por qué esta canción?"
               rows={3}
-              className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light resize-none font-cormorant text-xl"
+              className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light resize-none font-cormorant text-lg"
             />
           </div>
 
           {error && (
-            <p className="text-red-500 text-sm text-center font-cormorant">{error}</p>
+            <p className="text-red-500 text-md text-center font-cormorant">{error}</p>
           )}
 
           <motion.button
