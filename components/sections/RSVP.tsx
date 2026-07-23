@@ -261,24 +261,26 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
   return (
     <div className="max-w-md mx-auto">
       {guest && (
-        <p className="text-center text-text-secondary mb-6 font-cormorant text-xl">
-          Bienvenido/a <span className="font-semibold text-text-primary">{guest.nombre} {guest.apellidos}</span>
+        <div className="border border-principal rounded-xl p-6 mb-6 text-center">
+          <p className="font-cormorant text-2xl font-semibold text-text-primary">
+            {guest.nombre} {guest.apellidos}
+          </p>
           {guest.acompanantes_autorizados > 0 && (
-            <>
-              {' '}y acompañantes ({guest.acompanantes_autorizados + 1} lugares reservados)
-            </>
+            <p className="font-cormorant text-lg text-text-secondary font-semibold mt-2">
+              {guest.acompanantes_autorizados + 1} lugares reservados
+            </p>
           )}
-        </p>
+        </div>
       )}
 
       <div className="flex gap-3 mb-6">
         <button
           type="button"
-          onClick={() => setValue('estado', 'ACEPTADO')}
-          className={`flex-1 py-4 rounded-xl font-medium transition-all flex items-center justify-center gap-2 font-cormorant text-xl ${
-            estado === 'ACEPTADO'
-              ? 'bg-charcoal text-detalle'
-              : 'bg-white border border-cream-dark text-text-secondary hover:bg-cream'
+          onClick={() => setValue("estado", "ACEPTADO")}
+          className={`flex-1 py-4 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 font-cormorant text-xl ${
+            estado === "ACEPTADO"
+              ? "bg-charcoal text-detalle"
+              : "bg-white border border-cream-dark text-text-secondary hover:bg-cream"
           }`}
         >
           <Check className="w-5 h-5" />
@@ -286,11 +288,11 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
         </button>
         <button
           type="button"
-          onClick={() => setValue('estado', 'RECHAZADO')}
-          className={`flex-1 py-4 rounded-xl font-medium transition-all flex items-center justify-center gap-2 font-cormorant text-xl ${
-            estado === 'RECHAZADO'
-              ? 'bg-red-400 text-white'
-              : 'bg-white border border-cream-dark text-text-secondary hover:bg-cream'
+          onClick={() => setValue("estado", "RECHAZADO")}
+          className={`flex-1 py-4 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 font-cormorant text-xl ${
+            estado === "RECHAZADO"
+              ? "bg-red-400 text-white"
+              : "bg-white border border-cream-dark text-text-secondary hover:bg-cream"
           }`}
         >
           <X className="w-5 h-5" />
@@ -298,90 +300,105 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
         </button>
       </div>
 
-      {estado === 'ACEPTADO' && guest && guest.acompanantes_autorizados > 0 && (
+      {estado === "ACEPTADO" && guest && guest.acompanantes_autorizados > 0 && (
         <div className="mb-6">
-          <label className="block text-sm font-medium text-text-secondary mb-3 font-cormorant ">
+          <label className="block text-md font-semibold mb-3 font-cormorant">
             ¿Cuántos acompañantes asistirán contigo?
           </label>
           <select
-            value={watch('acompanantes_confirmados')}
+            value={watch("acompanantes_confirmados")}
             onChange={(e) => {
-              const count = parseInt(e.target.value);
-              setValue('acompanantes_confirmados', count);
+              const count = parseInt(e.target.value)
+              setValue("acompanantes_confirmados", count)
               setNombres((prev) => {
-                if (count > prev.length) return [...prev, ...Array(count - prev.length).fill('')];
-                return prev.slice(0, count);
-              });
+                if (count > prev.length)
+                  return [...prev, ...Array(count - prev.length).fill("")]
+                return prev.slice(0, count)
+              })
             }}
             className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary font-cormorant text-xl appearance-none cursor-pointer"
           >
-            {Array.from({ length: guest.acompanantes_autorizados + 1 }, (_, i) => i).map((num) => (
+            {Array.from(
+              { length: guest.acompanantes_autorizados + 1 },
+              (_, i) => i,
+            ).map((num) => (
               <option key={num} value={num}>
-                {num} {num === 1 ? 'acompañante' : 'acompañantes'}
+                {num} {num === 1 ? "acompañante" : "acompañantes"}
               </option>
             ))}
           </select>
-          <p className="text-xs text-text-light mt-2 font-cormorant">
-            Total confirmados: {1 + (watch('acompanantes_confirmados') || 0)} personas
+          <p className="text-md mt-2 font-cormorant">
+            Total confirmados: {1 + (watch("acompanantes_confirmados") || 0)}{" "}
+            personas
           </p>
         </div>
       )}
 
-      {estado === 'ACEPTADO' && watch('acompanantes_confirmados') > 0 && (
+      {estado === "ACEPTADO" && watch("acompanantes_confirmados") > 0 && (
         <div className="mb-6 space-y-3">
-          <label className="block text-sm font-medium text-text-secondary font-cormorant ">
-            Nombres de tus acompañantes <span className="text-red-400">*</span>
+          <label className="block  text-md font-semibold mb-3 font-cormorant">
+            Nombres de tus acompañantes <span className="text-orange-400">*</span>
           </label>
-          {Array.from({ length: watch('acompanantes_confirmados') }, (_, i) => {
-            const isEmpty = (!nombres[i] || !nombres[i].trim());
-            const showError = nombresError && isEmpty;
+          {Array.from({ length: watch("acompanantes_confirmados") }, (_, i) => {
+            const isEmpty = !nombres[i] || !nombres[i].trim()
+            const showError = nombresError && isEmpty
             return (
               <div key={i} className="flex items-center gap-2">
-                <User className={`w-4 h-4 shrink-0 ${showError ? 'text-red-400' : isEmpty && acompanantesCount > 0 ? 'text-amber-300' : 'text-text-light'}`} />
+                <User
+                  className={`w-4 h-4 shrink-0 ${showError ? "text-orange-400" : isEmpty && acompanantesCount > 0 ? "text-orange-400" : "text-nowrap"}`}
+                />
                 <input
                   type="text"
-                  value={nombres[i] || ''}
+                  value={nombres[i] || ""}
                   onChange={(e) => {
-                    setNombresError(false);
+                    setNombresError(false)
                     setNombres((prev) => {
-                      const next = [...prev];
-                      next[i] = e.target.value;
-                      return next;
-                    });
+                      const next = [...prev]
+                      next[i] = e.target.value
+                      return next
+                    })
                   }}
                   placeholder={`Acompañante ${i + 1}`}
-                  className={`w-full px-4 py-3 bg-white border rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-xl ${
-                    showError ? 'border-red-400 ring-red-200' : isEmpty ? 'border-amber-300' : 'border-cream-dark'
+                  className={`w-full px-4 py-3 bg-white border rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light font-cormorant text-lg ${
+                    showError
+                      ? "border-orange-400 ring-orange-200"
+                      : isEmpty
+                        ? "border-orange-400"
+                        : "border-cream-dark"
                   }`}
                 />
               </div>
-            );
+            )
           })}
           {nombresError && (
-            <p className="text-red-500 text-sm font-cormorant flex items-center gap-1">
+            <p className="text-orange-500 text-md font-cormorant flex items-center gap-1">
               <X className="w-3.5 h-3.5" />
               Ingresa el nombre de todos tus acompañantes
             </p>
           )}
-          {!nombresError && acompanantesCount > 0 && nombres.slice(0, acompanantesCount).some((n) => !n.trim()) && (
-            <p className="text-amber-500 text-sm font-cormorant flex items-center gap-1">
-              <span className="w-3.5 h-3.5 inline-flex items-center justify-center rounded-full bg-amber-100 text-amber-600 text-[10px] font-bold">!</span>
-              Completa los nombres para poder confirmar
-            </p>
-          )}
+          {!nombresError &&
+            acompanantesCount > 0 &&
+            nombres.slice(0, acompanantesCount).some((n) => !n.trim()) && (
+              <p className="text-orange-500 text-md font-cormorant flex items-center gap-1 font-semibold">
+                <span className="w-3.5 h-3.5 inline-flex items-center justify-center rounded-full bg-orange-100 text-orange-600 text-[10px] font-bold">
+                  !
+                </span>
+                Completa los nombres para poder confirmar
+              </p>
+            )}
         </div>
       )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6">
-          <label className="block text-sm font-medium text-text-secondary mb-2 font-cormorant ">
+          <label className="block text-md font-semibold mb-2 font-cormorant ">
             Comentario (opcional)
           </label>
           <textarea
-            {...register('comentario')}
+            {...register("comentario")}
             placeholder="Algún mensaje o restricción alimentaria"
             rows={3}
-            className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light resize-none font-cormorant text-xl"
+            className="w-full px-4 py-3 bg-white border border-cream-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-principal/50 text-text-primary placeholder:text-text-light resize-none font-cormorant text-lg"
           />
         </div>
 
@@ -392,20 +409,22 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
           disabled={!canSubmit}
           onClick={(e) => {
             if (!canSubmit) {
-              e.preventDefault();
-              setNombresTocado(true);
-              setTimeout(() => setNombresTocado(false), 3000);
+              e.preventDefault()
+              setNombresTocado(true)
+              setTimeout(() => setNombresTocado(false), 3000)
             }
           }}
-          className={`w-full py-3 rounded-xl font-medium font-cormorant text-xl transition-all ${
+          className={`w-full py-3 rounded-xl font-semibold font-cormorant text-xl transition-all ${
             canSubmit
-              ? 'bg-charcoal text-white hover:bg-charcoal-light'
-              : 'bg-cream-dark text-text-light cursor-not-allowed'
+              ? "bg-charcoal text-white hover:bg-charcoal-light"
+              : "bg-cream-dark text-text-light cursor-not-allowed"
           }`}
         >
           {loading
-            ? 'Enviando...'
-            : (existingRSVP ? 'Actualizar respuesta' : 'Confirmar asistencia')}
+            ? "Enviando..."
+            : existingRSVP
+              ? "Actualizar respuesta"
+              : "Confirmar asistencia"}
         </motion.button>
 
         {nombresTocado && (
@@ -415,15 +434,18 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
             exit={{ opacity: 0 }}
             className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-2"
           >
-            <span className="w-5 h-5 inline-flex items-center justify-center rounded-full bg-amber-200 text-amber-700 text-xs font-bold shrink-0 mt-0.5">!</span>
-            <p className="text-sm text-amber-800 font-cormorant">
-              No olvides escribir los nombres de tus acompañantes para poder confirmar tu asistencia
+            <span className="w-5 h-5 inline-flex items-center justify-center rounded-full bg-amber-200 text-amber-700 text-xs font-bold shrink-0 mt-0.5">
+              !
+            </span>
+            <p className="text-sm text-amber-800 font-cormorant font-semibold">
+              No olvides escribir los nombres de tus acompañantes para poder
+              confirmar tu asistencia
             </p>
           </motion.div>
         )}
       </form>
     </div>
-  );
+  )
 }
 
 export function RSVP(props: RSVPProps = {}) {
