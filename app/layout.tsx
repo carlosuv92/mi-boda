@@ -34,10 +34,10 @@ const notoSans = Noto_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL('https://mi-boda-one.vercel.app'),
   title: "Felipe y Lilian - Nuestra Boda",
-  description: "Estás invitado a nuestra boda. Celebramos nuestro amor el 15 de abril de 2027.",
+  description: "Estás invitado a nuestra boda. Celebramos nuestro amor el 26 de septiembre de 2026.",
   openGraph: {
     title: "Felipe y Lilian - Nuestra Boda",
-    description: "Estás invitado a nuestra boda. Celebramos nuestro amor el 15 de abril de 2027.",
+    description: "Estás invitado a nuestra boda. Celebramos nuestro amor el 26 de septiembre de 2026.",
     type: "website",
     images: [{ url: '/og', width: 1200, height: 630 }],
   },
