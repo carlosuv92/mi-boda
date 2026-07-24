@@ -327,7 +327,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
               (_, i) => i,
             ).map((num) => (
               <option key={num} value={num}>
-                {num} {num === 1 ? "acompañante" : "acompañantes"}
+                {num === 0 ? "Sin acompañantes" : `${num} ${num === 1 ? "acompañante" : "acompañantes"}`}
               </option>
             ))}
           </select>
