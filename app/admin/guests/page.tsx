@@ -124,7 +124,7 @@ export default function GuestsAdminPage() {
     const texto = mensajeInvitado
       .replace(/\{\{invitado\}\}/g, `${guest.nombre} ${guest.apellidos}`)
       .replace(/\uFE0F/g, '')
-    const url = `https://api.whatsapp.com/send?phone=${guest.telefono}&text=${encodeURIComponent(texto + '\n\n' + link)}`
+    const url = `https://api.whatsapp.com/send?phone=51${guest.telefono}&text=${encodeURIComponent(texto + '\n\n' + link)}`
     window.open(url, '_blank')
   }
 
