@@ -450,9 +450,6 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
             <div className="w-2 h-2 bg-detalle/60 rounded-full" />
             <div className="h-px w-12 bg-detalle/40" />
           </div>
-          <p className="text-white/40 text-md mt-8 font-cormorant">
-            Muchas gracias
-          </p>
         </div>
       </footer>
     </main>
