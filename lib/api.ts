@@ -3,6 +3,7 @@ import type { Guest, RSVP as RSVPType, SongSuggestion, WeddingConfig, TimelineEv
 async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, {
     headers: { 'Content-Type': 'application/json' },
+    credentials: 'same-origin',
     ...options,
   });
   if (!res.ok) {

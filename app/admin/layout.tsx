@@ -1,9 +1,18 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { Users, Calendar, Music, Settings, Image as ImageIcon, LogOut, Menu, X } from 'lucide-react';
+import { useEffect, useState } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
+import Link from 'next/link'
+import {
+  Users,
+  Calendar,
+  Music,
+  Settings,
+  Image as ImageIcon,
+  LogOut,
+  Menu,
+  X,
+} from 'lucide-react'
 
 const navItems = [
   { href: '/admin/guests', label: 'Invitados', icon: Users },
@@ -11,35 +20,43 @@ const navItems = [
   { href: '/admin/songs', label: 'Canciones', icon: Music },
   { href: '/admin/gallery', label: 'Galería', icon: ImageIcon },
   { href: '/admin/config', label: 'Configuración', icon: Settings },
-];
+]
 
 export default function AdminLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const router = useRouter()
+  const pathname = usePathname()
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const isLoginPage = pathname === '/admin/login'
 
   useEffect(() => {
-    const cookies = document.cookie;
-    const isLoginPage = pathname === '/admin/login';
-    
-    if (!cookies.includes('admin_auth=true') && !isLoginPage) {
-      router.push('/admin/login');
-    } else {
-      setIsAuthenticated(true);
+    if (isLoginPage) {
+      setIsAuthenticated(true)
+      return
     }
-  }, [router, pathname]);
 
-  const isLoginPage = pathname === '/admin/login';
+    // Try a lightweight admin-only endpoint to verify auth
+    fetch('/api/guests', { credentials: 'same-origin' })
+      .then((res) => {
+        if (res.ok) {
+          setIsAuthenticated(true)
+        } else {
+          router.push('/admin/login')
+        }
+      })
+      .catch(() => {
+        router.push('/admin/login')
+      })
+  }, [router, isLoginPage])
 
-  const handleLogout = () => {
-    document.cookie = 'admin_auth=; path=/; max-age=0';
-    router.push('/admin/login');
-  };
+  const handleLogout = async () => {
+    await fetch('/api/logout', { method: 'POST' })
+    router.push('/admin/login')
+  }
 
   if (!isAuthenticated && !isLoginPage) {
     return (
@@ -48,7 +65,7 @@ export default function AdminLayout({
           Verificando...
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -59,7 +76,11 @@ export default function AdminLayout({
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="p-2 text-text-secondary"
         >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
         </button>
         <span className="font-cormorant text-xl text-text-primary">Admin</span>
         <button onClick={handleLogout} className="p-2 text-text-secondary">
@@ -144,10 +165,8 @@ export default function AdminLayout({
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 p-4 md:p-6 lg:p-8">
-          {children}
-        </main>
+        <main className="flex-1 p-4 md:p-6 lg:p-8">{children}</main>
       </div>
     </div>
-  );
+  )
 }

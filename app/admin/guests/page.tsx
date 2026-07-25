@@ -8,6 +8,7 @@ import {
   updateGuest,
   deleteGuest,
   getConfig,
+  getRSVPs,
 } from '@/lib/api'
 import { slugify, sanitizePhone } from '@/lib/utils'
 import {
@@ -20,11 +21,13 @@ import {
   X,
   Check,
   Download,
+  MessageSquareText,
 } from 'lucide-react'
-import { Guest } from '@/types'
+import { Guest, RSVP } from '@/types'
 
 export default function GuestsAdminPage() {
   const [guests, setGuests] = useState<Guest[]>([])
+  const [rsvps, setRsvps] = useState<RSVP[]>([])
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState<'todos' | 'pendientes' | 'confirmados' | 'novio' | 'novia'>('todos')
   const [loading, setLoading] = useState(true)
@@ -37,6 +40,7 @@ export default function GuestsAdminPage() {
   const [confirmAutorizados, setConfirmAutorizados] = useState(0)
   const [confirmSaving, setConfirmSaving] = useState(false)
   const [mensajeInvitado, setMensajeInvitado] = useState('')
+  const [viewComment, setViewComment] = useState<{ guest: Guest; comentario: string } | null>(null)
 
   const [formData, setFormData] = useState<{
     nombre: string
@@ -60,8 +64,9 @@ export default function GuestsAdminPage() {
 
   const loadGuests = async () => {
     try {
-      const data = await getGuests()
-      setGuests(data)
+      const [guestsData, rsvpsData] = await Promise.all([getGuests(), getRSVPs()])
+      setGuests(guestsData)
+      setRsvps(rsvpsData)
     } catch (error) {
       console.error('Error loading guests:', error)
     } finally {
@@ -110,6 +115,8 @@ export default function GuestsAdminPage() {
 
   const baseUrl =
     typeof window !== 'undefined' ? window.location.origin : ''
+
+  const getRSVPForGuest = (guestId: string) => rsvps.find((r) => r.guest_id === guestId)
 
   const copyLink = (guest: Guest) => {
     const url = `${baseUrl}/invitacion/${guest.slug}`
@@ -496,6 +503,15 @@ export default function GuestsAdminPage() {
                           >
                             <Trash2 className="w-4 h-4 text-red-500" />
                           </button>
+                          {getRSVPForGuest(guest.id)?.comentario && (
+                            <button
+                              onClick={() => setViewComment({ guest, comentario: getRSVPForGuest(guest.id)!.comentario })}
+                              className="p-2 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
+                              title="Ver comentario"
+                            >
+                              <MessageSquareText className="w-4 h-4 text-blue-500" />
+                            </button>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -607,10 +623,18 @@ export default function GuestsAdminPage() {
                   )}
                   <button
                     onClick={() => handleDelete(guest.id)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors ml-auto font-cormorant"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors ml-auto font-cormorant cursor-pointer"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
+                  {getRSVPForGuest(guest.id)?.comentario && (
+                    <button
+                      onClick={() => setViewComment({ guest, comentario: getRSVPForGuest(guest.id)!.comentario })}
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition-colors font-cormorant cursor-pointer"
+                    >
+                      <MessageSquareText className="w-3.5 h-3.5" />
+                    </button>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -881,6 +905,42 @@ export default function GuestsAdminPage() {
               >
                 {confirmSaving ? 'Guardando...' : 'Confirmar asistencia'}
               </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+
+      {viewComment && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          onClick={() => setViewComment(null)}
+        >
+          <motion.div
+            initial={{ scale: 0.95 }}
+            animate={{ scale: 1 }}
+            className="bg-white rounded-2xl p-6 w-full max-w-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-cormorant text-xl font-semibold text-text-primary">
+                Comentario
+              </h2>
+              <button
+                onClick={() => setViewComment(null)}
+                className="p-2 hover:bg-cream rounded-lg cursor-pointer"
+              >
+                <X className="w-5 h-5 text-text-secondary" />
+              </button>
+            </div>
+            <p className="text-sm text-text-light font-cormorant mb-2">
+              {viewComment.guest.nombre} {viewComment.guest.apellidos}
+            </p>
+            <div className="bg-cream rounded-xl p-4">
+              <p className="font-cormorant text-lg text-text-primary">
+                {viewComment.comentario}
+              </p>
             </div>
           </motion.div>
         </motion.div>
