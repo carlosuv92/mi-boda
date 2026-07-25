@@ -40,7 +40,8 @@ export function middleware(request: NextRequest) {
   // Public GET routes
   if (method === 'GET') {
     // Guest lookup by slug (public)
-    if (pathname === '/api/guests' && request.nextUrl.searchParams.has('slug')) {
+    const slug = request.nextUrl.searchParams.get('slug')
+    if (pathname === '/api/guests' && slug && slug.trim() !== '') {
       return NextResponse.next()
     }
     // Public read routes
