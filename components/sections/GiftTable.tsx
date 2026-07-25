@@ -129,21 +129,37 @@ export function GiftTable({
           />
         )}
 
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-dark opacity-60">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-white rounded-2xl p-4 shadow-sm border border-cream-dark"
+        >
           <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 rounded-full bg-principal-soft/40 flex items-center justify-center shrink-0">
               <Gift className="w-5 h-5 text-principal" />
             </div>
-            <div>
-              <p className="text-md font-semibold font-cormorant leading-tight">
+            <div className="min-w-0">
+              <p className="text-md font-semibold text-text-primary font-cormorant leading-tight">
                 Lista de Regalos
               </p>
-              <p className="text-[13px] font-cormorant mt-0.5">
-                Próximamente
+              <p className="text-[14px] font-cormorant mt-0.5">
+                WishBob
               </p>
             </div>
           </div>
-        </div>
+          <p className="text-sm font-semibold tracking-wide font-noto-sans ml-13 mb-3">
+            Enviar regalo virtual
+          </p>
+          <a
+            href="https://www.wishbob.com/btunzcdegk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full py-2 rounded-xl text-ms font-medium font-cormorant tracking-wide bg-charcoal hover:bg-charcoal-light transition-colors text-detalle font-semibold text-center"
+          >
+            Abrir lista
+          </a>
+        </motion.div>
       </div>
 
       {qrUrl && (

@@ -180,101 +180,161 @@ export default function RSVPAdminPage() {
 
       {/* Tabla General */}
       {view === 'tabla' && (
-        <div className="bg-white rounded-2xl overflow-hidden border border-cream-dark">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-cream-dark/50">
-                <tr>
-                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary font-cormorant">
-                    Invitado
-                  </th>
-                  <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary font-cormorant">
-                    Lado
-                  </th>
-                  <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary font-cormorant">
-                    Estado
-                  </th>
-                  <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary font-cormorant">
-                    Acomp.
-                  </th>
-                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary font-cormorant">
-                    Nombres Acompañantes
-                  </th>
-                  <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary font-cormorant">
-                    Total
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredGuests.length === 0 ? (
+        <>
+          {/* Desktop Table */}
+          <div className="hidden md:block bg-white rounded-2xl overflow-hidden border border-cream-dark">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-cream-dark/50">
                   <tr>
-                    <td colSpan={6} className="text-center py-8 text-text-secondary font-cormorant">
-                      No se encontraron invitados
-                    </td>
+                    <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary font-cormorant">
+                      Invitado
+                    </th>
+                    <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary font-cormorant">
+                      Lado
+                    </th>
+                    <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary font-cormorant">
+                      Estado
+                    </th>
+                    <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary font-cormorant">
+                      Acomp.
+                    </th>
+                    <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary font-cormorant">
+                      Nombres Acompañantes
+                    </th>
+                    <th className="text-center px-4 py-3 text-sm font-medium text-text-secondary font-cormorant">
+                      Total
+                    </th>
                   </tr>
-                ) : (
-                  filteredGuests.map((guest) => {
-                    const nombres = guest.acompanantes_nombres || []
-                    const total = 1 + (guest.acompanantes_confirmados ?? 0)
-                    return (
-                      <tr key={guest.id} className="border-t border-cream-dark/30 hover:bg-cream-dark/10 transition-colors">
-                        <td className="px-4 py-3">
-                          <p className="font-medium text-text-primary font-cormorant">
-                            {guest.nombre} {guest.apellidos}
-                          </p>
-                          {guest.telefono && (
-                            <p className="text-xs text-text-light font-cormorant">{guest.telefono}</p>
-                          )}
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          <span className={`text-xs font-medium uppercase tracking-wider font-cormorant ${
-                            guest.lado === 'novio' ? 'text-blue-600' : 'text-pink-600'
-                          }`}>
-                            {guest.lado === 'novio' ? 'Novio' : 'Novia'}
-                          </span>
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium font-cormorant ${
-                            guest.estado === 'confirmado'
-                              ? 'bg-green-100 text-green-700'
-                              : guest.estado === 'rechazado'
-                                ? 'bg-red-100 text-red-700'
-                                : 'bg-yellow-100 text-yellow-700'
-                          }`}>
-                            {guest.estado}
-                          </span>
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          <span className="text-sm text-text-secondary font-cormorant">
-                            {guest.acompanantes_confirmados ?? 0}/{guest.acompanantes_autorizados ?? 0}
-                          </span>
-                        </td>
-                        <td className="px-4 py-3">
-                          {nombres.length > 0 ? (
-                            <div className="flex flex-wrap gap-1.5">
-                              {nombres.filter(Boolean).map((nom, i) => (
-                                <span key={i} className="inline-flex items-center px-2 py-0.5 bg-principal/10 text-principal rounded text-xs font-cormorant">
-                                  {nom}
-                                </span>
-                              ))}
-                            </div>
-                          ) : (
-                            <span className="text-xs text-text-light font-cormorant italic">-</span>
-                          )}
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          <span className="text-sm font-semibold text-text-primary font-cormorant">
-                            {total}
-                          </span>
-                        </td>
-                      </tr>
-                    )
-                  })
-                )}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {filteredGuests.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="text-center py-8 text-text-secondary font-cormorant">
+                        No se encontraron invitados
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredGuests.map((guest) => {
+                      const nombres = guest.acompanantes_nombres || []
+                      const total = 1 + (guest.acompanantes_confirmados ?? 0)
+                      return (
+                        <tr key={guest.id} className="border-t border-cream-dark/30 hover:bg-cream-dark/10 transition-colors">
+                          <td className="px-4 py-3">
+                            <p className="font-medium text-[#1e3a5f] font-cormorant">
+                              {guest.nombre} {guest.apellidos}
+                            </p>
+                            {guest.telefono && (
+                              <p className="text-xs text-text-light font-cormorant">{guest.telefono}</p>
+                            )}
+                          </td>
+                          <td className="px-4 py-3 text-center">
+                            <span className={`text-xs font-medium uppercase tracking-wider font-cormorant ${
+                              guest.lado === 'novio' ? 'text-blue-600' : 'text-pink-600'
+                            }`}>
+                              {guest.lado === 'novio' ? 'Novio' : 'Novia'}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-center">
+                            <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium font-cormorant ${
+                              guest.estado === 'confirmado'
+                                ? 'bg-green-100 text-green-700'
+                                : guest.estado === 'rechazado'
+                                  ? 'bg-red-100 text-red-700'
+                                  : 'bg-yellow-100 text-yellow-700'
+                            }`}>
+                              {guest.estado}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-center">
+                            <span className="text-sm text-text-secondary font-cormorant">
+                              {guest.acompanantes_confirmados ?? 0}/{guest.acompanantes_autorizados ?? 0}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            {nombres.length > 0 ? (
+                              <div className="flex flex-wrap gap-1.5">
+                                {nombres.filter(Boolean).map((nom, i) => (
+                                  <span key={i} className="inline-flex items-center px-2 py-0.5 bg-principal/10 text-[#1e3a5f] rounded text-xs font-cormorant">
+                                    {nom}
+                                  </span>
+                                ))}
+                              </div>
+                            ) : (
+                              <span className="text-xs text-text-light font-cormorant italic">-</span>
+                            )}
+                          </td>
+                          <td className="px-4 py-3 text-center">
+                            <span className="text-sm font-semibold text-text-primary font-cormorant">
+                              {total}
+                            </span>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+
+          {/* Mobile Cards */}
+          <div className="md:hidden space-y-3">
+            {filteredGuests.length === 0 ? (
+              <div className="text-center py-16 bg-white rounded-2xl">
+                <p className="text-text-secondary font-cormorant text-xl">
+                  No se encontraron invitados
+                </p>
+              </div>
+            ) : (
+              filteredGuests.map((guest) => {
+                const nombres = guest.acompanantes_nombres || []
+                const total = 1 + (guest.acompanantes_confirmados ?? 0)
+                return (
+                  <motion.div
+                    key={guest.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-white rounded-2xl p-4 border border-cream-dark"
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <p className="font-cormorant text-lg font-semibold text-[#1e3a5f]">
+                        {guest.nombre} {guest.apellidos}
+                      </p>
+                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium font-cormorant shrink-0 ${
+                        guest.estado === 'confirmado'
+                          ? 'bg-green-100 text-green-700'
+                          : guest.estado === 'rechazado'
+                            ? 'bg-red-100 text-red-700'
+                            : 'bg-yellow-100 text-yellow-700'
+                      }`}>
+                        {guest.estado}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm font-cormorant text-text-secondary mb-2">
+                      <span className={`text-xs font-medium uppercase tracking-wider ${
+                        guest.lado === 'novio' ? 'text-blue-600' : 'text-pink-600'
+                      }`}>
+                        {guest.lado === 'novio' ? 'Novio' : 'Novia'}
+                      </span>
+                      <span>Acomp: {guest.acompanantes_confirmados ?? 0}/{guest.acompanantes_autorizados ?? 0}</span>
+                      <span>Total: {total}</span>
+                    </div>
+                    {nombres.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mt-2 pt-2 border-t border-cream-dark/30">
+                        {nombres.filter(Boolean).map((nom, i) => (
+                          <span key={i} className="inline-flex items-center px-2 py-0.5 bg-principal/10 text-[#1e3a5f] rounded text-xs font-cormorant">
+                            {nom}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </motion.div>
+                )
+              })
+            )}
+          </div>
+        </>
       )}
 
       {/* Vista Confirmados */}
@@ -300,7 +360,7 @@ export default function RSVPAdminPage() {
                   >
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="font-cormorant text-xl font-semibold text-text-primary">
+                        <p className="font-cormorant text-xl font-semibold text-[#1e3a5f]">
                           {guest.nombre} {guest.apellidos}
                         </p>
                         <p className="text-sm text-text-light font-cormorant mt-0.5">
@@ -321,9 +381,9 @@ export default function RSVPAdminPage() {
                         {guest.telefono && <span className="text-text-light">{guest.telefono}</span>}
                       </div>
                       {nombres.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mt-2">
+                        <div className="flex flex-wrap gap-1.5 mt-2 pt-2 border-t border-cream-dark/30">
                           {nombres.filter(Boolean).map((nom, i) => (
-                            <span key={i} className="inline-flex items-center px-2 py-0.5 bg-principal/10 text-principal rounded text-xs font-cormorant">
+                            <span key={i} className="inline-flex items-center px-2 py-0.5 bg-principal/10 text-[#1e3a5f] rounded text-xs font-cormorant">
                               {nom}
                             </span>
                           ))}
