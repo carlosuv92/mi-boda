@@ -143,13 +143,13 @@ export function GiftTable({
               <p className="text-md font-semibold text-text-primary font-cormorant leading-tight">
                 Lista de Regalos
               </p>
-              <p className="text-[14px] font-cormorant mt-0.5">
-                WishBob
+              <p className="text-[13px] font-cormorant mt-0.5">
+                Tu detalle será recibido con mucho amor, idealmente una semana antes de nuestra boda. Coordina la entrega con los novios.
               </p>
             </div>
           </div>
           <p className="text-sm font-semibold tracking-wide font-noto-sans ml-13 mb-3">
-            Enviar regalo virtual
+            Enviar regalo físico
           </p>
           <a
             href="https://www.wishbob.com/btunzcdegk"
