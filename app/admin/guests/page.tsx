@@ -105,13 +105,28 @@ export default function GuestsAdminPage() {
   }, [guests, filter, search])
 
   const stats = useMemo(() => {
-    const total = guests.length
-    const confirmados = guests.filter((g) => g.estado === 'confirmado').length
-    const pendientes = guests.filter((g) => g.estado === 'pendiente').length
-    const novio = guests.filter((g) => g.lado === 'novio').length
-    const novia = guests.filter((g) => g.lado === 'novia').length
-    return { total, confirmados, pendientes, novio, novia }
-  }, [guests])
+    const sideFilter = filter === 'novio' || filter === 'novia' ? filter : null
+    const base = sideFilter
+      ? guests.filter((g) => g.lado === sideFilter)
+      : guests
+
+    const confirmados = base.filter((g) => g.estado === 'confirmado')
+    const pendientes = base.filter((g) => g.estado === 'pendiente')
+
+    return {
+      total: base.length,
+      confirmados: confirmados.length,
+      pendientes: pendientes.length,
+      confirmadosConAcomp:
+        confirmados.length +
+        confirmados.reduce((s, g) => s + (g.acompanantes_confirmados ?? 0), 0),
+      pendientesConAcomp:
+        pendientes.length +
+        pendientes.reduce((s, g) => s + (g.acompanantes_autorizados ?? 0), 0),
+      novio: guests.filter((g) => g.lado === 'novio').length,
+      novia: guests.filter((g) => g.lado === 'novia').length,
+    }
+  }, [guests, filter])
 
   const baseUrl =
     typeof window !== 'undefined' ? window.location.origin : ''
@@ -309,7 +324,7 @@ export default function GuestsAdminPage() {
 
       {/* Stats */}
       <div className="bg-white rounded-2xl p-6 border border-cream-dark mb-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
           <div>
             <p className="text-3xl font-cormorant font-semibold text-principal">
               {stats.total}
@@ -335,17 +350,32 @@ export default function GuestsAdminPage() {
             </p>
           </div>
           <div>
-            <p className="text-3xl font-cormorant font-semibold text-text-primary">
-              {guests.reduce(
-                (acc, g) => acc + (g.acompanantes_autorizados || 0),
-                0
-              )}
+            <p className="text-3xl font-cormorant font-semibold text-green-700">
+              {stats.confirmadosConAcomp}
             </p>
             <p className="text-xs uppercase tracking-widest text-text-light mt-1 font-cormorant">
-              Acompañantes
+              Confirmados + Acomp.
+            </p>
+          </div>
+          <div>
+            <p className="text-3xl font-cormorant font-semibold text-yellow-700">
+              {stats.pendientesConAcomp}
+            </p>
+            <p className="text-xs uppercase tracking-widest text-text-light mt-1 font-cormorant">
+              Pendientes + Acomp.
             </p>
           </div>
         </div>
+        {filter === 'novio' && (
+          <p className="text-xs text-center text-principal mt-3 font-cormorant">
+            Filtrando solo invitados del Novio
+          </p>
+        )}
+        {filter === 'novia' && (
+          <p className="text-xs text-center text-pink-600 mt-3 font-cormorant">
+            Filtrando solo invitados de la Novia
+          </p>
+        )}
       </div>
 
       {/* Search + Filter */}
