@@ -409,9 +409,9 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
               textInvitacion={
                 <>
                   <span className="text-text-primary font-semibold text-xl">
-                    Confímanos tu asistencia hasta el
+                    Confímanos tu asistencia hasta el{' '}
                   </span>
-                  <strong className="inline-block mt-2 px-5 py-2 bg-charcoal text-detalle rounded-full font-semibold text-2xl border-2 border-detalle/40">
+                  <strong className="text-text-primary font-semibold text-xl underline underline-offset-4 decoration-detalle decoration-2">
                     {fechaLimiteRSVP}
                   </strong>
                 </>
