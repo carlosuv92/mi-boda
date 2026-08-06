@@ -27,7 +27,7 @@ export function SectionHeader({ title, icon, text, textInvitacion }: SectionHead
         </p>
       )}
       {textInvitacion && (
-        <p className="text-text-secondary font-cormorant text-lg mt-2">
+        <p className="text-text-secondary font-cormorant text-lg mt-2 flex flex-col items-center">
           {textInvitacion}
         </p>
       )}
