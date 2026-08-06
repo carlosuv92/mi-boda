@@ -245,7 +245,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
   const novio = config.novio || 'Felipe'
   const novia = config.novia || 'Lilian'
   const isPersonalized = !!guest
-  const fechaLimiteRSVP = config.fechaLimiteRSVP
+  const fechaLimiteRSVP = '31 de Agosto del 2026'
 
   return (
     <main className="min-h-screen bg-cream">
@@ -405,13 +405,10 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
               icon={
                 <Invitacion className="w-30 text-principal mx-auto mb-4" />
               }
-              text="Nos encantaría contar con tu presencia en la lista de invitados."
+              text="Agradecemos tu confirmación de asistencia antes del: "
               textInvitacion={
                 <>
-                  <span className="text-text-primary font-semibold text-xl">
-                    Confímanos tu asistencia hasta el{' '}
-                  </span>
-                  <strong className="text-text-primary font-semibold text-xl underline underline-offset-4 decoration-detalle decoration-2">
+                  <strong className="text-text-primary font-semibold text-2xl underline underline-offset-4 decoration-detalle decoration-2">
                     {fechaLimiteRSVP}
                   </strong>
                 </>
