@@ -6,6 +6,7 @@ import { getSongs } from '@/lib/api';
 interface Song {
   guest_id: string;
   guest_name: string;
+  guest_full_name: string;
   cancion: string;
   artista: string;
   comentario: string;
@@ -54,7 +55,38 @@ export default function SongsPage() {
       </div>
 
       <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto">
+        {/* Mobile: Cards */}
+        <div className="md:hidden divide-y divide-cream-dark/30">
+          {songs.length === 0 ? (
+            <div className="text-center py-8 text-text-secondary">
+              No hay canciones sugeridas aún
+            </div>
+          ) : (
+            songs.map((song, index) => (
+              <div key={index} className="p-4 space-y-2">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="font-medium text-text-primary truncate">{song.cancion}</p>
+                    <p className="text-sm text-text-secondary">{song.artista}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-principal/15 text-charcoal font-medium rounded-full">
+                    {song.guest_full_name || 'Anónimo'}
+                  </span>
+                </div>
+                {song.comentario && (
+                  <p className="text-sm text-text-light italic line-clamp-2">
+                    &ldquo;{song.comentario}&rdquo;
+                  </p>
+                )}
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Desktop: Table */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead className="bg-cream-dark">
               <tr>
@@ -64,10 +96,10 @@ export default function SongsPage() {
                 <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
                   Artista
                 </th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary hidden sm:table-cell">
+                <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
                   Invitado
                 </th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary hidden md:table-cell">
+                <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
                   Comentario
                 </th>
               </tr>
@@ -88,10 +120,10 @@ export default function SongsPage() {
                     <td className="px-4 py-3 text-text-secondary">
                       {song.artista}
                     </td>
-                    <td className="px-4 py-3 text-sm text-text-secondary hidden sm:table-cell">
-                      {song.guest_name || 'Anónimo'}
+                    <td className="px-4 py-3 text-sm font-medium text-charcoal">
+                      {song.guest_full_name || 'Anónimo'}
                     </td>
-                    <td className="px-4 py-3 text-sm text-text-light hidden md:table-cell">
+                    <td className="px-4 py-3 text-sm text-text-light">
                       {song.comentario || '-'}
                     </td>
                   </tr>
