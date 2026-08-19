@@ -6,7 +6,7 @@ import { getSongs } from '@/lib/api';
 interface Song {
   guest_id: string;
   guest_name: string;
-  guest_full_name: string;
+  guest_full_name?: string;
   cancion: string;
   artista: string;
   comentario: string;

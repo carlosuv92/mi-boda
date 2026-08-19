@@ -25,7 +25,7 @@ export interface RSVP {
 export interface SongSuggestion {
   guest_id: string;
   guest_name: string;
-  guest_full_name: string;
+  guest_full_name?: string;
   cancion: string;
   artista: string;
   comentario: string;

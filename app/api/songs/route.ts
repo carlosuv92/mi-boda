@@ -19,8 +19,8 @@ export async function GET() {
     : [];
 
   const guestMap = new Map<string, { nombre: string; apellidos: string }>();
-  for (const g of guestsById) guestMap.set(g._id.toString(), g);
-  for (const g of guestsBySlug) guestMap.set(g.slug, g);
+  for (const g of guestsById) guestMap.set(String(g._id), g as unknown as { nombre: string; apellidos: string });
+  for (const g of guestsBySlug) guestMap.set(g.slug, g as unknown as { nombre: string; apellidos: string });
 
   const songsWithGuests = songs.map((song) => {
     const guest = guestMap.get(song.guest_id);
