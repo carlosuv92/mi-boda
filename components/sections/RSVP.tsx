@@ -45,6 +45,9 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
 
   const searchParams = useSearchParams();
   const slug = searchParams.get('invitado');
+  const editMode = searchParams.get('edit') === 'true';
+
+  const rsvpClosed = !editMode && new Date() >= new Date('2026-09-01T00:00:00');
 
   useEffect(() => {
     if (slug) {
@@ -192,6 +195,48 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
   };
 
   const canSubmit = !loading && !(estado === 'ACEPTADO' && acompanantesCount > 0 && (nombres.length !== acompanantesCount || nombres.slice(0, acompanantesCount).some((n) => !n.trim())));
+
+  if (rsvpClosed) {
+    const isAccepted = existingRSVP?.estado === 'ACEPTADO';
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="max-w-md mx-auto"
+      >
+        <div className="rounded-2xl p-6 text-center border bg-charcoal text-white border-charcoal-light">
+          {isAccepted ? (
+            <>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm mb-4 bg-charcoal-light text-detalle">
+                <Check className="w-4 h-4" />
+                Asistirás
+              </div>
+              <p className="text-white font-cormorant text-xl mb-2">
+                ¡Nos vemos pronto, {guest?.nombre}!
+              </p>
+              <p className="text-white/70 font-cormorant text-lg">
+                Tu asistencia ya está confirmada. Estamos deseando celebrar juntos este día tan especial.
+              </p>
+            </>
+          ) : (
+            <>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm mb-4 bg-charcoal-light text-red-400">
+                <X className="w-4 h-4" />
+                No asistirás
+              </div>
+              <p className="text-white font-cormorant text-xl mb-2">
+                Gracias por avisarnos, {guest?.nombre}.
+              </p>
+              <p className="text-white/70 font-cormorant text-lg">
+                Lamentamos que no puedas acompañarnos. Queremos informarte que tu pase será transferido para que otro ser querido pueda estar presente en nuestra celebración.
+              </p>
+            </>
+          )}
+        </div>
+      </motion.div>
+    );
+  }
 
   if (existingRSVP && !editing) {
     const isAccepted = existingRSVP.estado === 'ACEPTADO';
