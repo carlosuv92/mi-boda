@@ -32,6 +32,7 @@ interface GuestData {
   nombre: string
   apellidos: string
   acompanantes_autorizados: number
+  puede_editar?: boolean
 }
 
 interface InvitationContentProps {
@@ -419,6 +420,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
               guestNombre={guest!.nombre}
               guestApellidos={guest!.apellidos}
               acompanantesAutorizados={guest!.acompanantes_autorizados}
+              guestPuedeEditar={guest!.puede_editar}
             />
           </>
         ) : (

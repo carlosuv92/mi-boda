@@ -17,6 +17,7 @@ export default function InvitationPage() {
     nombre: string
     apellidos: string
     acompanantes_autorizados: number
+    puede_editar: boolean
   } | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -32,6 +33,7 @@ export default function InvitationPage() {
             apellidos: guestData.apellidos,
             acompanantes_autorizados:
               guestData.acompanantes_autorizados || 0,
+            puede_editar: guestData.puede_editar || false,
           })
         }
       })

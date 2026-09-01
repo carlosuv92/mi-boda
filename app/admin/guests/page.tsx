@@ -51,6 +51,7 @@ export default function GuestsAdminPage() {
     slug: string
     estado: 'pendiente' | 'confirmado' | 'rechazado'
     lado: 'novio' | 'novia'
+    puede_editar: boolean
   }>({
     nombre: '',
     apellidos: '',
@@ -60,6 +61,7 @@ export default function GuestsAdminPage() {
     slug: '',
     estado: 'pendiente',
     lado: 'novia',
+    puede_editar: false,
   })
 
   const loadGuests = async () => {
@@ -232,6 +234,7 @@ export default function GuestsAdminPage() {
       slug: '',
       estado: 'pendiente',
       lado: 'novia',
+      puede_editar: false,
     })
     setEditingGuest(null)
     setShowForm(false)
@@ -248,6 +251,7 @@ export default function GuestsAdminPage() {
       slug: guest.slug,
       estado: guest.estado,
       lado: guest.lado || 'novia',
+      puede_editar: guest.puede_editar || false,
     })
     setShowForm(true)
   }
@@ -817,6 +821,20 @@ export default function GuestsAdminPage() {
                   className="w-full px-4 py-2 border border-cream-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-principal/50 font-cormorant"
                 />
               </div>
+
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={formData.puede_editar}
+                  onChange={(e) =>
+                    setFormData({ ...formData, puede_editar: e.target.checked })
+                  }
+                  className="w-4 h-4 rounded border-cream-dark text-principal focus:ring-principal/50"
+                />
+                <span className="text-sm font-medium text-text-secondary font-cormorant">
+                  Permitir seguir editando su RSVP después de la fecha límite
+                </span>
+              </label>
 
               <div className="flex gap-3 pt-4">
                 <button

@@ -22,9 +22,10 @@ interface RSVPProps {
   guestNombre?: string;
   guestApellidos?: string;
   acompanantesAutorizados?: number;
+  guestPuedeEditar?: boolean;
 }
 
-function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizados }: RSVPProps = {}) {
+function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizados, guestPuedeEditar }: RSVPProps = {}) {
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
   const [fetchedGuest, setFetchedGuest] = useState<{
@@ -32,6 +33,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
     nombre: string;
     apellidos: string;
     acompanantes_autorizados: number;
+    puede_editar: boolean;
   } | null>(null);
   const [existingRSVP, setExistingRSVP] = useState<{
     estado: string;
@@ -47,8 +49,6 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
   const slug = searchParams.get('invitado');
   const editMode = searchParams.get('edit') === 'true';
 
-  const rsvpClosed = !editMode && new Date() >= new Date('2026-09-01T00:00:00');
-
   useEffect(() => {
     if (slug) {
       getGuestBySlug(slug)
@@ -59,6 +59,7 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
               nombre: data.nombre,
               apellidos: data.apellidos,
               acompanantes_autorizados: data.acompanantes_autorizados || 0,
+              puede_editar: data.puede_editar || false,
             });
           }
         })
@@ -74,8 +75,11 @@ function RSVPInner({ guestId, guestNombre, guestApellidos, acompanantesAutorizad
         nombre: guestNombre || '',
         apellidos: guestApellidos || '',
         acompanantes_autorizados: acompanantesAutorizados || 0,
+        puede_editar: guestPuedeEditar || false,
       }
     : fetchedGuest;
+
+  const rsvpClosed = !editMode && !guest?.puede_editar && new Date() >= new Date('2026-09-01T00:00:00');
 
   const loadExistingRSVP = (id: string) => {
     getRSVPByGuestId(id)

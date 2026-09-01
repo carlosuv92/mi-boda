@@ -11,6 +11,7 @@ export interface IGuest extends Document {
   acompanantes_nombres: string[];
   estado: 'pendiente' | 'confirmado' | 'rechazado';
   lado: 'novio' | 'novia';
+  puede_editar: boolean;
 }
 
 const GuestSchema = new Schema<IGuest>(
@@ -33,6 +34,7 @@ const GuestSchema = new Schema<IGuest>(
       enum: ['novio', 'novia'],
       default: 'novio',
     },
+    puede_editar: { type: Boolean, default: false },
   },
   {
     timestamps: true,

@@ -10,6 +10,7 @@ export interface Guest {
   acompanantes_nombres: string[];
   estado: 'pendiente' | 'confirmado' | 'rechazado';
   lado: 'novio' | 'novia';
+  puede_editar?: boolean;
 }
 
 export interface RSVP {
