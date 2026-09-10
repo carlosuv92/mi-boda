@@ -246,7 +246,7 @@ export function InvitationContent({ config, guest }: InvitationContentProps) {
   const novio = config.novio || 'Felipe'
   const novia = config.novia || 'Lilian'
   const isPersonalized = !!guest
-  const fechaLimiteRSVP = '10 de Septiembre del 2026'
+  const fechaLimiteRSVP = '19 de Septiembre del 2026'
 
   return (
     <main className="min-h-screen bg-cream">
